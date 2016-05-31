@@ -128,4 +128,31 @@ public class Commands {
 		commands.clear();
 		commands.putAll(copy);
 	}
+
+	/**
+	 * Rename command
+	 * 
+	 * @param old_cmd_name
+	 *            Old command
+	 * @param new_cmd_name
+	 *            New command
+	 * @return If successful "true", otherwise "false"
+	 */
+	public boolean renameCommand(String old_cmd_name, String new_cmd_name) {
+		boolean ret = false;
+		Command o;
+		old_cmd_name = old_cmd_name.trim().toLowerCase();
+		new_cmd_name = new_cmd_name.trim().toLowerCase();
+		if (commands.containsKey(old_cmd_name)) {
+			o = commands.get(old_cmd_name);
+			if (!(commands.containsKey(new_cmd_name))) {
+				commands.put(new_cmd_name, o);
+				commands.remove(old_cmd_name);
+				o.setCommand(new_cmd_name);
+				sort();
+				ret = true;
+			}
+		}
+		return ret;
+	}
 }

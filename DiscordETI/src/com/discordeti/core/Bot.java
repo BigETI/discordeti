@@ -948,6 +948,37 @@ public class Bot {
 		cmd.setHelp("This command repeats the words of the command issuer.\n\tUsage: " + commands.getExecutor()
 				+ cmd.getCommand() + " <message>");
 
+		cmd = commands.registerCommand("setcommand", "Changes the command", new ICommandListener() {
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
+			 * event.CommandEventArgs)
+			 */
+			@Override
+			public void onCommand(CommandEventArgs args) {
+				String message = null;
+				User user = users.findUser(args.getIssuer().getID());
+				if (args.getParams().size() > 1) {
+					String old_cmd_name = args.getParams().get(0);
+					String new_cmd_name = args.getParams().get(1);
+					if (commands.renameCommand(old_cmd_name, new_cmd_name))
+						message = "Command \"" + old_cmd_name + "\" has been set to \"" + new_cmd_name + "\".";
+					else
+						message = "Command \"" + old_cmd_name + "\" doesn't exist or \"" + new_cmd_name
+								+ "\" already exists.";
+				} else
+					message = args.getCommand().generateHelp(user, commands);
+				if (message != null)
+					sendMessage(args, message);
+			}
+		});
+		cmd.getPrivileges().setPrivilege("modify_bot", 1);
+		cmd.setHelp("This command renames a command.\n\tUsage: " + commands.getExecutor() + cmd.getCommand()
+				+ " <old command> <new command>");
+
 		commands.sort();
 	}
 

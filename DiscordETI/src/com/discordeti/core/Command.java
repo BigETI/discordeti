@@ -59,6 +59,16 @@ public class Command extends CommandNotifier {
 	}
 
 	/**
+	 * Set command
+	 * 
+	 * @param command
+	 *            Command
+	 */
+	public void setCommand(String command) {
+		this.command = command.trim().toLowerCase();
+	}
+
+	/**
 	 * Get description
 	 * 
 	 * @return Description

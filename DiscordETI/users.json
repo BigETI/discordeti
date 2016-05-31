@@ -8,5 +8,10 @@
         "grant_user": 1,
         "moderate_channels": 2,
         "modify_bot": 1
+    },
+    "131031554024538112": {
+        "bot_master": 1,
+        "moderate_channels": 2,
+        "modify_bot": 1
     }
 }
