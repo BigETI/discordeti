@@ -2,7 +2,10 @@ package com.discordeti.core;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Map.Entry;
+
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,6 +23,7 @@ import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.HTTP429Exception;
 import sx.blah.discord.util.Image;
 import sx.blah.discord.util.MissingPermissionsException;
+import sx.blah.discord.util.audio.AudioPlayer;
 
 /**
  * Discord bot class
@@ -584,38 +588,6 @@ public class Bot {
 		cmd.getPrivileges().setPrivilege("moderate_channels", 2);
 		cmd.setHelp("This command lets the bot leave a voice channel by its id.\n\tUsage: " + commands.getExecutor()
 				+ cmd.getCommand() + " <voice channel id>");
-		// https://www.youtubeinmp3.com/fetch/?video=http://www.youtube.com/watch?v=i62Zjga8JOM
-		cmd = commands.registerCommand("youtube", "Plays a youtube video. (broken)", new ICommandListener() {
-
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see
-			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
-			 * event.CommandEventArgs)
-			 */
-			@SuppressWarnings("deprecation")
-			@Override
-			public void onCommand(CommandEventArgs args) {
-				String message;
-				if (args.getParams().size() == 1) {
-					String v = args.getParams().get(0);
-					try {
-						args.getChannel().getGuild().getAudioChannel().clearQueue();
-						args.getChannel().getGuild().getAudioChannel().queueUrl(
-								"https://www.youtubeinmp3.com/fetch/?video=http://www.youtube.com/watch?v=" + v);
-						message = "Playing: http://www.youtube.com/watch?v=" + v;
-					} catch (DiscordException e) {
-						message = "Can't play youtube video.";
-					}
-				} else
-					message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands);
-				sendMessage(args, message);
-			}
-		});
-		cmd.setHelp("This command lets the bot play a youtube video.\n\tUsage: " + commands.getExecutor()
-				+ cmd.getCommand() + " <youtube video watch id>\n\tExample: " + commands.getExecutor()
-				+ cmd.getCommand() + " miZHa7ZC6Z0");
 
 		cmd = commands.registerCommand("playaudiostream", "Plays an audio stream.", new ICommandListener() {
 
@@ -626,17 +598,16 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
 				String message;
 				if (args.getParams().size() == 1) {
-					String stream = args.getParams().get(0);
 					try {
-						args.getChannel().getGuild().getAudioChannel().clearQueue();
-						args.getChannel().getGuild().getAudioChannel().queueUrl(stream);
+						URL stream = new URL(args.getParams().get(0));
+						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).clean();
+						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).queue(stream);
 						message = "Playing: " + stream;
-					} catch (DiscordException e) {
+					} catch (IOException | UnsupportedAudioFileException e) {
 						message = "Can't play audio stream.";
 					}
 				} else
@@ -656,17 +627,16 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
 				String message;
 				if (args.getParams().size() > 0) {
-					String file = args.getRawParams();
+					File file = new File(args.getRawParams());
 					try {
-						args.getChannel().getGuild().getAudioChannel().clearQueue();
-						args.getChannel().getGuild().getAudioChannel().queueFile(file);
+						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).clean();
+						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).queue(file);
 						message = "Playing: " + file;
-					} catch (DiscordException e) {
+					} catch (IOException | UnsupportedAudioFileException e) {
 						message = "Can't play audio.";
 					}
 				} else
@@ -687,7 +657,6 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
 				String message = null;
@@ -696,10 +665,10 @@ public class Bot {
 					try {
 						float volume = Float.parseFloat(args.getParams().get(0));
 						if ((volume >= 0) && (volume <= 100)) {
-							args.getChannel().getGuild().getAudioChannel().setVolume(volume * 0.01f);
+							AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setVolume(volume * 0.01f);
 						} else
 							message = args.getCommand().generateHelp(user, commands);
-					} catch (NumberFormatException | DiscordException e) {
+					} catch (NumberFormatException e) {
 						message = args.getCommand().generateHelp(user, commands);
 					}
 				} else
@@ -720,15 +689,9 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
-				try {
-					args.getChannel().getGuild().getAudioChannel().pause();
-				} catch (DiscordException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setPaused(true);
 			}
 		});
 
@@ -741,15 +704,9 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
-				try {
-					args.getChannel().getGuild().getAudioChannel().resume();
-				} catch (DiscordException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setPaused(false);
 			}
 		});
 
@@ -762,15 +719,9 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
-				try {
-					args.getChannel().getGuild().getAudioChannel().skip();
-				} catch (DiscordException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).skip();
 			}
 		});
 
@@ -783,15 +734,9 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
-				try {
-					args.getChannel().getGuild().getAudioChannel().clearQueue();
-				} catch (DiscordException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).clean();
 			}
 		});
 
