@@ -1,10 +1,8 @@
 package com.discordeti.core;
 
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.URL;
@@ -864,6 +862,13 @@ public class Bot {
 
 		cmd = commands.registerCommand("upload", "Uploads a file.", new ICommandListener() {
 
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
+			 * event.CommandEventArgs)
+			 */
 			@Override
 			public void onCommand(CommandEventArgs args) {
 				String message = null;
@@ -888,6 +893,13 @@ public class Bot {
 
 		cmd = commands.registerCommand("say", "Says, what the message says", new ICommandListener() {
 
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
+			 * event.CommandEventArgs)
+			 */
 			@Override
 			public void onCommand(CommandEventArgs args) {
 				String message;
@@ -1074,9 +1086,7 @@ public class Bot {
 	 */
 	@EventSubscriber
 	public void onReadyEvent(ReadyEvent event) {
-		System.out.println("API is ready!");
-		// IDiscordClient client = event.getClient();
-
+		System.out.println("=== API is ready! ===");
 	}
 
 	/**
