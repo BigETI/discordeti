@@ -1,7 +1,12 @@
 package com.discordeti.core;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.URL;
 import java.util.Map.Entry;
 
@@ -11,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import com.discordeti.event.CommandEventArgs;
 import com.discordeti.event.ICommandListener;
+import com.jbfvm.core.BrainfuckVM;
 
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.EventSubscriber;
@@ -666,7 +672,8 @@ public class Bot {
 						float volume = Float.parseFloat(args.getParams().get(0));
 						if ((volume >= 0) && (volume <= 100)) {
 							AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setVolume(volume * 0.01f);
-							sendMessage(args, "Volume: " + AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).getVolume());
+							sendMessage(args, "Volume: "
+									+ AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).getVolume());
 						} else
 							message = args.getCommand().generateHelp(user, commands);
 					} catch (NumberFormatException e) {
@@ -924,6 +931,96 @@ public class Bot {
 		cmd.getPrivileges().setPrivilege("modify_bot", 1);
 		cmd.setHelp("This command renames a command.\n\tUsage: " + commands.getExecutor() + cmd.getCommand()
 				+ " <old command> <new command>");
+
+		cmd = commands.registerCommand("brainfuck", "Executes brainfuck from file", new ICommandListener() {
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
+			 * event.CommandEventArgs)
+			 */
+			@Override
+			public void onCommand(CommandEventArgs args) {
+				StringBuilder sb = new StringBuilder();
+				if (args.getParams().size() > 0) {
+					String file_name = args.getRawParams();
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					int n;
+					byte[] data = new byte[1024];
+					try (FileInputStream fis = new FileInputStream(file_name)) {
+						while ((n = fis.read(data)) != -1)
+							baos.write(data, 0, n);
+						try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+							PrintStream ps = new PrintStream(bos);
+							BrainfuckVM bfvm = new BrainfuckVM(baos.toByteArray(), ps, null, null);
+							bfvm.run();
+							for (byte i : bos.toByteArray())
+								sb.append((char) i);
+						} catch (IOException e) {
+							e.printStackTrace();
+							sb = new StringBuilder("File \"");
+							sb.append(file_name);
+							sb.append("\" couldn't be executed.");
+						} finally {
+							//
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+						sb = new StringBuilder("File \"");
+						sb.append(file_name);
+						sb.append("\" couldn't be executed.");
+					} finally {
+						//
+					}
+				} else
+					sb.append(args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands));
+				sendMessage(args, sb.toString());
+			}
+		});
+		cmd.getPrivileges().setPrivilege("bot_master", 1);
+		cmd.getPrivileges().setPrivilege("execute_code", 1);
+		cmd.setHelp("This command executes Brainfuck from a file.\n\tUsage: " + commands.getExecutor()
+				+ cmd.getCommand() + " <file name>");
+
+		cmd = commands.registerCommand("rawbrainfuck", "Executes Brainfuck from input", new ICommandListener() {
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
+			 * event.CommandEventArgs)
+			 */
+			@Override
+			public void onCommand(CommandEventArgs args) {
+				StringBuilder sb = new StringBuilder();
+				if (args.getParams().size() > 0) {
+					String input = args.getRawParams();
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					for (char i : input.toCharArray())
+						baos.write((byte) i);
+					try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+						PrintStream ps = new PrintStream(bos);
+						BrainfuckVM bfvm = new BrainfuckVM(baos.toByteArray(), ps, null, null);
+						bfvm.run();
+						for (byte i : bos.toByteArray())
+							sb.append((char) i);
+					} catch (IOException e) {
+						e.printStackTrace();
+						sb = new StringBuilder("Input couldn't be executed.");
+					} finally {
+						//
+					}
+				} else
+					sb.append(args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands));
+				sendMessage(args, sb.toString());
+			}
+		});
+		cmd.getPrivileges().setPrivilege("execute_code", 1);
+		cmd.setHelp("This command executes Brainfuck from input.\n\tUsage: " + commands.getExecutor() + cmd.getCommand()
+				+ " <Brainfuck>");
 
 		commands.sort();
 	}

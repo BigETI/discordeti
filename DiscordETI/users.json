@@ -7,7 +7,8 @@
         "bot_master": 1,
         "grant_user": 1,
         "moderate_channels": 2,
-        "modify_bot": 1
+        "modify_bot": 1,
+        "execute_code": 1
     },
     "131031554024538112": {
         "bot_master": 1,
