@@ -666,6 +666,7 @@ public class Bot {
 						float volume = Float.parseFloat(args.getParams().get(0));
 						if ((volume >= 0) && (volume <= 100)) {
 							AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setVolume(volume * 0.01f);
+							sendMessage(args, "Volume: " + AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).getVolume());
 						} else
 							message = args.getCommand().generateHelp(user, commands);
 					} catch (NumberFormatException e) {

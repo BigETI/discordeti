@@ -26,7 +26,7 @@ public class Commands {
 	/**
 	 * Executor
 	 */
-	private char executor = '!';
+	private char executor = '\'';
 
 	/**
 	 * Register command
