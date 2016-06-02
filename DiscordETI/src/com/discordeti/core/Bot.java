@@ -84,7 +84,7 @@ public class Bot {
 			@Override
 			public void onCommand(CommandEventArgs args) {
 				User user = users.findUser(args.getIssuer().getID());
-				StringBuilder sb = new StringBuilder("\n=== Start of help topic ===\n\n");
+				StringBuilder sb = new StringBuilder("\n**=== __Start of help topic__ ===**\n\n");
 				if (args.getParams().size() > 0) {
 					String key = args.getParams().get(0);
 					if (commands.getCommands().containsKey(key))
@@ -97,14 +97,15 @@ public class Bot {
 					}
 				} else {
 					for (String i : commands.getCommands().keySet()) {
+						sb.append("```");
 						sb.append(commands.getExecutor());
 						sb.append(i);
 						sb.append("\n\t");
 						sb.append(commands.getCommands().get(i).getDescription());
-						sb.append("\n\n");
+						sb.append("```");
 					}
 				}
-				sb.append("=== End of help topic ===");
+				sb.append("\n**=== __End of help topic__ ===**");
 				sendMessage(args, sb.toString());
 			}
 		});
@@ -905,6 +906,12 @@ public class Bot {
 				String message;
 				if (args.getParams().size() > 0) {
 					message = args.getRawParams();
+					try {
+						args.getMessage().delete();
+					} catch (MissingPermissionsException | HTTP429Exception | DiscordException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				} else
 					message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands);
 				sendMessage(args, message);

@@ -6,6 +6,7 @@ import com.discordeti.core.Bot;
 import com.discordeti.core.Command;
 
 import sx.blah.discord.handle.obj.IChannel;
+import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
 
 /**
@@ -27,14 +28,9 @@ public class CommandEventArgs {
 	private Command command;
 
 	/**
-	 * Channel
+	 * Message
 	 */
-	private IChannel channel;
-
-	/**
-	 * Issuer
-	 */
-	private IUser issuer;
+	private IMessage message;
 
 	/**
 	 * Parameters
@@ -62,12 +58,10 @@ public class CommandEventArgs {
 	 * @param raw_params
 	 *            Raw parameters
 	 */
-	public CommandEventArgs(Bot bot, Command command, IChannel channel, IUser issuer, List<String> params,
-			String raw_params) {
+	public CommandEventArgs(Bot bot, Command command, IMessage message, List<String> params, String raw_params) {
 		this.bot = bot;
 		this.command = command;
-		this.channel = channel;
-		this.issuer = issuer;
+		this.message = message;
 		this.params = params;
 		this.raw_params = raw_params;
 	}
@@ -91,12 +85,21 @@ public class CommandEventArgs {
 	}
 
 	/**
+	 * Get message
+	 * 
+	 * @return Message
+	 */
+	public IMessage getMessage() {
+		return message;
+	}
+
+	/**
 	 * Get channel
 	 * 
 	 * @return Channel
 	 */
 	public IChannel getChannel() {
-		return channel;
+		return message.getChannel();
 	}
 
 	/**
@@ -105,7 +108,7 @@ public class CommandEventArgs {
 	 * @return Issuer
 	 */
 	public IUser getIssuer() {
-		return issuer;
+		return message.getAuthor();
 	}
 
 	/**

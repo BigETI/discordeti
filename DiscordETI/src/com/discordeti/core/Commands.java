@@ -26,7 +26,7 @@ public class Commands {
 	/**
 	 * Executor
 	 */
-	private char executor = '\'';
+	private char executor = '%';
 
 	/**
 	 * Register command
@@ -107,8 +107,8 @@ public class Commands {
 									String raw_params = "";
 									if (args[0].length() < msg.length())
 										raw_params = msg.substring(args[0].length(), msg.length()).trim();
-									commands.get(args[0]).setOnCommand(new CommandEventArgs(bot, cmd,
-											message.getChannel(), message.getAuthor(), params, raw_params));
+									commands.get(args[0])
+											.setOnCommand(new CommandEventArgs(bot, cmd, message, params, raw_params));
 								} else
 									System.out.println("[" + args[0] + "] Permission denied for "
 											+ message.getAuthor().getName() + "@" + message.getChannel().getName());

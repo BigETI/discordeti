@@ -1,5 +1,9 @@
 package com.discordeti.core;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  * Main entry class
  * 
@@ -15,6 +19,19 @@ public class Main {
 	 *            Command line arguments
 	 */
 	public static void main(String[] args) {
-		Bot.login("MTg1ODYzNDU2MjY2NjQ5NjAx.Cipg7w.3CY9Tp6RvWw2zPWAlPkfesaA9dc");
+		String token = null;
+		try (FileReader fr = new FileReader("../../discordeti.key")) {
+			try (BufferedReader br = new BufferedReader(fr)) {
+				token = br.readLine();
+			} finally {
+				//
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			//
+		}
+		if (token != null)
+			Bot.login(token);
 	}
 }

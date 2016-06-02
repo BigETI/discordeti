@@ -117,7 +117,7 @@ public class Command extends CommandNotifier {
 	 * @return Help topic
 	 */
 	public String generateHelp(User user, Commands commands) {
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder("```");
 		sb.append(commands.getExecutor());
 		sb.append(command);
 		sb.append("\n\t");
@@ -135,7 +135,7 @@ public class Command extends CommandNotifier {
 			}
 		} else
 			sb.append(" None");
-		sb.append("\n\n");
+		sb.append("```");
 		return sb.toString();
 	}
 }
