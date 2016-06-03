@@ -49,10 +49,8 @@ public class CommandEventArgs {
 	 *            Bot instance
 	 * @param command
 	 *            Command
-	 * @param channel
-	 *            Channel
-	 * @param issuer
-	 *            Issuer
+	 * @param message
+	 *            Message
 	 * @param params
 	 *            Parameters
 	 * @param raw_params

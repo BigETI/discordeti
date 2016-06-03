@@ -22,7 +22,7 @@ public class Main {
 		String token = null;
 		try (FileReader fr = new FileReader("../../discordeti.key")) {
 			try (BufferedReader br = new BufferedReader(fr)) {
-				token = br.readLine();
+				token = br.readLine().trim();
 			} finally {
 				//
 			}
