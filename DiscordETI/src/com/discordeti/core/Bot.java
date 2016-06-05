@@ -1,13 +1,19 @@
 package com.discordeti.core;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.StringWriter;
 import java.net.URL;
 import java.util.Map.Entry;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.json.JSONArray;
@@ -122,7 +128,7 @@ public class Bot {
 			 */
 			@Override
 			public void onCommand(CommandEventArgs args) {
-				sendMessage(args, "Hi " + args.getIssuer().getName() + "!");
+				sendMessage(args, "Hi <@" + args.getIssuer().getID() + ">!");
 			}
 		});
 		cmd = commands.registerCommand("toggletts", "Toggle text to speech :D", new ICommandListener() {
@@ -314,8 +320,9 @@ public class Bot {
 						args.getChannel().getMessages().deleteFromRange(0, 99);
 					else
 						args.getChannel().getMessages().bulkDelete(args.getChannel().getMessages());
+					args.getMessage().delete();
+					sendMessage(args, "<@" + args.getIssuer().getID() + "> cleared the chat.");
 				} catch (HTTP429Exception | DiscordException | MissingPermissionsException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -508,7 +515,6 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
 				if (args.getParams().size() == 1) {
@@ -524,7 +530,8 @@ public class Bot {
 								e.printStackTrace();
 							}
 							try {
-								args.getChannel().getGuild().getAudioChannel().queueFile("hello.mp3");
+								AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild())
+										.queue(new File("hello.mp3"));
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
@@ -603,16 +610,24 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
 				String message;
 				if (args.getParams().size() == 1) {
 					try {
-						URL stream = new URL(args.getParams().get(0));
-						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).clean();
-						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).queue(stream);
-						message = "Playing: " + stream;
-					} catch (IOException | UnsupportedAudioFileException e) {
+						URL url = new URL(args.getRawParams());
+						// Altfunktion (sollte verworfen werden)
+						args.getChannel().getGuild().getAudioChannel().queueUrl(url);
+
+						// ...
+						// AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).queue(url);
+
+						// metaDataQueue.add(new AudioMetaData(null, url,
+						// AudioSystem.getAudioFileFormat(url),
+						// stream.getFormat().getChannels()));
+						message = "Playing: " + args.getRawParams();
+					} catch (IOException | DiscordException e) {
 						message = "Can't play audio stream.";
 					}
 				} else
@@ -638,7 +653,7 @@ public class Bot {
 				if (args.getParams().size() > 0) {
 					File file = new File(args.getRawParams());
 					try {
-						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).clean();
+						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).skip();
 						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).queue(file);
 						message = "Playing: " + file;
 					} catch (IOException | UnsupportedAudioFileException e) {
@@ -662,6 +677,7 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
 				String message = null;
@@ -670,12 +686,15 @@ public class Bot {
 					try {
 						float volume = Float.parseFloat(args.getParams().get(0));
 						if ((volume >= 0) && (volume <= 100)) {
+
+							// Altfunktion (sollte verworfen werden)
+							args.getChannel().getGuild().getAudioChannel().setVolume(volume * 0.01f);
+
+							// ...
 							AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setVolume(volume * 0.01f);
-							sendMessage(args, "Volume: "
-									+ AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).getVolume());
 						} else
 							message = args.getCommand().generateHelp(user, commands);
-					} catch (NumberFormatException e) {
+					} catch (NumberFormatException | DiscordException e) {
 						message = args.getCommand().generateHelp(user, commands);
 					}
 				} else
@@ -711,8 +730,18 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
+				// Altfunktion (sollte verworfen werden)
+				try {
+					args.getChannel().getGuild().getAudioChannel().resume();
+				} catch (DiscordException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				// ...
 				AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setPaused(false);
 			}
 		});
@@ -726,8 +755,18 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
+				// Altfunktion (sollte verworfen werden)
+				try {
+					args.getChannel().getGuild().getAudioChannel().skip();
+				} catch (DiscordException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				// ...
 				AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).skip();
 			}
 		});
@@ -741,9 +780,19 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
-				AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).clean();
+				// Altfunktion (sollte verworfen werden)
+				try {
+					args.getChannel().getGuild().getAudioChannel().skip();
+				} catch (DiscordException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				// ...
+				AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).skip();
 			}
 		});
 
@@ -971,25 +1020,26 @@ public class Bot {
 					try (FileInputStream fis = new FileInputStream(file_name)) {
 						while ((n = fis.read(data)) != -1)
 							baos.write(data, 0, n);
-						try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
-							PrintStream ps = new PrintStream(bos);
+						try (ByteArrayOutputStream baos2 = new ByteArrayOutputStream()) {
+							PrintStream ps = new PrintStream(baos2);
 							BrainfuckVM bfvm = new BrainfuckVM(baos.toByteArray(), ps, null, null);
 							bfvm.run();
-							for (byte i : bos.toByteArray())
-								sb.append((char) i);
+							sb.append("```Brainfuck output```\n\n```");
+							sb.append(baos2.toString());
+							sb.append("\n```");
 						} catch (IOException e) {
 							e.printStackTrace();
-							sb = new StringBuilder("File \"");
-							sb.append(file_name);
-							sb.append("\" couldn't be executed.");
+							sb = new StringBuilder("```Brainfuck error```\n\n```");
+							sb.append(e.getMessage());
+							sb.append("```");
 						} finally {
 							//
 						}
 					} catch (IOException e) {
 						e.printStackTrace();
-						sb = new StringBuilder("File \"");
-						sb.append(file_name);
-						sb.append("\" couldn't be executed.");
+						sb = new StringBuilder("```Brainfuck error```\n\n```");
+						sb.append(e.getMessage());
+						sb.append("```");
 					} finally {
 						//
 					}
@@ -1020,15 +1070,18 @@ public class Bot {
 					ByteArrayOutputStream baos = new ByteArrayOutputStream();
 					for (char i : input.toCharArray())
 						baos.write((byte) i);
-					try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
-						PrintStream ps = new PrintStream(bos);
+					try (ByteArrayOutputStream baos2 = new ByteArrayOutputStream()) {
+						PrintStream ps = new PrintStream(baos2);
 						BrainfuckVM bfvm = new BrainfuckVM(baos.toByteArray(), ps, null, null);
 						bfvm.run();
-						for (byte i : bos.toByteArray())
-							sb.append((char) i);
+						sb.append("```Brainfuck output```\n\n```\n");
+						sb.append(baos2.toString());
+						sb.append("\n```");
 					} catch (IOException e) {
 						e.printStackTrace();
-						sb = new StringBuilder("Input couldn't be executed.");
+						sb = new StringBuilder("```Brainfuck error```\n\n```\n");
+						sb.append(e.getMessage());
+						sb.append("\n```");
 					} finally {
 						//
 					}
@@ -1040,6 +1093,97 @@ public class Bot {
 		cmd.getPrivileges().setPrivilege("execute_code", 1);
 		cmd.setHelp("This command executes Brainfuck from input.\n\tUsage: " + commands.getExecutor() + cmd.getCommand()
 				+ " <Brainfuck>");
+
+		cmd = commands.registerCommand("javascript", "Executes JavaScript from input", new ICommandListener() {
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
+			 * event.CommandEventArgs)
+			 */
+			@Override
+			public void onCommand(CommandEventArgs args) {
+				StringBuilder message = new StringBuilder();
+				StringBuilder r = new StringBuilder();
+				String line;
+				if (args.getParams().size() > 0) {
+					String file_name = args.getRawParams();
+					try (FileReader fr = new FileReader(file_name)) {
+						try (BufferedReader br = new BufferedReader(fr)) {
+							ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
+							try {
+								while ((line = br.readLine()) != null) {
+									r.append(line);
+									r.append('\n');
+								}
+								StringWriter sw = new StringWriter();
+								engine.getContext().setWriter(sw);
+								engine.eval(r.toString());
+								message.append("```JavaScript output```\n\n```\n");
+								message.append(sw.toString());
+								message.append("\n```");
+							} catch (ScriptException e) {
+								message = new StringBuilder("```JavaScript error```\n\n```\n");
+								message.append(e.getMessage());
+								message.append("```");
+							}
+						} finally {
+							//
+						}
+					} catch (IOException e1) {
+						message = new StringBuilder("```JavaScript error```\n\n```");
+						message.append(e1.getMessage());
+						message.append("```");
+					} finally {
+						//
+					}
+
+				} else
+					message.append(args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands));
+				sendMessage(args, message.toString());
+			}
+		});
+		cmd.getPrivileges().setPrivilege("bot_master", 1);
+		cmd.getPrivileges().setPrivilege("execute_code", 1);
+		cmd.setHelp("This command executes JavaScript from a file.\n\tUsage: " + commands.getExecutor()
+				+ cmd.getCommand() + " <file name>");
+
+		cmd = commands.registerCommand("rawjavascript", "Executes JavaScript from input", new ICommandListener() {
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
+			 * event.CommandEventArgs)
+			 */
+			@Override
+			public void onCommand(CommandEventArgs args) {
+				StringBuilder message = new StringBuilder();
+				if (args.getParams().size() > 0) {
+					ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
+					try {
+						StringWriter sw = new StringWriter();
+						engine.getContext().setWriter(sw);
+						engine.eval(args.getRawParams());
+						message.append("```Java output```\n\n```\n");
+						message.append(sw.toString());
+						message.append("\n```");
+					} catch (ScriptException e) {
+						message = new StringBuilder("```JavaScript error```\n\n```\n");
+						message.append(e.getMessage());
+						message.append("\n```");
+					}
+				} else
+					message.append(args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands));
+				sendMessage(args, message.toString());
+			}
+		});
+		cmd.getPrivileges().setPrivilege("execute_code", 1);
+		cmd.setHelp("This command executes JavaScript from input.\n\tUsage: " + commands.getExecutor()
+				+ cmd.getCommand() + " <JavaScript>");
 
 		commands.sort();
 	}
