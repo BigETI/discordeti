@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="F:/DEV/Repos/DiscordETI/DiscordETI/Discord4J-2.5.0-SNAPSHOT-shaded.jar"/>
 	<classpathentry kind="lib" path="F:/DEV/Repos/DiscordETI/DiscordETI/jbfvm_1_0.jar"/>
 	<classpathentry kind="lib" path="F:/DEV/Repos/DiscordETI/DiscordETI/JOCL-0.2.0RC.jar"/>
+	<classpathentry kind="lib" path="F:/DEV/Repos/DiscordETI/DiscordETI/plotter_0_1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

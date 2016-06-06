@@ -1,5 +1,6 @@
 package com.discordeti.core;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -11,6 +12,7 @@ import java.io.StringWriter;
 import java.net.URL;
 import java.util.Map.Entry;
 
+import javax.imageio.ImageIO;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -21,6 +23,8 @@ import org.json.JSONObject;
 import com.discordeti.event.CommandEventArgs;
 import com.discordeti.event.ICommandListener;
 import com.jbfvm.core.BrainfuckVM;
+import com.plotter.algorithms.Polynom;
+import com.plotter.computer.MultiThreadedComputer;
 
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.EventSubscriber;
@@ -1184,6 +1188,88 @@ public class Bot {
 		cmd.getPrivileges().setPrivilege("execute_code", 1);
 		cmd.setHelp("This command executes JavaScript from input.\n\tUsage: " + commands.getExecutor()
 				+ cmd.getCommand() + " <JavaScript>");
+
+		cmd = commands.registerCommand("polynom", "Plots a polynom", new ICommandListener() {
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
+			 * event.CommandEventArgs)
+			 */
+			@Override
+			public void onCommand(CommandEventArgs args) {
+				String message = null;
+				User user = users.findUser(args.getIssuer().getID());
+				if (args.getParams().size() > 0) {
+					try {
+						double[] factors = new double[args.getParams().size()];
+						for (int i = 0; i < factors.length; i++)
+							factors[i] = Double.parseDouble(args.getParams().get(i));
+						Polynom poly = new Polynom(factors);
+						BufferedImage image = poly.plotImage(-100.0, 100.0, 200.0, 200.0, 50000, 1920, 1080,
+								new MultiThreadedComputer<Double, Double>(8),
+								new MultiThreadedComputer<Integer[], Double[]>(8));
+						File f = new File("tempplot.png");
+						try {
+							ImageIO.write(image, "PNG", f);
+							try {
+								args.getChannel().sendFile(new File("tempplot.png"));
+								message = poly.toString();
+							} catch (IOException | MissingPermissionsException | HTTP429Exception
+									| DiscordException e) {
+								message = "Failed to upload plot.";
+							}
+						} catch (IOException e) {
+							message = "Plot couldn't be saved.";
+						}
+
+					} catch (NumberFormatException e) {
+						message = args.getCommand().generateHelp(user, commands);
+					}
+				} else
+					message = args.getCommand().generateHelp(user, commands);
+				if (message != null)
+					sendMessage(args, message);
+			}
+		});
+		cmd.setHelp("This command plots a polynom.\n\tUsage: " + commands.getExecutor() + cmd.getCommand()
+				+ " <x0> <Optional x1> <Optional x2>...");
+
+		cmd = commands.registerCommand("plot", "Plots a graph using JavaScript", new ICommandListener() {
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
+			 * event.CommandEventArgs)
+			 */
+			@Override
+			public void onCommand(CommandEventArgs args) {
+				/*String message;
+				Object return_value;
+				if (args.getParams().size() > 0) {
+					ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
+					try {
+						StringWriter sw = new StringWriter();
+						StringBuilder sb = new StringBuilder("var results = function")
+						engine.getContext().setWriter(sw);
+						return_value = engine.eval(.toString());
+						message.append("```JavaScript output```\n\n```\n");
+						message.append(sw.toString());
+						message.append("\n```");
+					} catch (ScriptException e) {
+						message = new StringBuilder("```JavaScript error```\n\n```\n");
+						message.append(e.getMessage());
+						message.append("```");
+					}
+				} else
+					message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands);
+				sendMessage(args, message);*/
+			}
+		});
 
 		commands.sort();
 	}
