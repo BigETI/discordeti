@@ -430,7 +430,7 @@ public class Bot {
 		});
 		cmd.getPrivileges().setPrivilege("modify_bot", 1);
 		cmd.setHelp("This command changes the avatar of the bot.\n\tUsage: " + commands.getExecutor() + cmd.getCommand()
-				+ " <url> <(optional) image type>\n\n\tImage types arefor example \"png\", \"jpeg\", \"gif\" and etc.");
+				+ " <url> <(optional) image type>\n\n\tImage types are for example \"png\", \"jpeg\", \"gif\" and etc.");
 
 		cmd = commands.registerCommand("settopic", "Sets a topic.", new ICommandListener() {
 
