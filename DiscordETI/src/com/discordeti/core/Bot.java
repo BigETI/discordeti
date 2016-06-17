@@ -1172,7 +1172,7 @@ public class Bot {
 						StringWriter sw = new StringWriter();
 						engine.getContext().setWriter(sw);
 						engine.eval(args.getRawParams());
-						message.append("```Java output```\n\n```\n");
+						message.append("```JavaScript output```\n\n```\n");
 						message.append(sw.toString());
 						message.append("\n```");
 					} catch (ScriptException e) {
