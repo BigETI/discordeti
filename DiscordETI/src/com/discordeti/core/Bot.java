@@ -1,6 +1,6 @@
 package com.discordeti.core;
 
-import java.awt.image.BufferedImage;
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -24,19 +24,20 @@ import com.discordeti.event.CommandEventArgs;
 import com.discordeti.event.ICommandListener;
 import com.jbfvm.core.BrainfuckVM;
 import com.plotter.algorithms.Polynom;
-import com.plotter.computer.MultiThreadedComputer;
+import com.plotter.core.DoubleRange;
+import com.plotter.visuals.ImageGraph;
 
 import sx.blah.discord.api.ClientBuilder;
-import sx.blah.discord.api.EventSubscriber;
 import sx.blah.discord.api.IDiscordClient;
+import sx.blah.discord.api.events.IListener;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.handle.obj.IVoiceChannel;
 import sx.blah.discord.util.DiscordException;
-import sx.blah.discord.util.HTTP429Exception;
 import sx.blah.discord.util.Image;
 import sx.blah.discord.util.MissingPermissionsException;
+import sx.blah.discord.util.RateLimitException;
 import sx.blah.discord.util.audio.AudioPlayer;
 
 /**
@@ -62,12 +63,14 @@ public class Bot {
 	 */
 	private boolean use_tts = false;
 
+	public final Bot dis = this;
+
 	// private IDiscordClient client;
 
 	private void sendMessage(CommandEventArgs args, String text) {
 		try {
 			args.getChannel().sendMessage(text, use_tts);
-		} catch (MissingPermissionsException | HTTP429Exception | DiscordException e1) {
+		} catch (MissingPermissionsException | DiscordException | RateLimitException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -326,7 +329,7 @@ public class Bot {
 						args.getChannel().getMessages().bulkDelete(args.getChannel().getMessages());
 					args.getMessage().delete();
 					sendMessage(args, "<@" + args.getIssuer().getID() + "> cleared the chat.");
-				} catch (HTTP429Exception | DiscordException | MissingPermissionsException e) {
+				} catch (DiscordException | MissingPermissionsException | RateLimitException e) {
 					e.printStackTrace();
 				}
 			}
@@ -420,7 +423,7 @@ public class Bot {
 					try {
 						client.changeAvatar(image);
 						message = "Avatar has been changed.";
-					} catch (DiscordException | HTTP429Exception e) {
+					} catch (DiscordException | RateLimitException e) {
 						message = args.getCommand().generateHelp(user, commands);
 					}
 				} else
@@ -449,7 +452,7 @@ public class Bot {
 					try {
 						args.getChannel().changeTopic(topic);
 						message = "Topic has been changed to \"" + topic + "\".";
-					} catch (HTTP429Exception | DiscordException | MissingPermissionsException e) {
+					} catch (DiscordException | MissingPermissionsException | RateLimitException e) {
 						message = "Topic can't be changed.";
 					}
 				} else
@@ -478,7 +481,7 @@ public class Bot {
 					try {
 						client.changeUsername(username);
 						message = "Username has been changed to \"" + username + "\".";
-					} catch (DiscordException | HTTP429Exception e) {
+					} catch (DiscordException | RateLimitException e) {
 						message = "Username couldn't be changed.";
 					}
 				} else
@@ -541,7 +544,7 @@ public class Bot {
 							}
 							try {
 								voice_channel.sendMessage("Hello!");
-							} catch (MissingPermissionsException | HTTP429Exception e) {
+							} catch (MissingPermissionsException | RateLimitException e) {
 								e.printStackTrace();
 							}
 						} catch (DiscordException e) {
@@ -614,7 +617,6 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
 				String message;
@@ -622,16 +624,16 @@ public class Bot {
 					try {
 						URL url = new URL(args.getRawParams());
 						// Altfunktion (sollte verworfen werden)
-						args.getChannel().getGuild().getAudioChannel().queueUrl(url);
+						// args.getChannel().getGuild().getAudioChannel().queueUrl(url);
 
 						// ...
-						// AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).queue(url);
+						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).queue(url);
 
 						// metaDataQueue.add(new AudioMetaData(null, url,
 						// AudioSystem.getAudioFileFormat(url),
 						// stream.getFormat().getChannels()));
 						message = "Playing: " + args.getRawParams();
-					} catch (IOException | DiscordException e) {
+					} catch (IOException | UnsupportedAudioFileException e) {
 						message = "Can't play audio stream.";
 					}
 				} else
@@ -681,7 +683,6 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
 				String message = null;
@@ -692,13 +693,14 @@ public class Bot {
 						if ((volume >= 0) && (volume <= 100)) {
 
 							// Altfunktion (sollte verworfen werden)
-							args.getChannel().getGuild().getAudioChannel().setVolume(volume * 0.01f);
+							// args.getChannel().getGuild().getAudioChannel().setVolume(volume
+							// * 0.01f);
 
 							// ...
 							AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setVolume(volume * 0.01f);
 						} else
 							message = args.getCommand().generateHelp(user, commands);
-					} catch (NumberFormatException | DiscordException e) {
+					} catch (NumberFormatException e) {
 						message = args.getCommand().generateHelp(user, commands);
 					}
 				} else
@@ -814,7 +816,7 @@ public class Bot {
 				try {
 					client.logout();
 					System.exit(0);
-				} catch (HTTP429Exception | DiscordException e) {
+				} catch (DiscordException | RateLimitException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -869,7 +871,7 @@ public class Bot {
 					else
 						try {
 							args.getChannel().getGuild().kickUser(target);
-						} catch (MissingPermissionsException | HTTP429Exception | DiscordException e) {
+						} catch (MissingPermissionsException | DiscordException | RateLimitException e) {
 							e.printStackTrace();
 						}
 				} else
@@ -901,7 +903,7 @@ public class Bot {
 					else
 						try {
 							args.getChannel().getGuild().banUser(target);
-						} catch (MissingPermissionsException | HTTP429Exception | DiscordException e) {
+						} catch (MissingPermissionsException | DiscordException | RateLimitException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
@@ -932,7 +934,7 @@ public class Bot {
 					File file = new File(file_name);
 					try {
 						args.getChannel().sendFile(file);
-					} catch (IOException | MissingPermissionsException | HTTP429Exception | DiscordException e) {
+					} catch (IOException | MissingPermissionsException | DiscordException | RateLimitException e) {
 						message = "Failed to upload \"" + file_name + "\"";
 					}
 				} else
@@ -961,7 +963,7 @@ public class Bot {
 					message = args.getRawParams();
 					try {
 						args.getMessage().delete();
-					} catch (MissingPermissionsException | HTTP429Exception | DiscordException e) {
+					} catch (MissingPermissionsException | DiscordException | RateLimitException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -1208,17 +1210,16 @@ public class Bot {
 						for (int i = 0; i < factors.length; i++)
 							factors[i] = Double.parseDouble(args.getParams().get(i));
 						Polynom poly = new Polynom(factors);
-						BufferedImage image = poly.plotImage(-100.0, 100.0, 200.0, 200.0, 50000, 1920, 1080,
-								new MultiThreadedComputer<Double, Double>(8),
-								new MultiThreadedComputer<Integer[], Double[]>(8));
+						ImageGraph<Double, Double> graph = new ImageGraph<>(1920, 1080, 100.0, 100.0, 0.0, 0.0);
+						graph.plot(new DoubleRange(-100.0, 100.0, 50000), poly, Color.WHITE);
 						File f = new File("tempplot.png");
 						try {
-							ImageIO.write(image, "PNG", f);
+							ImageIO.write(graph, "PNG", f);
 							try {
 								args.getChannel().sendFile(new File("tempplot.png"));
 								message = poly.toString();
-							} catch (IOException | MissingPermissionsException | HTTP429Exception
-									| DiscordException e) {
+							} catch (IOException | MissingPermissionsException | DiscordException
+									| RateLimitException e) {
 								message = "Failed to upload plot.";
 							}
 						} catch (IOException e) {
@@ -1248,30 +1249,48 @@ public class Bot {
 			 */
 			@Override
 			public void onCommand(CommandEventArgs args) {
-				/*String message;
-				Object return_value;
-				if (args.getParams().size() > 0) {
-					ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
-					try {
-						StringWriter sw = new StringWriter();
-						StringBuilder sb = new StringBuilder("var results = function")
-						engine.getContext().setWriter(sw);
-						return_value = engine.eval(.toString());
-						message.append("```JavaScript output```\n\n```\n");
-						message.append(sw.toString());
-						message.append("\n```");
-					} catch (ScriptException e) {
-						message = new StringBuilder("```JavaScript error```\n\n```\n");
-						message.append(e.getMessage());
-						message.append("```");
-					}
-				} else
-					message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands);
-				sendMessage(args, message);*/
+				/*
+				 * String message; Object return_value; if
+				 * (args.getParams().size() > 0) { ScriptEngine engine = new
+				 * ScriptEngineManager().getEngineByName("JavaScript"); try {
+				 * StringWriter sw = new StringWriter(); StringBuilder sb = new
+				 * StringBuilder("var results = function")
+				 * engine.getContext().setWriter(sw); return_value =
+				 * engine.eval(.toString()); message.append(
+				 * "```JavaScript output```\n\n```\n");
+				 * message.append(sw.toString()); message.append("\n```"); }
+				 * catch (ScriptException e) { message = new StringBuilder(
+				 * "```JavaScript error```\n\n```\n");
+				 * message.append(e.getMessage()); message.append("```"); } }
+				 * else message =
+				 * args.getCommand().generateHelp(users.findUser(args.getIssuer(
+				 * ).getID()), commands); sendMessage(args, message);
+				 */
 			}
 		});
 
 		commands.sort();
+
+		client.getDispatcher().registerListener(new IListener<ReadyEvent>() {
+
+			@Override
+			public void handle(ReadyEvent event) {
+				System.out.println("=== API is ready! ===");
+
+			}
+		});
+		client.getDispatcher().registerListener(new IListener<MessageReceivedEvent>() {
+
+			@Override
+			public void handle(MessageReceivedEvent event) {
+				System.out.println(
+						event.getMessage().getCreationDate() + " <" + event.getMessage().getAuthor().getName() + "@"
+								+ event.getMessage().getChannel().getName() + "> : " + event.getMessage().getContent());
+				if (event.getClient().getOurUser().getID().compareTo(event.getMessage().getAuthor().getID()) != 0) {
+					commands.parseMessage(dis, event.getMessage());
+				}
+			}
+		});
 	}
 
 	/**
@@ -1315,30 +1334,24 @@ public class Bot {
 		return bot;
 	}
 
-	/**
-	 * Ready event
-	 * 
-	 * @param event
-	 *            Event
-	 */
-	@EventSubscriber
-	public void onReadyEvent(ReadyEvent event) {
-		System.out.println("=== API is ready! ===");
-	}
-
-	/**
-	 * Message received event
-	 * 
-	 * @param event
-	 *            Event
-	 */
-	@EventSubscriber
-	public void onMessageReceivedEvent(MessageReceivedEvent event) {
-		System.out.println(event.getMessage().getCreationDate() + " <" + event.getMessage().getAuthor().getName() + "@"
-				+ event.getMessage().getChannel().getName() + "> : " + event.getMessage().getContent());
-		if (event.getClient().getOurUser().getID().compareTo(event.getMessage().getAuthor().getID()) != 0) {
-			commands.parseMessage(this, event.getMessage());
-		}
-	}
+	// /**
+	// * Ready event
+	// *
+	// * @param event
+	// * Event
+	// */
+	// public void onReadyEvent(ReadyEvent event) {
+	// System.out.println("=== API is ready! ===");
+	// }
+	//
+	// /**
+	// * Message received event
+	// *
+	// * @param event
+	// * Event
+	// */
+	// public void onMessageReceivedEvent(MessageReceivedEvent event) {
+	//
+	// }
 
 }
