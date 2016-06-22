@@ -65,6 +65,8 @@ public class Bot {
 
 	public final Bot dis = this;
 
+	private float volume = 0.1f;
+
 	// private IDiscordClient client;
 
 	private void sendMessage(CommandEventArgs args, String text) {
@@ -323,13 +325,16 @@ public class Bot {
 			@Override
 			public void onCommand(CommandEventArgs args) {
 				try {
-					if (args.getChannel().getMessages().size() > 100)
-						args.getChannel().getMessages().deleteFromRange(0, 99);
-					else
-						args.getChannel().getMessages().bulkDelete(args.getChannel().getMessages());
+					while (args.getChannel().getMessages().size() > 0) {
+						if (args.getChannel().getMessages().size() > 100)
+							args.getChannel().getMessages().deleteFromRange(0, 99);
+						else
+							args.getChannel().getMessages().deleteFromRange(0, args.getChannel().getMessages().size());
+						Thread.sleep(1000);
+					}
 					args.getMessage().delete();
 					sendMessage(args, "<@" + args.getIssuer().getID() + "> cleared the chat.");
-				} catch (DiscordException | MissingPermissionsException | RateLimitException e) {
+				} catch (DiscordException | MissingPermissionsException | RateLimitException | InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
@@ -627,6 +632,8 @@ public class Bot {
 						// args.getChannel().getGuild().getAudioChannel().queueUrl(url);
 
 						// ...
+						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).clean();
+						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setVolume(volume);
 						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).queue(url);
 
 						// metaDataQueue.add(new AudioMetaData(null, url,
@@ -659,7 +666,8 @@ public class Bot {
 				if (args.getParams().size() > 0) {
 					File file = new File(args.getRawParams());
 					try {
-						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).skip();
+						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).clean();
+						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setVolume(volume);
 						AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).queue(file);
 						message = "Playing: " + file;
 					} catch (IOException | UnsupportedAudioFileException e) {
@@ -689,15 +697,10 @@ public class Bot {
 				User user = users.findUser(args.getIssuer().getID());
 				if (args.getParams().size() == 1) {
 					try {
-						float volume = Float.parseFloat(args.getParams().get(0));
-						if ((volume >= 0) && (volume <= 100)) {
-
-							// Altfunktion (sollte verworfen werden)
-							// args.getChannel().getGuild().getAudioChannel().setVolume(volume
-							// * 0.01f);
-
-							// ...
-							AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setVolume(volume * 0.01f);
+						float v = Float.parseFloat(args.getParams().get(0));
+						if ((v >= 0) && (v <= 100)) {
+							volume = v * 0.01f;
+							AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setVolume(volume);
 						} else
 							message = args.getCommand().generateHelp(user, commands);
 					} catch (NumberFormatException e) {
@@ -786,19 +789,10 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
-				// Altfunktion (sollte verworfen werden)
-				try {
-					args.getChannel().getGuild().getAudioChannel().skip();
-				} catch (DiscordException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-				// ...
-				AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).skip();
+				AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).clean();
+				AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setVolume(volume);
 			}
 		});
 
