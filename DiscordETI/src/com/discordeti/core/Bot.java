@@ -1263,6 +1263,30 @@ public class Bot {
 			}
 		});
 
+		// "https://tools.ietf.org/pdf/rfc3514.pdf"
+		cmd = commands.registerCommand("rfc", "Shows a link to this RFC", new ICommandListener() {
+
+			@Override
+			public void onCommand(CommandEventArgs args) {
+				String message = null;
+				User user = users.findUser(args.getIssuer().getID());
+				if (args.getParams().size() == 1) {
+					try {
+						int rfc_num = Integer.parseInt(args.getParams().get(0));
+						message = "https://tools.ietf.org/pdf/rfc" + rfc_num + ".pdf";
+						args.getMessage().delete();
+					} catch (NumberFormatException e) {
+						message = args.getCommand().generateHelp(user, commands);
+					} catch (RateLimitException | MissingPermissionsException | DiscordException e) {
+						e.printStackTrace();
+					}
+				} else
+					message = args.getCommand().generateHelp(user, commands);
+				sendMessage(args, message);
+			}
+		});
+		cmd.setHelp("This command displays a RFC.\n\tUsage: " + commands.getExecutor() + cmd.getCommand() + " <RFC>");
+
 		commands.sort();
 
 		client.getDispatcher().registerListener(new IListener<ReadyEvent>() {
