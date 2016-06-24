@@ -3,10 +3,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/dev/Repos/git/discordeti/DiscordETI/Discord4J-2.5.0-SNAPSHOT-shaded.jar"/>
-	<classpathentry kind="lib" path="C:/dev/Repos/git/discordeti/DiscordETI/jbfvm_1_0.jar"/>
-	<classpathentry kind="lib" path="C:/dev/Repos/git/discordeti/DiscordETI/JOCL-0.2.0RC.jar"/>
-	<classpathentry kind="lib" path="C:/dev/Repos/git/discordeti/DiscordETI/json-20150729.jar"/>
-	<classpathentry kind="lib" path="C:/dev/Repos/git/discordeti/DiscordETI/plotter_1_0.jar"/>
+	<classpathentry kind="lib" path="F:/DEV/Repos/DiscordETI/DiscordETI/Discord4J-2.5.0-SNAPSHOT-shaded.jar"/>
+	<classpathentry kind="lib" path="F:/DEV/Repos/DiscordETI/DiscordETI/jbfvm_1_0.jar"/>
+	<classpathentry kind="lib" path="F:/DEV/Repos/DiscordETI/DiscordETI/JOCL-0.2.0RC.jar"/>
+	<classpathentry kind="lib" path="F:/DEV/Repos/DiscordETI/DiscordETI/json-20150729.jar"/>
+	<classpathentry kind="lib" path="F:/DEV/Repos/DiscordETI/DiscordETI/plotter_1_0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
