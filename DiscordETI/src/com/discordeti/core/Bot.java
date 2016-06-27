@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.StringWriter;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Map.Entry;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.script.ScriptEngine;
@@ -1287,6 +1289,36 @@ public class Bot {
 		});
 		cmd.setHelp("This command displays a RFC.\n\tUsage: " + commands.getExecutor() + cmd.getCommand() + " <RFC>");
 
+		cmd = commands.registerCommand("suicidegirl", "Show a SuicideGirl picture", new ICommandListener() {
+
+			@Override
+			public void onCommand(CommandEventArgs args) {
+				String filter = "";
+				if (args.getParams().size() > 0)
+					filter = args.getRawParams().trim();
+				ArrayList<File> files = findFilesRecursively(new File("F:\\Downloads\\SG\\"),
+						new String[] { "jpg", "jpeg", "png", "gif", "tiff", "tga", "svg" }, filter);
+
+				// Store in config (W.I.P.)
+
+				if (files.size() > 0) {
+					int id = (new Random()).nextInt(files.size());
+					String[] parts = files.get(id).getAbsolutePath().split("[\\/,\\\\]");
+					if (parts.length > 1)
+						sendMessage(args, files.get(id).getName() + " from " + parts[parts.length - 2]);
+					try {
+						args.getChannel().sendFile(files.get(id));
+					} catch (RateLimitException | IOException | MissingPermissionsException | DiscordException e) {
+						e.printStackTrace();
+					}
+				} else
+					sendMessage(args, "No files found by search criteria.");
+			}
+		});
+		cmd.getPrivileges().setPrivilege("nude_pictures", 1);
+		cmd.setHelp("This command shows a random SuicideGirl picture by search criteria.\n\tUsage: "
+				+ commands.getExecutor() + cmd.getCommand() + " <Search criteria (optional)>");
+
 		commands.sort();
 
 		client.getDispatcher().registerListener(new IListener<ReadyEvent>() {
@@ -1309,6 +1341,26 @@ public class Bot {
 				}
 			}
 		});
+	}
+
+	private ArrayList<File> findFilesRecursively(File path, String[] file_types, String contains) {
+		ArrayList<File> ret = new ArrayList<>();
+		contains = contains.toLowerCase();
+		if (path.isDirectory()) {
+			for (File file : path.listFiles()) {
+				if (file.isDirectory())
+					ret.addAll(findFilesRecursively(file, file_types, contains));
+				else if (file.getPath().toLowerCase().contains(contains)) {
+					for (String file_type : file_types) {
+						if (file.getName().endsWith("." + file_type)) {
+							ret.add(file);
+							break;
+						}
+					}
+				}
+			}
+		}
+		return ret;
 	}
 
 	/**
