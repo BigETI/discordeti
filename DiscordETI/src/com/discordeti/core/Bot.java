@@ -1296,7 +1296,7 @@ public class Bot {
 				String filter = "";
 				if (args.getParams().size() > 0)
 					filter = args.getRawParams().trim();
-				ArrayList<File> files = findFilesRecursively(new File("F:\\Downloads\\SG\\"),
+				ArrayList<File> files = findFilesRecursively(new File("./sg/"),
 						new String[] { "jpg", "jpeg", "png", "gif", "tiff", "tga", "svg" }, filter);
 
 				// Store in config (W.I.P.)

@@ -10,8 +10,14 @@ import java.io.IOException;
  * @author Ethem Kurt
  *
  */
-public class Main {
+public class Main implements Runnable {
 
+	private String token;
+	
+	public Main(String token) {
+		this.token = token;
+	}
+	
 	/**
 	 * Main entry
 	 * 
@@ -20,18 +26,32 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		String token = null;
-		try (FileReader fr = new FileReader("../../discordeti.key")) {
-			try (BufferedReader br = new BufferedReader(fr)) {
-				token = br.readLine().trim();
-			} finally {
-				//
+		if (args.length > 0) {
+			for (int i = 0; i < args.length; i++) {
+				System.out.println("Reading file \"" + args[i] + "\"...");
+				try (FileReader fr = new FileReader(args[i])) {
+					try (BufferedReader br = new BufferedReader(fr)) {
+						token = br.readLine().trim();
+					} finally {
+						//
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					//
+				}
+				if (token != null) {
+					Main bt = new Main(token);
+					Thread t = new Thread(bt);
+					t.start();
+				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			//
-		}
-		if (token != null)
-			Bot.login(token);
+		} else
+			System.err.println("No key file specified.");
+	}
+
+	@Override
+	public void run() {
+		Bot.login(token);
 	}
 }
