@@ -22,13 +22,14 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import com.discordeti.event.CommandEventArgs;
 import com.discordeti.event.ICommandListener;
 import com.jbfvm.core.BrainfuckVM;
+import com.plotter.algorithms.JSAlgorithm;
 import com.plotter.algorithms.Polynom;
 import com.plotter.core.DoubleRange;
 import com.plotter.visuals.ImageGraph;
-
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.IListener;
@@ -65,8 +66,14 @@ public class Bot {
 	 */
 	private boolean use_tts = false;
 
+	/**
+	 * This object
+	 */
 	public final Bot dis = this;
 
+	/**
+	 * Volume
+	 */
 	private float volume = 0.1f;
 
 	// private IDiscordClient client;
@@ -74,9 +81,12 @@ public class Bot {
 	private void sendMessage(CommandEventArgs args, String text) {
 		try {
 			args.getChannel().sendMessage(text, use_tts);
-		} catch (MissingPermissionsException | DiscordException | RateLimitException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (MissingPermissionsException e) {
+			e.printStackTrace();
+		} catch (DiscordException e) {
+			e.printStackTrace();
+		} catch (RateLimitException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -87,7 +97,6 @@ public class Bot {
 	 *            Client instance
 	 */
 	public Bot(IDiscordClient client) {
-		// this.client = client;
 		client.getDispatcher().registerListener(this);
 		Command cmd = commands.registerCommand("help", "Show help topics", new ICommandListener() {
 
@@ -127,7 +136,7 @@ public class Bot {
 			}
 		});
 		cmd.setHelp("This command is used to show help topics about other available commands.\n\tUse "
-				+ commands.getExecutor() + cmd.getCommand() + " <command> to show help topics.");
+				+ commands.getExecutor() + "$CMD$ <command> to show help topics.");
 		commands.registerCommand("hello", "Just a test command", new ICommandListener() {
 
 			/*
@@ -251,7 +260,7 @@ public class Bot {
 			}
 		});
 		cmd.setHelp("This command sets the privileges of a user,\n\tand saves for the next session.\n\tUse "
-				+ commands.getExecutor() + cmd.getCommand() + " <user id> <privilege> <value> to set a privilege.");
+				+ commands.getExecutor() + "$CMD$ <user id> <privilege> <value> to set a privilege.");
 		cmd.getPrivileges().setPrivilege("grant_user", 1);
 
 		cmd = commands.registerCommand("revokeprivilege", "Revoke privilege for user", new ICommandListener() {
@@ -283,7 +292,7 @@ public class Bot {
 
 		});
 		cmd.setHelp("This command revokes the privileges of a user,\n\tand saves for the next session.\n\tUse "
-				+ commands.getExecutor() + cmd.getCommand() + " <user id> <privilege> to revoke a privilege.");
+				+ commands.getExecutor() + "$CMD$ <user id> <privilege> to revoke a privilege.");
 		cmd.getPrivileges().setPrivilege("grant_user", 1);
 
 		cmd = commands.registerCommand("myprivileges", "Shows your privileges", new ICommandListener() {
@@ -315,6 +324,8 @@ public class Bot {
 				sendMessage(args, sb.toString());
 			}
 		});
+		cmd.setHelp("This command lists all of your privileges.");
+		
 		cmd = commands.registerCommand("clear", "Clears the chat", new ICommandListener() {
 
 			/*
@@ -341,7 +352,9 @@ public class Bot {
 				}
 			}
 		});
+		cmd.setHelp("This command clears the chat.");
 		cmd.getPrivileges().setPrivilege("moderate_channels", 1);
+		
 		cmd = commands.registerCommand("setexecutor", "Sets the executor", new ICommandListener() {
 
 			/*
@@ -368,7 +381,7 @@ public class Bot {
 		cmd.getPrivileges().setPrivilege("moderate_channels", 2);
 		cmd.setHelp(
 				"An executor is a notation for the bot to parse a message beginning with an executor as a command.\n\tUsage : "
-						+ commands.getExecutor() + cmd.getCommand() + " <executor>");
+						+ commands.getExecutor() + "$CMD$ <executor>");
 
 		cmd = commands.registerCommand("allowapp", "Returns a link to allow this application for your guild.",
 				new ICommandListener() {
@@ -390,8 +403,15 @@ public class Bot {
 						}
 					}
 				});
+		cmd.setHelp("This command returns a link to add this bot to your server.");
+
 		cmd = commands.registerCommand("setavatar", "Changes the avatar of the bot.", new ICommandListener() {
 
+			/**
+			 * @param url
+			 *            URL
+			 * @return Image type
+			 */
 			private String getImageTypeFromURL(String url) {
 				String ret = "";
 				String[] results = url.split("\\.+");
@@ -427,6 +447,7 @@ public class Bot {
 				}
 				if (success) {
 					Image image = Image.forUrl(type, url);
+
 					try {
 						client.changeAvatar(image);
 						message = "Avatar has been changed.";
@@ -439,8 +460,7 @@ public class Bot {
 			}
 		});
 		cmd.getPrivileges().setPrivilege("modify_bot", 1);
-		cmd.setHelp("This command changes the avatar of the bot.\n\tUsage: " + commands.getExecutor() + cmd.getCommand()
-				+ " <url> <(optional) image type>\n\n\tImage types are for example \"png\", \"jpeg\", \"gif\" and etc.");
+		cmd.setHelp("This command changes the avatar of the bot.\n\tUsage: " + commands.getExecutor() + "$CMD$ <url> <(optional) image type>\n\n\tImage types are for example \"png\", \"jpeg\", \"gif\" and etc.");
 
 		cmd = commands.registerCommand("settopic", "Sets a topic.", new ICommandListener() {
 
@@ -469,7 +489,7 @@ public class Bot {
 		});
 		cmd.getPrivileges().setPrivilege("moderate_channels", 1);
 		cmd.setHelp("This command changes the topic of this channel.\n\tUsage: " + commands.getExecutor()
-				+ cmd.getCommand() + " <topic>");
+				+ "$CMD$ <topic>");
 
 		cmd = commands.registerCommand("setusername", "Changes the bot's username.", new ICommandListener() {
 
@@ -497,6 +517,7 @@ public class Bot {
 			}
 		});
 		cmd.getPrivileges().setPrivilege("modify_bot", 1);
+		cmd.setHelp("This command sets the username of this bot.\n\tUsage: " + commands.getExecutor() + "$CMD$ <username>");
 
 		cmd = commands.registerCommand("listvoicechannels", "Lists all connected voice channels.",
 				new ICommandListener() {
@@ -519,6 +540,7 @@ public class Bot {
 						sendMessage(args, sb.toString());
 					}
 				});
+		cmd.setHelp("This command lists all available voice channels.");
 
 		cmd = commands.registerCommand("joinvoicechannel", "Joins a voice channel.", new ICommandListener() {
 
@@ -535,12 +557,15 @@ public class Bot {
 					String id = args.getParams().get(0);
 					IVoiceChannel voice_channel = args.getChannel().getGuild().getVoiceChannelByID(id);
 					if (voice_channel != null) {
-						voice_channel.join();
+						try {
+							voice_channel.join();
+						} catch (MissingPermissionsException e) {
+							e.printStackTrace();
+						}
 						try {
 							try {
 								Thread.sleep(1000);
 							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 							try {
@@ -566,7 +591,7 @@ public class Bot {
 		});
 		cmd.getPrivileges().setPrivilege("moderate_channels", 1);
 		cmd.setHelp("This command lets the bot join a voice channel by its id.\n\tUsage: " + commands.getExecutor()
-				+ cmd.getCommand() + " <voice channel id>");
+				+ "$CMD$ <voice channel id>");
 
 		cmd = commands.registerCommand("leavevoicechannel", "Leaves a voice channel.", new ICommandListener() {
 
@@ -593,7 +618,7 @@ public class Bot {
 		});
 		cmd.getPrivileges().setPrivilege("moderate_channels", 1);
 		cmd.setHelp("This command lets the bot leave a voice channel by its id.\n\tUsage: " + commands.getExecutor()
-				+ cmd.getCommand() + " <voice channel id>");
+				+ "$CMD$ <voice channel id>");
 
 		cmd = commands.registerCommand("leaveallvoicechannels", "Leaves all voice channels.", new ICommandListener() {
 
@@ -613,7 +638,7 @@ public class Bot {
 		});
 		cmd.getPrivileges().setPrivilege("moderate_channels", 2);
 		cmd.setHelp("This command lets the bot leave a voice channel by its id.\n\tUsage: " + commands.getExecutor()
-				+ cmd.getCommand() + " <voice channel id>");
+				+ "$CMD$ <voice channel id>");
 
 		cmd = commands.registerCommand("playaudiostream", "Plays an audio stream.", new ICommandListener() {
 
@@ -642,7 +667,9 @@ public class Bot {
 						// AudioSystem.getAudioFileFormat(url),
 						// stream.getFormat().getChannels()));
 						message = "Playing: " + args.getRawParams();
-					} catch (IOException | UnsupportedAudioFileException e) {
+					} catch (IOException e) {
+						message = "Can't play audio stream.";
+					} catch (UnsupportedAudioFileException e) {
 						message = "Can't play audio stream.";
 					}
 				} else
@@ -651,7 +678,7 @@ public class Bot {
 			}
 		});
 		cmd.setHelp("This command lets the bot play an audio stream.\n\tUsage: " + commands.getExecutor()
-				+ cmd.getCommand() + " <audio stream url>");
+				+ "$CMD$ <audio stream url>");
 
 		cmd = commands.registerCommand("playaudio", "Plays an audio stream.", new ICommandListener() {
 
@@ -682,7 +709,7 @@ public class Bot {
 		});
 		cmd.getPrivileges().setPrivilege("bot_master", 1);
 		cmd.setHelp("This command lets the bot play a local audio file.\n\tUsage: " + commands.getExecutor()
-				+ cmd.getCommand() + " <audio file>");
+				+ "$CMD$ <audio file>");
 
 		cmd = commands.registerCommand("volume", "Changes the volume of the bot.", new ICommandListener() {
 
@@ -715,7 +742,7 @@ public class Bot {
 			}
 		});
 		cmd.setHelp("This command changes the volume of the bot (from 0 to 100).\n\tUsage: " + commands.getExecutor()
-				+ cmd.getCommand() + " <volume>");
+				+ "$CMD$ <volume>");
 
 		cmd = commands.registerCommand("pause", "Pauses the audio.", new ICommandListener() {
 
@@ -731,6 +758,7 @@ public class Bot {
 				AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setPaused(true);
 			}
 		});
+		cmd.setHelp("This command pauses the audio stream.");
 
 		cmd = commands.registerCommand("resume", "Resumes the audio.", new ICommandListener() {
 
@@ -741,21 +769,12 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
-				// Altfunktion (sollte verworfen werden)
-				try {
-					args.getChannel().getGuild().getAudioChannel().resume();
-				} catch (DiscordException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-				// ...
 				AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setPaused(false);
 			}
 		});
+		cmd.setHelp("This command resumes the audio stream.");
 
 		cmd = commands.registerCommand("skip", "Skips the audio.", new ICommandListener() {
 
@@ -766,21 +785,12 @@ public class Bot {
 			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
 			 * event.CommandEventArgs)
 			 */
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onCommand(CommandEventArgs args) {
-				// Altfunktion (sollte verworfen werden)
-				try {
-					args.getChannel().getGuild().getAudioChannel().skip();
-				} catch (DiscordException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-				// ...
 				AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).skip();
 			}
 		});
+		cmd.setHelp("This command skips the audio stream.");
 
 		cmd = commands.registerCommand("stop", "Stops the audio.", new ICommandListener() {
 
@@ -797,6 +807,7 @@ public class Bot {
 				AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setVolume(volume);
 			}
 		});
+		cmd.setHelp("This command stops the audio stream.");
 
 		cmd = commands.registerCommand("exit", "Disconnects the bot.", new ICommandListener() {
 
@@ -819,6 +830,7 @@ public class Bot {
 			}
 		});
 		cmd.getPrivileges().setPrivilege("bot_master", 1);
+		cmd.setHelp("This command tells the bot to disconnect from Discord and shut down.");
 
 		cmd = commands.registerCommand("listusers", "Lists all users.", new ICommandListener() {
 
@@ -846,6 +858,7 @@ public class Bot {
 			}
 		});
 		cmd.getPrivileges().setPrivilege("moderate_channels", 1);
+		cmd.setHelp("This command lists all available users.");
 
 		cmd = commands.registerCommand("kick", "Kicks a user.", new ICommandListener() {
 
@@ -876,8 +889,7 @@ public class Bot {
 			}
 		});
 		cmd.getPrivileges().setPrivilege("moderate_channels", 1);
-		cmd.setHelp("This command kicks a specified user by ID.\n\tUsage: " + commands.getExecutor() + cmd.getCommand()
-				+ " <user id>");
+		cmd.setHelp("This command kicks a specified user by ID.\n\tUsage: " + commands.getExecutor() + "$CMD$ <user id>");
 
 		cmd = commands.registerCommand("ban", "Bans a user.", new ICommandListener() {
 
@@ -909,8 +921,7 @@ public class Bot {
 			}
 		});
 		cmd.getPrivileges().setPrivilege("moderate_channels", 2);
-		cmd.setHelp("This command bans a specified user by ID.\n\tUsage: " + commands.getExecutor() + cmd.getCommand()
-				+ " <user id>");
+		cmd.setHelp("This command bans a specified user by ID.\n\tUsage: " + commands.getExecutor() + "$CMD$ <user id>");
 
 		cmd = commands.registerCommand("upload", "Uploads a file.", new ICommandListener() {
 
@@ -941,7 +952,7 @@ public class Bot {
 		});
 		cmd.getPrivileges().setPrivilege("bot_master", 1);
 		cmd.setHelp("This command allows to upload a local file to this channel.\n\tUsage: " + commands.getExecutor()
-				+ cmd.getCommand() + " <file name>");
+				+ "$CMD$ <file name>");
 
 		cmd = commands.registerCommand("say", "Says, what the message says", new ICommandListener() {
 
@@ -969,7 +980,7 @@ public class Bot {
 			}
 		});
 		cmd.setHelp("This command repeats the words of the command issuer.\n\tUsage: " + commands.getExecutor()
-				+ cmd.getCommand() + " <message>");
+				+ "$CMD$ <message>");
 
 		cmd = commands.registerCommand("setcommand", "Changes the command", new ICommandListener() {
 
@@ -999,8 +1010,7 @@ public class Bot {
 			}
 		});
 		cmd.getPrivileges().setPrivilege("modify_bot", 1);
-		cmd.setHelp("This command renames a command.\n\tUsage: " + commands.getExecutor() + cmd.getCommand()
-				+ " <old command> <new command>");
+		cmd.setHelp("This command renames a command.\n\tUsage: " + commands.getExecutor() + "$CMD$ <old command> <new command>");
 
 		cmd = commands.registerCommand("brainfuck", "Executes brainfuck from file", new ICommandListener() {
 
@@ -1053,7 +1063,7 @@ public class Bot {
 		cmd.getPrivileges().setPrivilege("bot_master", 1);
 		cmd.getPrivileges().setPrivilege("execute_code", 1);
 		cmd.setHelp("This command executes Brainfuck from a file.\n\tUsage: " + commands.getExecutor()
-				+ cmd.getCommand() + " <file name>");
+				+ "$CMD$ <file name>");
 
 		cmd = commands.registerCommand("rawbrainfuck", "Executes Brainfuck from input", new ICommandListener() {
 
@@ -1093,8 +1103,7 @@ public class Bot {
 			}
 		});
 		cmd.getPrivileges().setPrivilege("execute_code", 1);
-		cmd.setHelp("This command executes Brainfuck from input.\n\tUsage: " + commands.getExecutor() + cmd.getCommand()
-				+ " <Brainfuck>");
+		cmd.setHelp("This command executes Brainfuck from input.\n\tUsage: " + commands.getExecutor() + "$CMD$ <Brainfuck>");
 
 		cmd = commands.registerCommand("javascript", "Executes JavaScript from input", new ICommandListener() {
 
@@ -1150,7 +1159,7 @@ public class Bot {
 		cmd.getPrivileges().setPrivilege("bot_master", 1);
 		cmd.getPrivileges().setPrivilege("execute_code", 1);
 		cmd.setHelp("This command executes JavaScript from a file.\n\tUsage: " + commands.getExecutor()
-				+ cmd.getCommand() + " <file name>");
+				+ "$CMD$ <file name>");
 
 		cmd = commands.registerCommand("rawjavascript", "Executes JavaScript from input", new ICommandListener() {
 
@@ -1185,7 +1194,7 @@ public class Bot {
 		});
 		cmd.getPrivileges().setPrivilege("execute_code", 1);
 		cmd.setHelp("This command executes JavaScript from input.\n\tUsage: " + commands.getExecutor()
-				+ cmd.getCommand() + " <JavaScript>");
+				+ "$CMD$ <JavaScript>");
 
 		cmd = commands.registerCommand("polynom", "Plots a polynom", new ICommandListener() {
 
@@ -1231,8 +1240,7 @@ public class Bot {
 					sendMessage(args, message);
 			}
 		});
-		cmd.setHelp("This command plots a polynom.\n\tUsage: " + commands.getExecutor() + cmd.getCommand()
-				+ " <x0> <Optional x1> <Optional x2>...");
+		cmd.setHelp("This command plots a polynom.\n\tUsage: " + commands.getExecutor() + "$CMD$ <x0> <Optional x1> <Optional x2>...");
 
 		cmd = commands.registerCommand("plot", "Plots a graph using JavaScript", new ICommandListener() {
 
@@ -1245,25 +1253,37 @@ public class Bot {
 			 */
 			@Override
 			public void onCommand(CommandEventArgs args) {
-				/*
-				 * String message; Object return_value; if
-				 * (args.getParams().size() > 0) { ScriptEngine engine = new
-				 * ScriptEngineManager().getEngineByName("JavaScript"); try {
-				 * StringWriter sw = new StringWriter(); StringBuilder sb = new
-				 * StringBuilder("var results = function")
-				 * engine.getContext().setWriter(sw); return_value =
-				 * engine.eval(.toString()); message.append(
-				 * "```JavaScript output```\n\n```\n");
-				 * message.append(sw.toString()); message.append("\n```"); }
-				 * catch (ScriptException e) { message = new StringBuilder(
-				 * "```JavaScript error```\n\n```\n");
-				 * message.append(e.getMessage()); message.append("```"); } }
-				 * else message =
-				 * args.getCommand().generateHelp(users.findUser(args.getIssuer(
-				 * ).getID()), commands); sendMessage(args, message);
-				 */
+				String message = null;
+				User user = users.findUser(args.getIssuer().getID());
+				if (args.getParams().size() > 0) {
+					try {
+						String script = args.getRawParams();
+						JSAlgorithm jsa = new JSAlgorithm("y = " + script + ";");
+						ImageGraph<Double, Double> graph = new ImageGraph<Double, Double>(1920, 1080, 100.0, 100.0, 0.0, 0.0);
+						graph.plot(new DoubleRange(-100.0, 100.0, 50000), jsa, Color.WHITE);
+						File f = new File("tempplot.png");
+						try {
+							ImageIO.write(graph, "PNG", f);
+							try {
+								args.getChannel().sendFile(new File("tempplot.png"));
+								message = script;
+							} catch (IOException | MissingPermissionsException | DiscordException
+									| RateLimitException e) {
+								message = "Failed to upload plot.";
+							}
+						} catch (IOException e) {
+							message = "Plot couldn't be saved.";
+						}
+					} catch (ScriptException e) {
+						message = "```JavaScript error```\n\n```\n" + e.getMessage() + "\n```";
+					}
+				} else
+					message = args.getCommand().generateHelp(user, commands);
+				if (message != null)
+					sendMessage(args, message.toString());
 			}
 		});
+		cmd.setHelp("This command allows you to plot a 2D graph with \"x\" as variable. Usage: " + commands.getExecutor() + " $CMD$ <JavaScript expression>");
 
 		// "https://tools.ietf.org/pdf/rfc3514.pdf"
 		cmd = commands.registerCommand("rfc", "Shows a link to this RFC", new ICommandListener() {
@@ -1287,10 +1307,17 @@ public class Bot {
 				sendMessage(args, message);
 			}
 		});
-		cmd.setHelp("This command displays a RFC.\n\tUsage: " + commands.getExecutor() + cmd.getCommand() + " <RFC>");
+		cmd.setHelp("This command displays a RFC.\n\tUsage: " + commands.getExecutor() + "$CMD$ <RFC>");
 
 		cmd = commands.registerCommand("suicidegirl", "Show a SuicideGirl picture", new ICommandListener() {
 
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
+			 * event.CommandEventArgs)
+			 */
 			@Override
 			public void onCommand(CommandEventArgs args) {
 				String filter = "";
@@ -1317,12 +1344,19 @@ public class Bot {
 		});
 		cmd.getPrivileges().setPrivilege("nude_pictures", 1);
 		cmd.setHelp("This command shows a random SuicideGirl picture by search criteria.\n\tUsage: "
-				+ commands.getExecutor() + cmd.getCommand() + " <Search criteria (optional)>");
+				+ commands.getExecutor() + "$CMD$ <Search criteria (optional)>");
 
 		commands.sort();
 
 		client.getDispatcher().registerListener(new IListener<ReadyEvent>() {
 
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * sx.blah.discord.api.events.IListener#handle(sx.blah.discord.api.
+			 * events.Event)
+			 */
 			@Override
 			public void handle(ReadyEvent event) {
 				System.out.println("=== API is ready! ===");
@@ -1331,6 +1365,13 @@ public class Bot {
 		});
 		client.getDispatcher().registerListener(new IListener<MessageReceivedEvent>() {
 
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * sx.blah.discord.api.events.IListener#handle(sx.blah.discord.api.
+			 * events.Event)
+			 */
 			@Override
 			public void handle(MessageReceivedEvent event) {
 				System.out.println(
@@ -1403,25 +1444,5 @@ public class Bot {
 
 		return bot;
 	}
-
-	// /**
-	// * Ready event
-	// *
-	// * @param event
-	// * Event
-	// */
-	// public void onReadyEvent(ReadyEvent event) {
-	// System.out.println("=== API is ready! ===");
-	// }
-	//
-	// /**
-	// * Message received event
-	// *
-	// * @param event
-	// * Event
-	// */
-	// public void onMessageReceivedEvent(MessageReceivedEvent event) {
-	//
-	// }
 
 }

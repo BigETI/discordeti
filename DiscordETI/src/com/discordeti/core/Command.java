@@ -123,7 +123,7 @@ public class Command extends CommandNotifier {
 		sb.append("\n\t");
 		sb.append(description);
 		sb.append("\n\n\t");
-		sb.append(help);
+		sb.append(help.replaceAll("\\$CMD\\$", command));
 		sb.append("\n\n\tRequired privileges:");
 		if (privileges.getPrivileges().size() > 0) {
 			for (Entry<String, Integer> i : privileges.getPrivileges().entrySet()) {
