@@ -118,7 +118,7 @@ public class Command extends CommandNotifier {
 	 */
 	public String generateHelp(User user, Commands commands) {
 		StringBuilder sb = new StringBuilder("```");
-		sb.append(commands.getExecutor());
+		sb.append(commands.getDelimiter());
 		sb.append(command);
 		sb.append("\n\t");
 		sb.append(description);

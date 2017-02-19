@@ -26,7 +26,7 @@ public class Commands {
 	/**
 	 * Executor
 	 */
-	private char executor = '%';
+	private char delimiter = '%';
 
 	/**
 	 * Register command
@@ -59,22 +59,22 @@ public class Commands {
 	}
 
 	/**
-	 * Get executor
+	 * Get delimiter
 	 * 
-	 * @return Executor
+	 * @return Delimiter
 	 */
-	public char getExecutor() {
-		return executor;
+	public char getDelimiter() {
+		return delimiter;
 	}
 
 	/**
 	 * Set executor
 	 * 
-	 * @param executor
-	 *            Executor
+	 * @param delimiter
+	 *            Delimiter
 	 */
-	public void setExecutor(char executor) {
-		this.executor = executor;
+	public void setDelimiter(char delimiter) {
+		this.delimiter = delimiter;
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class Commands {
 		String msg = message.getContent();
 		if (msg != null) {
 			if (msg.length() > 1) {
-				if (msg.charAt(0) == executor) {
+				if (msg.charAt(0) == delimiter) {
 					msg = msg.substring(1).trim();
 					String[] args = msg.split("\\s+");
 					if (args != null) {

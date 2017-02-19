@@ -11,7 +11,7 @@ import org.json.JSONObject;
  * @author Ethem Kurt
  *
  */
-public class Users {
+public class Users implements IConfiguration {
 
 	/**
 	 * Users
@@ -57,9 +57,12 @@ public class Users {
 		return ret;
 	}
 
-	/**
-	 * Save configuration
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.discordeti.core.IConfiguration#save()
 	 */
+	@Override
 	public void save() {
 		JSONObject config = new JSONObject();
 		for (Entry<String, User> i : users.entrySet()) {
@@ -68,9 +71,12 @@ public class Users {
 		ConfigIO.save("users.json", config);
 	}
 
-	/**
-	 * Load configuration
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.discordeti.core.IConfiguration#load()
 	 */
+	@Override
 	public void load() {
 		JSONObject config = ConfigIO.load("users.json");
 		users.clear();
