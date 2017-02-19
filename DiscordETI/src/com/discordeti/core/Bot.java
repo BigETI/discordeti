@@ -108,7 +108,48 @@ public class Bot {
 	public Bot(IDiscordClient client) {
 		client.getDispatcher().registerListener(this);
 
-		Command cmd = commands.registerCommand("addqueue", "Add audio stream to queue", new ICommandListener() {
+		Command cmd = commands.registerCommand("addfileplaylist", "Adds an audio file to a playlist",
+				new ICommandListener() {
+
+					/*
+					 * (non-Javadoc)
+					 * 
+					 * @see com.discordeti.event.ICommandListener#onCommand(com.
+					 * discordeti. event.CommandEventArgs)
+					 */
+					@Override
+					public void onCommand(CommandEventArgs args) {
+						String message = null;
+						if (args.getParams().size() > 1) {
+							Object o = (JSONObject) servers.getServerAttribute(args.getChannel().getGuild(),
+									"playlists");
+							if (o == null) {
+								o = new JSONObject();
+								servers.setServerAttribute(args.getChannel().getGuild(), "playlists", o);
+							}
+							JSONObject pls = (JSONObject) o;
+							String playlist = args.getParams().get(0).toLowerCase();
+							String track = args.getRawParams().substring(playlist.length()).trim();
+							JSONArray pl = (pls.has(playlist)) ? pls.getJSONArray(playlist) : new JSONArray();
+							JSONObject t = new JSONObject();
+							t.put("track", track);
+							t.put("is_stream", false);
+							pl.put(t);
+							pls.put(playlist, pl);
+							servers.save();
+							message = "Added audio file \"" + track + "\" to playlist \"" + playlist + "\".";
+						} else
+							message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()),
+									commands);
+						sendMessage(args, message);
+					}
+				});
+		cmd.setHelp("Adds an audio stream to a playlist.\n\tUsage: " + commands.getDelimiter()
+				+ "$CMD$ <playlist> <audio stream>");
+		cmd.getPrivileges().setPrivilege("bot_dj", 1);
+		cmd.getPrivileges().setPrivilege("bot_master", 1);
+
+		cmd = commands.registerCommand("addqueue", "Add audio stream to queue", new ICommandListener() {
 
 			/*
 			 * (non-Javadoc)
@@ -137,7 +178,7 @@ public class Bot {
 		cmd.setHelp("Adds an audio stream to the queue.\n\tUsage: " + commands.getDelimiter() + "$CMD$ <url>");
 		cmd.getPrivileges().setPrivilege("bot_dj", 1);
 
-		cmd = commands.registerCommand("addfilequeue", "Skip to", new ICommandListener() {
+		cmd = commands.registerCommand("addfilequeue", "Adds an audio file to queue", new ICommandListener() {
 
 			/*
 			 * (non-Javadoc)
@@ -167,7 +208,7 @@ public class Bot {
 		cmd.getPrivileges().setPrivilege("bot_dj", 1);
 		cmd.getPrivileges().setPrivilege("bot_master", 1);
 
-		cmd = commands.registerCommand("addplaylist", "Adds an audio stream to a playlist", new ICommandListener() {
+		cmd = commands.registerCommand("addplaylist", "Adds an audio file to the queue", new ICommandListener() {
 
 			/*
 			 * (non-Javadoc)
@@ -205,45 +246,6 @@ public class Bot {
 		cmd.setHelp("Adds an audio stream to a playlist.\n\tUsage: " + commands.getDelimiter()
 				+ "$CMD$ <playlist> <audio stream>");
 		cmd.getPrivileges().setPrivilege("bot_dj", 1);
-
-		cmd = commands.registerCommand("addfileplaylist", "Adds an audio file to a playlist", new ICommandListener() {
-
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see
-			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
-			 * event.CommandEventArgs)
-			 */
-			@Override
-			public void onCommand(CommandEventArgs args) {
-				String message = null;
-				if (args.getParams().size() > 1) {
-					Object o = (JSONObject) servers.getServerAttribute(args.getChannel().getGuild(), "playlists");
-					if (o == null) {
-						o = new JSONObject();
-						servers.setServerAttribute(args.getChannel().getGuild(), "playlists", o);
-					}
-					JSONObject pls = (JSONObject) o;
-					String playlist = args.getParams().get(0).toLowerCase();
-					String track = args.getRawParams().substring(playlist.length()).trim();
-					JSONArray pl = (pls.has(playlist)) ? pls.getJSONArray(playlist) : new JSONArray();
-					JSONObject t = new JSONObject();
-					t.put("track", track);
-					t.put("is_stream", false);
-					pl.put(t);
-					pls.put(playlist, pl);
-					servers.save();
-					message = "Added audio file \"" + track + "\" to playlist \"" + playlist + "\".";
-				} else
-					message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands);
-				sendMessage(args, message);
-			}
-		});
-		cmd.setHelp("Adds an audio stream to a playlist.\n\tUsage: " + commands.getDelimiter()
-				+ "$CMD$ <playlist> <audio stream>");
-		cmd.getPrivileges().setPrivilege("bot_dj", 1);
-		cmd.getPrivileges().setPrivilege("bot_master", 1);
 
 		cmd = commands.registerCommand("allowapp", "Returns a link to allow this application for your guild.",
 				new ICommandListener() {
@@ -768,7 +770,7 @@ public class Bot {
 				});
 		cmd.setHelp("This command lists all available voice channels.");
 
-		cmd = commands.registerCommand("loop", "Loops thje audio queue", new ICommandListener() {
+		cmd = commands.registerCommand("loop", "Loops the audio queue", new ICommandListener() {
 
 			/*
 			 * (non-Javadoc)
