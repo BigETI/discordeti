@@ -122,6 +122,8 @@ public class Command extends CommandNotifier {
 	 *            User instance
 	 * @param commands
 	 *            Commands instance
+	 * @param guild
+	 *            Guild instance
 	 * @return Help topic
 	 */
 	public String generateHelp(User user, Commands commands, IGuild guild) {
