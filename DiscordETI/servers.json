@@ -1,34 +1,46 @@
-{"185835089458888705": {"playlists": {"the-forest-online": [
-    {
-        "is_stream": true,
-        "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%201.mp3"
+{"185835089458888705": {
+    "auto_join_voice_channel": "277642307803807745",
+    "commandroles": {
+        "addcommandrole": {"185979804087091200": true},
+        "addplaylist": {
+            "194658715968864256": true,
+            "185979804087091200": true
+        },
+        "enablensfw": {}
     },
-    {
-        "is_stream": true,
-        "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%202.mp3"
-    },
-    {
-        "is_stream": true,
-        "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%203.mp3"
-    },
-    {
-        "is_stream": true,
-        "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%204.mp3"
-    },
-    {
-        "is_stream": true,
-        "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%205.mp3"
-    },
-    {
-        "is_stream": true,
-        "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%206.mp3"
-    },
-    {
-        "is_stream": true,
-        "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%207.mp3"
-    },
-    {
-        "is_stream": true,
-        "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%208.mp3"
-    }
-]}}}
+    "nsfw": {},
+    "playlists": {"the-forest-online": [
+        {
+            "is_stream": true,
+            "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%201.mp3"
+        },
+        {
+            "is_stream": true,
+            "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%202.mp3"
+        },
+        {
+            "is_stream": true,
+            "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%203.mp3"
+        },
+        {
+            "is_stream": true,
+            "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%204.mp3"
+        },
+        {
+            "is_stream": true,
+            "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%205.mp3"
+        },
+        {
+            "is_stream": true,
+            "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%206.mp3"
+        },
+        {
+            "is_stream": true,
+            "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%207.mp3"
+        },
+        {
+            "is_stream": true,
+            "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%208.mp3"
+        }
+    ]}
+}}

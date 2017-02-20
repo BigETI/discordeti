@@ -1,21 +1,41 @@
 package com.discordeti.core;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map.Entry;
 
 import org.json.JSONObject;
 
 import sx.blah.discord.handle.obj.IGuild;
 
+/**
+ * Servers class
+ * 
+ * @author Ethem Kurt
+ *
+ */
 public class Servers implements IConfiguration {
 
+	/**
+	 * Server entries
+	 */
 	private HashMap<String, JSONObject> servers = new HashMap<>();
 
 	/**
-	 * Defauolt constructor
+	 * Default constructor
 	 */
 	public Servers() {
 		load();
+	}
+
+	/**
+	 * Get server entries
+	 * 
+	 * @return Servers
+	 */
+	public HashMap<String, JSONObject> getServers() {
+		return servers;
 	}
 
 	/**

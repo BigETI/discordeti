@@ -12,12 +12,21 @@ import java.io.IOException;
  */
 public class Main implements Runnable {
 
+	/**
+	 * Client token
+	 */
 	private String token;
-	
+
+	/**
+	 * Constructor
+	 * 
+	 * @param token
+	 *            Client token
+	 */
 	public Main(String token) {
 		this.token = token;
 	}
-	
+
 	/**
 	 * Main entry
 	 * 
@@ -50,6 +59,11 @@ public class Main implements Runnable {
 			System.err.println("No key file specified.");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		Bot.login(token);
