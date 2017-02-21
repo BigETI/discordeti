@@ -11,8 +11,12 @@ import java.io.PrintStream;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
 import javax.script.ScriptEngine;
@@ -204,7 +208,7 @@ public class Bot {
 			}
 		});
 		cmd.setHelp("Adds an audio stream to a playlist.\n\tUsage: " + commands.getDelimiter()
-				+ "$CMD$ <playlist> <audio stream>");
+				+ "$CMD$ <playlist> <audio file>");
 		cmd.getPrivileges().setPrivilege("bot_master", 1);
 
 		cmd = commands.registerCommand("addqueue", "Add audio stream to queue", new ICommandListener() {
@@ -1161,6 +1165,59 @@ public class Bot {
 		cmd.setHelp("This command lets the bot play an audio file.\n\tUsage: " + commands.getDelimiter()
 				+ "$CMD$ <audio file>");
 
+		cmd = commands.registerCommand("playlistorder", "Changes the order of tracks within a playlist",
+				new ICommandListener() {
+
+					/*
+					 * (non-Javadoc)
+					 * 
+					 * @see com.discordeti.event.ICommandListener#onCommand(com.
+					 * discordeti.event.CommandEventArgs)
+					 */
+					@Override
+					public void onCommand(CommandEventArgs args) {
+						String message = null;
+						if (args.getParams().size() == 3) {
+							Object o = servers.getServerAttribute(args.getChannel().getGuild(), "playlists");
+							String playlist = args.getParams().get(0).toLowerCase();
+							try {
+								int from_index = Integer.parseInt(args.getParams().get(1));
+								int to_index = Integer.parseInt(args.getParams().get(2));
+								if (o != null) {
+									JSONObject pls = (JSONObject) o;
+									if (pls.has(playlist)) {
+										JSONArray tracks = pls.getJSONArray(playlist);
+										if ((from_index >= 0) && (from_index < tracks.length()) && (to_index >= 0)
+												&& (to_index < tracks.length())) {
+											if (from_index != to_index) {
+												JSONObject track = tracks.getJSONObject(to_index);
+												tracks.put(to_index, tracks.getJSONObject(from_index));
+												tracks.put(from_index, track);
+												message = "Order from tracks \""
+														+ tracks.getJSONObject(to_index).getString("track") + "\" and \""
+														+ track.getString("track") + "\" from playlist \"" + playlist
+														+ "\" has been changed.";
+											} else
+												message = "That didn't change anything at all.";
+										} else
+											message = "Invalid index!";
+									} else
+										message = "Playlist \"" + playlist + "\" not found.";
+								} else
+									message = "Playlist \"" + playlist + "\" not found.";
+							} catch (NumberFormatException e) {
+								e.printStackTrace();
+								message = "Invalid index!";
+							}
+						} else
+							message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands,
+									args.getChannel().getGuild());
+						sendMessage(args, message);
+					}
+				});
+		cmd.setHelp("This command changes the order of tracks within a playlist.\n\tUsage: " + commands.getDelimiter()
+				+ "$CMD$ <playlist> <from index> <to index>");
+
 		cmd = commands.registerCommand("playlists", "Lists playlists", new ICommandListener() {
 
 			/*
@@ -1192,7 +1249,10 @@ public class Bot {
 								JSONObject t = pl.getJSONObject(i);
 								String track = t.getString("track");
 								boolean is_stream = t.getBoolean("is_stream");
-								sb.append(is_stream ? "\n[STREAM] " : "\n[FILE] ");
+								sb.append("\n");
+								sb.append(i);
+								sb.append(" - ");
+								sb.append(is_stream ? "[STREAM] " : "[FILE] ");
 								sb.append(track);
 								if (((i + 1) % MAX_DISPLAY_TRACKS) == 0) {
 									sb.append("\n```");
@@ -1238,6 +1298,64 @@ public class Bot {
 			}
 		});
 		cmd.setHelp("Lists all playlists.\n\tUsage: " + commands.getDelimiter() + "$CMD$ <playlist (optional)>");
+
+		cmd = commands.registerCommand("playlistsort", "Sorts a playlist", new ICommandListener() {
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
+			 * event.CommandEventArgs)
+			 */
+			@Override
+			public void onCommand(CommandEventArgs args) {
+				String message = null;
+				if (args.getParams().size() == 2) {
+					Object o = servers.getServerAttribute(args.getChannel().getGuild(), "playlists");
+					String playlist = args.getParams().get(0).toLowerCase();
+					if (o != null) {
+						JSONObject pls = (JSONObject) o;
+						if (pls.has(playlist)) {
+							JSONArray tracks = pls.getJSONArray(playlist);
+							TreeMap<String, JSONObject> sorted = new TreeMap<>();
+							for (int i = 0, len = tracks.length(); i < len; i++) {
+								JSONObject track = tracks.getJSONObject(i);
+								sorted.put(track.getString("track"), track);
+							}
+							JSONArray sorted_tracks;
+							switch (args.getParams().get(1).toLowerCase()) {
+							case "asc":
+								sorted_tracks = new JSONArray();
+								for (String key : sorted.keySet())
+									sorted_tracks.put(sorted.get(key));
+								pls.put(playlist, sorted_tracks);
+								message = "Playlist \"" + playlist + "\" has been sorted ascending.";
+								break;
+							case "desc":
+								sorted_tracks = new JSONArray();
+								for (String key : sorted.descendingKeySet())
+									sorted_tracks.put(sorted.get(key));
+								pls.put(playlist, sorted_tracks);
+								message = "Playlist \"" + playlist + "\" has been sorted descending.";
+								break;
+							default:
+								message = "Invalid criteria!";
+							}
+						} else
+							message = "Playlist \"" + playlist + "\" not found.";
+
+					} else
+						message = "Playlist \"" + playlist + "\" not found.";
+
+				} else
+					message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands,
+							args.getChannel().getGuild());
+				sendMessage(args, message);
+			}
+		});
+		cmd.setHelp("This command sorts a playliost by ciriteria.\n\n\tCriterias:\n\t\tasc\n\t\tdesc\n\n\tUsage: "
+				+ commands.getDelimiter() + "$CMD$ <playlist> <criteria>");
 
 		cmd = commands.registerCommand("playplaylist", "Plays a playlist", new ICommandListener() {
 
@@ -1459,7 +1577,7 @@ public class Bot {
 			@Override
 			public void onCommand(CommandEventArgs args) {
 				String message = null;
-				if (args.getParams().size() == 1) {
+				if ((args.getParams().size() == 1) || (args.getParams().size() == 2)) {
 					Object o = (JSONObject) servers.getServerAttribute(args.getChannel().getGuild(), "playlists");
 					if (o == null) {
 						o = new JSONObject();
@@ -1467,17 +1585,76 @@ public class Bot {
 					}
 					JSONObject pls = (JSONObject) o;
 					String playlist = args.getParams().get(0).toLowerCase();
-					if (pls.has(playlist))
-						pls.remove(playlist);
+					if (pls.has(playlist)) {
+						if (args.getParams().size() == 2) {
+							JSONArray tracks = pls.getJSONArray(playlist);
+							try {
+								int index = Integer.parseInt(args.getParams().get(1));
+								if ((index >= 0) && (index < tracks.length())) {
+									message = "Removed track \"" + tracks.getJSONObject(index).getString("track")
+											+ "\" from playlist \"" + playlist + "\".";
+									tracks.remove(index);
+								} else
+									message = "Invalid index!";
+							} catch (NumberFormatException e) {
+								e.printStackTrace();
+								message = "Invalid index!";
+							}
+						} else {
+							pls.remove(playlist);
+							message = "Removed playlist \"" + playlist + "\".";
+						}
+					}
 					servers.save();
-					message = "Removed playlist \"" + playlist + "\".";
 				} else
 					message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands,
 							args.getChannel().getGuild());
 				sendMessage(args, message);
 			}
 		});
-		cmd.setHelp("Removes an entire playlist.\n\tUsage: " + commands.getDelimiter() + "$CMD$ <playlist>");
+		cmd.setHelp("Removes an entire playlist.\n\tUsage: " + commands.getDelimiter()
+				+ "$CMD$ <playlist> <song index (optional)>");
+
+		cmd = commands.registerCommand("renameplaylist", "Renames a playlist", new ICommandListener() {
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * com.discordeti.event.ICommandListener#onCommand(com.discordeti.
+			 * event.CommandEventArgs)
+			 */
+			@Override
+			public void onCommand(CommandEventArgs args) {
+				String message = null;
+				if (args.getParams().size() == 2) {
+					Object o = (JSONObject) servers.getServerAttribute(args.getChannel().getGuild(), "playlists");
+					String from_playlist = args.getParams().get(0).toLowerCase();
+					String to_playlist = args.getParams().get(1).toLowerCase();
+					if (o != null) {
+						JSONObject pls = (JSONObject) o;
+
+						if (pls.has(from_playlist)) {
+							if (pls.has(to_playlist))
+								message = "Playlist \"" + to_playlist + "\" already exists.";
+							else {
+								pls.put(to_playlist, pls.getJSONArray(from_playlist));
+								pls.remove(from_playlist);
+								message = "Playlist \"" + from_playlist + "\" has been renamed to \"" + to_playlist
+										+ "\".";
+							}
+						} else
+							message = "Playlist \"" + from_playlist + "\" not found.";
+					} else
+						message = "Playlist \"" + from_playlist + "\" not found.";
+				} else
+					message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands,
+							args.getChannel().getGuild());
+				sendMessage(args, message);
+			}
+		});
+		cmd.setHelp("This command renames a specified playlist.\n\tUsage: " + commands.getDelimiter()
+				+ "$CMD$ <from playlist> <to playlist>");
 
 		cmd = commands.registerCommand("resume", "Resumes the audio.", new ICommandListener() {
 
@@ -1937,7 +2114,7 @@ public class Bot {
 							message = "No files found by search criteria.";
 					} else
 						message = "NSFW is disabled on this channel. Use " + commands.getDelimiter() + "enablensfw or "
-								+ commands.getDelimiter() + "enablensfw" + cid + " to enable that feature.";
+								+ commands.getDelimiter() + "enablensfw " + cid + " to enable this feature.";
 				}
 				sendMessage(args, message);
 			}
