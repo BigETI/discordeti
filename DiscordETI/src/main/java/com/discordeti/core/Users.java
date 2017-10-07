@@ -89,9 +89,10 @@ public class Users implements IConfiguration
 	{
 		final JSONObject config = ConfigIO.load("users.json");
 		users.clear();
-		for (final String i : config.keySet())
+		for (final Object item : config.keySet())
 		{
-			users.put(i, new User(i, new Privileges(config.optJSONObject(i))));
+			final String itemAsString = (String) item;
+			users.put(itemAsString, new User(itemAsString, new Privileges(config.optJSONObject(itemAsString))));
 		}
 	}
 }

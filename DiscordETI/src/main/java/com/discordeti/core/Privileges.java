@@ -3,6 +3,7 @@ package com.discordeti.core;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 import org.json.JSONObject;
 
@@ -28,22 +29,19 @@ public class Privileges
 	}
 
 	/**
-	 * Constructor
-	 *
-	 * @param jo
+	 * @param jsonObject
 	 *            Configuration as a JSON object
 	 */
-	public Privileges(final JSONObject jo)
+	public Privileges(final JSONObject jsonObject)
 	{
-		Integer integer;
-		if (jo != null)
+		if (Objects.nonNull(jsonObject))
 		{
-			for (final String i : jo.keySet())
+			for (final Object item : jsonObject.keySet())
 			{
-				integer = jo.optInt(i);
-				if (integer != null)
+				if (item instanceof String)
 				{
-					privileges.put(i, integer);
+					final String itemAsString = (String) item;
+					privileges.put(itemAsString, jsonObject.optInt(itemAsString));
 				}
 			}
 		}

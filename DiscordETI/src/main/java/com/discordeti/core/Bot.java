@@ -24,13 +24,13 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.bigeti.jbfvm.BrainfuckVM;
+import com.bigeti.plotter.algorithms.JSAlgorithm;
+import com.bigeti.plotter.algorithms.Polynom;
+import com.bigeti.plotter.core.DoubleRange;
+import com.bigeti.plotter.visuals.ImageGraph;
 import com.discordeti.event.CommandEventArgs;
 import com.discordeti.event.ICommandListener;
-import com.jbfvm.core.BrainfuckVM;
-import com.plotter.algorithms.JSAlgorithm;
-import com.plotter.algorithms.Polynom;
-import com.plotter.core.DoubleRange;
-import com.plotter.visuals.ImageGraph;
 
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
@@ -88,7 +88,7 @@ public class Bot
 	/**
 	 * Use text to speech
 	 */
-	private boolean use_tts = false;
+	private final boolean use_tts = false;
 
 	/**
 	 * This object
@@ -98,7 +98,7 @@ public class Bot
 	/**
 	 * Volume
 	 */
-	private float volume = 0.1f;
+	private final float volume = 0.1f;
 
 	// private IDiscordClient client;
 
@@ -1364,7 +1364,7 @@ public class Bot
 				{
 					final String script = args.getRawParams();
 					final JSAlgorithm jsa = new JSAlgorithm("y = " + script + ";");
-					final ImageGraph<Double, Double> graph = new ImageGraph<Double, Double>(1920, 1080, 100.0, 100.0, 0.0, 0.0);
+					final ImageGraph<Double, Double> graph = new ImageGraph<>(1920, 1080, 100.0, 100.0, 0.0, 0.0);
 					graph.plot(new DoubleRange(-100.0, 100.0, 50000), jsa, Color.WHITE);
 					final File f = new File("tempplot.png");
 					try
@@ -2224,7 +2224,7 @@ public class Bot
 		});
 		client.getDispatcher().registerListener(event ->
 		{
-			System.out.println(event.getMessage().getCreationDate() + " <" + event.getMessage().getAuthor().getName() + "@"
+			System.out.println(event.getClient().getMessage().getMessage().getCreationDate() + " <" + event.getMessage().getAuthor().getName() + "@"
 					+ event.getMessage().getChannel().getName() + "> : " + event.getMessage().getContent());
 			if (event.getClient().getOurUser().getID().compareTo(event.getMessage().getAuthor().getID()) != 0)
 			{

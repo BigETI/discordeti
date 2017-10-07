@@ -127,9 +127,9 @@ public class Servers implements IConfiguration
 	public void load()
 	{
 		final JSONObject config = ConfigIO.load("servers.json");
-		for (final String key : config.keySet())
+		for (final Object key : config.keySet())
 		{
-			servers.put(key, config.getJSONObject(key));
+			servers.put((String) key, config.getJSONObject((String) key));
 		}
 	}
 }
