@@ -7,7 +7,7 @@ repositories {
 }
 
 dependencies {
-	compile 'com.github.austinv11:Discord4j:2.8.4'
+	compile 'com.github.austinv11:Discord4j:2.9+'
 	compile 'com.github.Bios-Marcel:plotter:-SNAPSHOT'
 	compile 'com.github.Bios-Marcel:jbfvm:-SNAPSHOT'
 }
