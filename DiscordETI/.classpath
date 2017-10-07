@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="F:/DEV/Repos/DiscordETI/DiscordETI/jbfvm_1_0.jar"/>
-	<classpathentry kind="lib" path="F:/DEV/Repos/DiscordETI/DiscordETI/JOCL-0.2.0RC.jar"/>
-	<classpathentry kind="lib" path="F:/DEV/Repos/DiscordETI/DiscordETI/json-20150729.jar"/>
-	<classpathentry kind="lib" path="F:/DEV/Repos/DiscordETI/DiscordETI/plotter_1_0_1.jar"/>
-	<classpathentry kind="lib" path="F:/DEV/Repos/DiscordETI/DiscordETI/Discord4j-2.7.0-shaded.jar"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
+	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
