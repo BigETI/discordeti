@@ -1,0 +1,13 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+repositories {
+	maven { url 'https://jitpack.io' }
+    jcenter()
+}
+
+dependencies {
+	compile 'com.github.austinv11:Discord4j:2.9+'
+	compile 'com.github.Bios-Marcel:plotter:-SNAPSHOT'
+	compile 'com.github.Bios-Marcel:jbfvm:-SNAPSHOT'
+}
