@@ -2,10 +2,10 @@ package com.discordeti.event;
 
 /**
  * General listener interface
- * 
- * @author Ethem Kurt
  *
+ * @author Ethem Kurt
  */
-public interface IListener {
+public interface IListener
+{
 	//
 }

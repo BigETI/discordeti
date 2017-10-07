@@ -1,6 +1,7 @@
 package com.discordeti.core;
 
-public interface IConfiguration {
+public interface IConfiguration
+{
 
 	/**
 	 * Save configuration

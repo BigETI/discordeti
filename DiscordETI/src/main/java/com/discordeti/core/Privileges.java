@@ -8,85 +8,104 @@ import org.json.JSONObject;
 
 /**
  * Privileges class
- * 
- * @author Ethem Kurt
  *
+ * @author Ethem Kurt
  */
-public class Privileges {
+public class Privileges
+{
 
 	/**
 	 * Privileges
 	 */
-	private HashMap<String, Integer> privileges = new HashMap<>();
+	private final HashMap<String, Integer> privileges = new HashMap<>();
 
 	/**
 	 * Default constructor
 	 */
-	public Privileges() {
+	public Privileges()
+	{
 		//
 	}
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param jo
 	 *            Configuration as a JSON object
 	 */
-	public Privileges(JSONObject jo) {
+	public Privileges(final JSONObject jo)
+	{
 		Integer integer;
-		if (jo != null) {
-			for (String i : jo.keySet()) {
+		if (jo != null)
+		{
+			for (final String i : jo.keySet())
+			{
 				integer = jo.optInt(i);
 				if (integer != null)
+				{
 					privileges.put(i, integer);
+				}
 			}
 		}
 	}
 
 	/**
 	 * Set privilege
-	 * 
+	 *
 	 * @param privilege
 	 *            Privilege
 	 * @param value
 	 *            Value
 	 */
-	public void setPrivilege(String privilege, int value) {
+	public void setPrivilege(String privilege, final int value)
+	{
 		privilege = privilege.trim().toLowerCase();
 		if (privileges.containsKey(privilege))
+		{
 			privileges.remove(privilege);
+		}
 		privileges.put(privilege, value);
 	}
 
 	/**
 	 * Revoke privilege
-	 * 
+	 *
 	 * @param privilege
 	 *            Privilege
 	 */
-	public void revokePrivilege(String privilege) {
+	public void revokePrivilege(String privilege)
+	{
 		privilege = privilege.trim().toLowerCase();
 		if (privileges.containsKey(privilege))
+		{
 			privileges.remove(privilege);
+		}
 	}
 
 	/**
 	 * Check privileges
-	 * 
+	 *
 	 * @param user
 	 *            User
 	 * @return If success "true", otherwise "false"
 	 */
-	public boolean checkPrivileges(User user) {
+	public boolean checkPrivileges(final User user)
+	{
 		boolean ret = false;
 		if (user == null)
-			ret = (privileges.size() <= 0);
-		else {
+		{
+			ret = privileges.size() <= 0;
+		}
+		else
+		{
 			ret = true;
-			for (Entry<String, Integer> i : privileges.entrySet()) {
+			for (final Entry<String, Integer> i : privileges.entrySet())
+			{
 				ret = false;
 				if (user.getPrivileges().privileges.containsKey(i.getKey()))
-					ret = (user.getPrivileges().privileges.get(i.getKey()).intValue() >= i.getValue().intValue());
+				{
+					ret = user.getPrivileges().privileges.get(i.getKey()).intValue() >= i.getValue().intValue();
+				}
 			}
 		}
 		return ret;
@@ -94,22 +113,26 @@ public class Privileges {
 
 	/**
 	 * Get privileges
-	 * 
+	 *
 	 * @return Privileges
 	 */
-	public Map<String, Integer> getPrivileges() {
+	public Map<String, Integer> getPrivileges()
+	{
 		return privileges;
 	}
 
 	/**
 	 * Serialize to JSON object
-	 * 
+	 *
 	 * @return JSON object
 	 */
-	public JSONObject toJSON() {
-		JSONObject ret = new JSONObject();
-		for (Entry<String, Integer> i : privileges.entrySet())
+	public JSONObject toJSON()
+	{
+		final JSONObject ret = new JSONObject();
+		for (final Entry<String, Integer> i : privileges.entrySet())
+		{
 			ret.put(i.getKey(), i.getValue());
+		}
 		return ret;
 	}
 }

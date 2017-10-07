@@ -11,40 +11,40 @@ import sx.blah.discord.handle.obj.IUser;
 
 /**
  * Command event arguments class
- * 
- * @author Ethem Kurt
  *
+ * @author Ethem Kurt
  */
-public class CommandEventArgs {
+public class CommandEventArgs
+{
 
 	/**
 	 * Bot instance
 	 */
-	private Bot bot;
+	private final Bot bot;
 
 	/**
 	 * Command
 	 */
-	private Command command;
+	private final Command command;
 
 	/**
 	 * Message
 	 */
-	private IMessage message;
+	private final IMessage message;
 
 	/**
 	 * Parameters
 	 */
-	private List<String> params;
+	private final List<String> params;
 
 	/**
 	 * Raw parameters
 	 */
-	private String raw_params;
+	private final String raw_params;
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param bot
 	 *            Bot instance
 	 * @param command
@@ -56,7 +56,8 @@ public class CommandEventArgs {
 	 * @param raw_params
 	 *            Raw parameters
 	 */
-	public CommandEventArgs(Bot bot, Command command, IMessage message, List<String> params, String raw_params) {
+	public CommandEventArgs(final Bot bot, final Command command, final IMessage message, final List<String> params, final String raw_params)
+	{
 		this.bot = bot;
 		this.command = command;
 		this.message = message;
@@ -66,64 +67,71 @@ public class CommandEventArgs {
 
 	/**
 	 * Get bot instance
-	 * 
+	 *
 	 * @return Bot instance
 	 */
-	public Bot getBot() {
+	public Bot getBot()
+	{
 		return bot;
 	}
 
 	/**
 	 * Get command
-	 * 
+	 *
 	 * @return Command
 	 */
-	public Command getCommand() {
+	public Command getCommand()
+	{
 		return command;
 	}
 
 	/**
 	 * Get message
-	 * 
+	 *
 	 * @return Message
 	 */
-	public IMessage getMessage() {
+	public IMessage getMessage()
+	{
 		return message;
 	}
 
 	/**
 	 * Get channel
-	 * 
+	 *
 	 * @return Channel
 	 */
-	public IChannel getChannel() {
+	public IChannel getChannel()
+	{
 		return message.getChannel();
 	}
 
 	/**
 	 * Get issuer
-	 * 
+	 *
 	 * @return Issuer
 	 */
-	public IUser getIssuer() {
+	public IUser getIssuer()
+	{
 		return message.getAuthor();
 	}
 
 	/**
 	 * Get parameters
-	 * 
+	 *
 	 * @return Parameters
 	 */
-	public List<String> getParams() {
+	public List<String> getParams()
+	{
 		return params;
 	}
 
 	/**
 	 * Get raw parameters
-	 * 
+	 *
 	 * @return Raw parameters
 	 */
-	public String getRawParams() {
+	public String getRawParams()
+	{
 		return raw_params;
 	}
 }

@@ -9,56 +9,62 @@ import sx.blah.discord.handle.obj.IGuild;
 
 /**
  * Servers class
- * 
- * @author Ethem Kurt
  *
+ * @author Ethem Kurt
  */
-public class Servers implements IConfiguration {
+public class Servers implements IConfiguration
+{
 
 	/**
 	 * Server entries
 	 */
-	private HashMap<String, JSONObject> servers = new HashMap<>();
+	private final HashMap<String, JSONObject> servers = new HashMap<>();
 
 	/**
 	 * Default constructor
 	 */
-	public Servers() {
+	public Servers()
+	{
 		load();
 	}
 
 	/**
 	 * Get server entries
-	 * 
+	 *
 	 * @return Servers
 	 */
-	public HashMap<String, JSONObject> getServers() {
+	public HashMap<String, JSONObject> getServers()
+	{
 		return servers;
 	}
 
 	/**
 	 * Gets a server attribute
-	 * 
+	 *
 	 * @param guild
 	 *            Guild
 	 * @param key
 	 *            Server attribute key
 	 * @return Server attribute
 	 */
-	public Object getServerAttribute(IGuild guild, String key) {
+	public Object getServerAttribute(final IGuild guild, final String key)
+	{
 		Object ret = null;
-		String id = guild.getID();
-		if (servers.containsKey(id)) {
-			JSONObject s = servers.get(id);
+		final String id = guild.getID();
+		if (servers.containsKey(id))
+		{
+			final JSONObject s = servers.get(id);
 			if (s.has(key))
+			{
 				ret = s.get(key);
+			}
 		}
 		return ret;
 	}
 
 	/**
 	 * Sets a server attribute
-	 * 
+	 *
 	 * @param guild
 	 *            Guild
 	 * @param key
@@ -66,9 +72,10 @@ public class Servers implements IConfiguration {
 	 * @param attribute
 	 *            Server attribute
 	 */
-	public void setServerAttribute(IGuild guild, String key, Object attribute) {
-		String id = guild.getID();
-		JSONObject s = (servers.containsKey(id)) ? servers.get(id) : new JSONObject();
+	public void setServerAttribute(final IGuild guild, final String key, final Object attribute)
+	{
+		final String id = guild.getID();
+		final JSONObject s = servers.containsKey(id) ? servers.get(id) : new JSONObject();
 		s.put(key, attribute);
 		servers.put(id, s);
 		save();
@@ -76,17 +83,20 @@ public class Servers implements IConfiguration {
 
 	/**
 	 * Removes a server attribute
-	 * 
+	 *
 	 * @param guild
 	 *            Guild
 	 * @param key
 	 *            Server attribute key
 	 */
-	public void removeServerAttribute(IGuild guild, String key) {
-		String id = guild.getID();
-		if (servers.containsKey(id)) {
-			JSONObject s = servers.get(id);
-			if (s.has(key)) {
+	public void removeServerAttribute(final IGuild guild, final String key)
+	{
+		final String id = guild.getID();
+		if (servers.containsKey(id))
+		{
+			final JSONObject s = servers.get(id);
+			if (s.has(key))
+			{
 				s.remove(key);
 				save();
 			}
@@ -95,13 +105,14 @@ public class Servers implements IConfiguration {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see com.discordeti.core.IConfiguration#save()
 	 */
 	@Override
-	public void save() {
-		JSONObject config = new JSONObject();
-		for (Entry<String, JSONObject> i : servers.entrySet()) {
+	public void save()
+	{
+		final JSONObject config = new JSONObject();
+		for (final Entry<String, JSONObject> i : servers.entrySet())
+		{
 			// config.put(i.getKey(), i.getValue().toJSON());
 			config.put(i.getKey(), i.getValue());
 		}
@@ -110,13 +121,14 @@ public class Servers implements IConfiguration {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see com.discordeti.core.IConfiguration#load()
 	 */
 	@Override
-	public void load() {
-		JSONObject config = ConfigIO.load("servers.json");
-		for (String key : config.keySet()) {
+	public void load()
+	{
+		final JSONObject config = ConfigIO.load("servers.json");
+		for (final String key : config.keySet())
+		{
 			servers.put(key, config.getJSONObject(key));
 		}
 	}

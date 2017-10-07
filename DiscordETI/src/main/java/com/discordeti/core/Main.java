@@ -6,66 +6,82 @@ import java.io.IOException;
 
 /**
  * Main entry class
- * 
- * @author Ethem Kurt
  *
+ * @author Ethem Kurt
  */
-public class Main implements Runnable {
+public class Main implements Runnable
+{
 
 	/**
 	 * Client token
 	 */
-	private String token;
+	private final String token;
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param token
 	 *            Client token
 	 */
-	public Main(String token) {
+	public Main(final String token)
+	{
 		this.token = token;
 	}
 
 	/**
 	 * Main entry
-	 * 
+	 *
 	 * @param args
 	 *            Command line arguments
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args)
+	{
 		String token = null;
-		if (args.length > 0) {
-			for (int i = 0; i < args.length; i++) {
-				System.out.println("Reading file \"" + args[i] + "\"...");
-				try (FileReader fr = new FileReader(args[i])) {
-					try (BufferedReader br = new BufferedReader(fr)) {
+		if (args.length > 0)
+		{
+			for (final String arg : args)
+			{
+				System.out.println("Reading file \"" + arg + "\"...");
+				try (FileReader fr = new FileReader(arg))
+				{
+					try (BufferedReader br = new BufferedReader(fr))
+					{
 						token = br.readLine().trim();
-					} finally {
+					}
+					finally
+					{
 						//
 					}
-				} catch (IOException e) {
+				}
+				catch (final IOException e)
+				{
 					e.printStackTrace();
-				} finally {
+				}
+				finally
+				{
 					//
 				}
-				if (token != null) {
-					Main bt = new Main(token);
-					Thread t = new Thread(bt);
+				if (token != null)
+				{
+					final Main bt = new Main(token);
+					final Thread t = new Thread(bt);
 					t.start();
 				}
 			}
-		} else
+		}
+		else
+		{
 			System.err.println("No key file specified.");
+		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Runnable#run()
 	 */
 	@Override
-	public void run() {
+	public void run()
+	{
 		Bot.login(token);
 	}
 }

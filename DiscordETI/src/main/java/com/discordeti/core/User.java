@@ -4,59 +4,63 @@ import org.json.JSONObject;
 
 /**
  * User class
- * 
- * @author Ethem Kurt
  *
+ * @author Ethem Kurt
  */
-public class User {
+public class User
+{
 
 	/**
 	 * ID
 	 */
-	private String id;
+	private final String id;
 
 	/**
 	 * Privileges
 	 */
-	private Privileges privileges;
+	private final Privileges privileges;
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param id
 	 *            ID
 	 * @param privileges
 	 *            Privileges
 	 */
-	public User(String id, Privileges privileges) {
+	public User(final String id, final Privileges privileges)
+	{
 		this.id = id;
 		this.privileges = privileges;
 	}
 
 	/**
 	 * Get ID
-	 * 
+	 *
 	 * @return ID
 	 */
-	public String getID() {
+	public String getID()
+	{
 		return id;
 	}
 
 	/**
 	 * Get privileges
-	 * 
+	 *
 	 * @return Privileges
 	 */
-	public Privileges getPrivileges() {
+	public Privileges getPrivileges()
+	{
 		return privileges;
 	}
 
 	/**
 	 * Serialize to JSON object
-	 * 
+	 *
 	 * @return JSON object
 	 */
-	public JSONObject toJSON() {
+	public JSONObject toJSON()
+	{
 		return privileges.toJSON();
 	}
 }
