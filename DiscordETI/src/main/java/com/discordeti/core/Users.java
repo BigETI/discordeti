@@ -16,7 +16,7 @@ public class Users implements IConfiguration
 	/**
 	 * Users
 	 */
-	private final HashMap<String, User> users = new HashMap<>();
+	private final HashMap<Long, User> users = new HashMap<>();
 
 	/**
 	 * Constructor
@@ -33,7 +33,7 @@ public class Users implements IConfiguration
 	 *            User ID
 	 * @return User instance
 	 */
-	public User findUser(final String id)
+	public User findUser(final long id)
 	{
 		User ret = null;
 		if (users.containsKey(id))
@@ -50,7 +50,7 @@ public class Users implements IConfiguration
 	 *            User ID
 	 * @return User instance
 	 */
-	public User addUser(final String id)
+	public User addUser(final long id)
 	{
 		User ret = null;
 		if (users.containsKey(id))
@@ -73,9 +73,9 @@ public class Users implements IConfiguration
 	public void save()
 	{
 		final JSONObject config = new JSONObject();
-		for (final Entry<String, User> i : users.entrySet())
+		for (final Entry<Long, User> i : users.entrySet())
 		{
-			config.put(i.getKey(), i.getValue().toJSON());
+			config.put(i.getKey().toString(), i.getValue().toJSON());
 		}
 		ConfigIO.save("users.json", config);
 	}
@@ -91,8 +91,16 @@ public class Users implements IConfiguration
 		users.clear();
 		for (final Object item : config.keySet())
 		{
-			final String itemAsString = (String) item;
-			users.put(itemAsString, new User(itemAsString, new Privileges(config.optJSONObject(itemAsString))));
+			try
+			{
+				final String item_as_string = (String) item;
+				final long item_as_long = Long.parseLong(item_as_string);
+				users.put(item_as_long, new User(item_as_long, new Privileges(config.optJSONObject(item_as_string))));
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 }

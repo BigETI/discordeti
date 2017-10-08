@@ -18,7 +18,7 @@ public class Servers implements IConfiguration
 	/**
 	 * Server entries
 	 */
-	private final HashMap<String, JSONObject> servers = new HashMap<>();
+	private final HashMap<Long, JSONObject> servers = new HashMap<>();
 
 	/**
 	 * Default constructor
@@ -33,7 +33,7 @@ public class Servers implements IConfiguration
 	 *
 	 * @return Servers
 	 */
-	public HashMap<String, JSONObject> getServers()
+	public HashMap<Long, JSONObject> getServers()
 	{
 		return servers;
 	}
@@ -50,7 +50,7 @@ public class Servers implements IConfiguration
 	public Object getServerAttribute(final IGuild guild, final String key)
 	{
 		Object ret = null;
-		final String id = guild.getID();
+		final Long id = guild.getLongID();
 		if (servers.containsKey(id))
 		{
 			final JSONObject s = servers.get(id);
@@ -74,7 +74,7 @@ public class Servers implements IConfiguration
 	 */
 	public void setServerAttribute(final IGuild guild, final String key, final Object attribute)
 	{
-		final String id = guild.getID();
+		final long id = guild.getLongID();
 		final JSONObject s = servers.containsKey(id) ? servers.get(id) : new JSONObject();
 		s.put(key, attribute);
 		servers.put(id, s);
@@ -91,7 +91,7 @@ public class Servers implements IConfiguration
 	 */
 	public void removeServerAttribute(final IGuild guild, final String key)
 	{
-		final String id = guild.getID();
+		final long id = guild.getLongID();
 		if (servers.containsKey(id))
 		{
 			final JSONObject s = servers.get(id);
@@ -111,10 +111,9 @@ public class Servers implements IConfiguration
 	public void save()
 	{
 		final JSONObject config = new JSONObject();
-		for (final Entry<String, JSONObject> i : servers.entrySet())
+		for (final Entry<Long, JSONObject> i : servers.entrySet())
 		{
-			// config.put(i.getKey(), i.getValue().toJSON());
-			config.put(i.getKey(), i.getValue());
+			config.put(i.getKey().toString(), i.getValue());
 		}
 		ConfigIO.save("servers.json", config);
 	}
@@ -129,7 +128,9 @@ public class Servers implements IConfiguration
 		final JSONObject config = ConfigIO.load("servers.json");
 		for (final Object key : config.keySet())
 		{
-			servers.put((String) key, config.getJSONObject((String) key));
+			final String key_as_string = (String) key;
+			final long key_as_long = Long.parseLong(key_as_string);
+			servers.put(key_as_long, config.getJSONObject(key_as_string));
 		}
 	}
 }

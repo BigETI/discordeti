@@ -39,7 +39,10 @@ public class Command extends CommandNotifier
 	 */
 	private final Privileges privileges = new Privileges();
 
-	private final HashMap<String, HashSet<String>> servers = new HashMap<>();
+	/**
+	 * Servers
+	 */
+	private final HashMap<Long, HashSet<Long>> servers = new HashMap<>();
 
 	/**
 	 * Constructor
@@ -147,12 +150,12 @@ public class Command extends CommandNotifier
 		if (guild != null)
 		{
 			sb.append("\n\n\tRequired roles:");
-			final String gid = guild.getID();
+			final long gid = guild.getLongID();
 			if (servers.containsKey(gid))
 			{
-				final HashSet<String> roles = servers.get(gid);
+				final HashSet<Long> roles = servers.get(gid);
 				boolean hn = true;
-				for (final String rk : roles)
+				for (final Long rk : roles)
 				{
 					final IRole role = guild.getRoleByID(rk);
 					if (role != null)
@@ -160,7 +163,7 @@ public class Command extends CommandNotifier
 						sb.append("\n\t\t");
 						sb.append(role.getName());
 						sb.append(" : ");
-						sb.append(role.getID());
+						sb.append(role.getLongID());
 						hn = false;
 					}
 				}
@@ -206,10 +209,10 @@ public class Command extends CommandNotifier
 	public boolean checkRoles(final IGuild guild, final IUser user)
 	{
 		boolean ret = true;
-		final String gid = guild.getID();
+		final Long gid = guild.getLongID();
 		if (servers.containsKey(gid))
 		{
-			for (final String role : servers.get(gid))
+			for (final Long role : servers.get(gid))
 			{
 				final IRole r = guild.getRoleByID(role);
 				if (r != null)
@@ -217,7 +220,7 @@ public class Command extends CommandNotifier
 					ret = false;
 					for (final IRole ur : user.getRolesForGuild(guild))
 					{
-						if (ur.getID() == role)
+						if (ur.getLongID() == role)
 						{
 							ret = true;
 							break;
@@ -239,8 +242,8 @@ public class Command extends CommandNotifier
 	 */
 	public void addRoleForServer(final IGuild guild, final IRole role)
 	{
-		final String gid = guild.getID();
-		HashSet<String> roles = null;
+		final Long gid = guild.getLongID();
+		HashSet<Long> roles = null;
 		if (servers.containsKey(gid))
 		{
 			roles = servers.get(gid);
@@ -249,7 +252,7 @@ public class Command extends CommandNotifier
 		{
 			roles = new HashSet<>();
 		}
-		roles.add(role.getID());
+		roles.add(role.getLongID());
 		servers.put(gid, roles);
 	}
 
@@ -263,8 +266,8 @@ public class Command extends CommandNotifier
 	 */
 	public void removeRoleForServer(final IGuild guild, final IRole role)
 	{
-		final String gid = guild.getID();
-		HashSet<String> roles = null;
+		final Long gid = guild.getLongID();
+		HashSet<Long> roles = null;
 		if (servers.containsKey(gid))
 		{
 			roles = servers.get(gid);
@@ -273,7 +276,7 @@ public class Command extends CommandNotifier
 		{
 			roles = new HashSet<>();
 		}
-		final String rid = role.getID();
+		final Long rid = role.getLongID();
 		if (roles.contains(rid))
 		{
 			roles.remove(rid);

@@ -13,7 +13,7 @@ public class User
 	/**
 	 * ID
 	 */
-	private final String id;
+	private final long id;
 
 	/**
 	 * Privileges
@@ -28,7 +28,7 @@ public class User
 	 * @param privileges
 	 *            Privileges
 	 */
-	public User(final String id, final Privileges privileges)
+	public User(final long id, final Privileges privileges)
 	{
 		this.id = id;
 		this.privileges = privileges;
@@ -39,7 +39,7 @@ public class User
 	 *
 	 * @return ID
 	 */
-	public String getID()
+	public long getID()
 	{
 		return id;
 	}

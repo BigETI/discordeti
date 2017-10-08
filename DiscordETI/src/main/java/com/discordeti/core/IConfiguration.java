@@ -1,5 +1,11 @@
 package com.discordeti.core;
 
+/**
+ * Configuration interface
+ * 
+ * @author Ethem Kurt
+ *
+ */
 public interface IConfiguration
 {
 

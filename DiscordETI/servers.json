@@ -1,46 +1,2621 @@
-{"185835089458888705": {
-    "auto_join_voice_channel": "277642307803807745",
-    "commandroles": {
-        "addcommandrole": {"185979804087091200": true},
-        "addplaylist": {
-            "194658715968864256": true,
-            "185979804087091200": true
+{
+    "185835089458888705": {
+        "auto_join_voice_channel": "288644144170008578",
+        "commandroles": {
+            "play": {"194658715968864256": true},
+            "addqueue": {"194658715968864256": true},
+            "removecommandrole": {"185979804087091200": true},
+            "disablensfw": {"185979804087091200": true},
+            "settopic": {"185979804087091200": true},
+            "skip": {"194658715968864256": true},
+            "ban": {"185979804087091200": true},
+            "addcommandrole": {"185979804087091200": true},
+            "autojoin": {"185979804087091200": true},
+            "playlistsort": {"194658715968864256": true},
+            "leave": {
+                "194658715968864256": true,
+                "185979804087091200": true
+            },
+            "loop": {"194658715968864256": true},
+            "join": {"194658715968864256": true},
+            "playplaylist": {"194658715968864256": true},
+            "resume": {"194658715968864256": true},
+            "clear": {"185979804087091200": true},
+            "addplaylist": {"194658715968864256": true},
+            "say": {"185979804087091200": true},
+            "renameplaylist": {"194658715968864256": true},
+            "pause": {"194658715968864256": true},
+            "volume": {"194658715968864256": true},
+            "playlistorder": {"194658715968864256": true},
+            "kick": {"185979804087091200": true},
+            "removeplaylist": {"194658715968864256": true},
+            "stop": {"194658715968864256": true},
+            "toggletts": {"185979804087091200": true},
+            "removeautojoin": {"185979804087091200": true},
+            "shuffle": {"194658715968864256": true},
+            "enablensfw": {"185979804087091200": true}
         },
-        "enablensfw": {}
-    },
-    "nsfw": {},
-    "playlists": {"the-forest-online": [
-        {
-            "is_stream": true,
-            "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%201.mp3"
-        },
-        {
-            "is_stream": true,
-            "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%202.mp3"
-        },
-        {
-            "is_stream": true,
-            "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%203.mp3"
-        },
-        {
-            "is_stream": true,
-            "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%204.mp3"
-        },
-        {
-            "is_stream": true,
-            "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%205.mp3"
-        },
-        {
-            "is_stream": true,
-            "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%206.mp3"
-        },
-        {
-            "is_stream": true,
-            "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%207.mp3"
-        },
-        {
-            "is_stream": true,
-            "track": "http://bigeti.de/demmuzik/./The%20Forest/The%20Forest_%20Original%20Game%20Soundtrack%20-%20Cassette%208.mp3"
+        "nsfw": {"196872351097290753": true},
+        "playlists": {
+            "the-legend-of-zelda-a-link-to-the-past": [
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Anger of the Guardians - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Beginning of the Journey - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Black Mist - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Dank Dungeons - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Dungeon of Shadows - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Epilogue ~ Beautiful Hyrule - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Forest of Mystery - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Fortune Teller - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Ganons Message - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Great Victory! - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Guessing - Game House - The Legend of Zelda_ A Link to the Pa.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Hyrule Castle - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Hyrule Field Main Theme - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Kakariko Village - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Lost Ancient Ruins - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Master Sword - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Meeting the Maidens - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Power of the Gods - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Priest of the Dark Order - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Princess Zeldas Rescue - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Release of Ganon - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Safety in the Sanctuary - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Seal of Seven Maidens - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Soldiers of Kakariko Village - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Staff Roll - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/The Dark World - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/The Goddess Appears - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/The Prince of Darkness - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/The Silly Pink Rabbit! - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Time of the Falling Rain - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Title Theme - The Legend of Zelda_ A Link to the Past.mp3"
+                }
+            ],
+            "minecraft": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Minecraft/11.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Minecraft/13.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Minecraft/blocks.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Minecraft/cat.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Minecraft/chirp.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Minecraft/far.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Minecraft/mall.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Minecraft/mellohi.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Minecraft/stal.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Minecraft/strad.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Minecraft/ward.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Minecraft/where_are_we_now.mp3"
+                }
+            ],
+            "super-mario-world-2": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2 Yoshis Island OST - Map.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2 Yoshis Island OST - Mini-Boss.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Athletic.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Baby Bowser Clear.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Baby Bowser.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Big Boss Clear.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Big Boss.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Bonus Game.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Castle & Fortress.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Ending.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Flower Garden.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Game Over.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Game Start.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Goal & Score.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Kameks Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Luigi is Rescued.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Overworld.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Player Down.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Powerful Infant.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Room Before Boss.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Story Music Box.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Training Course.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Underground.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Yoshi Start Demo.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Super Mario World 2/Super Mario World 2_ Yoshis Island OST - Yoshis Island.mp3"
+                }
+            ],
+            "katja": [
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/die geile sau.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/du hässliche.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/es gab eine Zeit.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/hallo meine suessen maueschen.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/ich steh auf deinen hund.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/Ihr Schlingel.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/niemand wil mich.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/und ich liebe euch.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/weil ichs kann.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/wer anderen leuten.mp3"
+                }
+            ],
+            "ssbu": [
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Blue Birds.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Forest Stage.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Gourmet Race (Melee).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Gourmet Race (N64).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Ground Theme (Super Mario Bros. 2).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Ground Theme (Super Mario Bros. 3).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Hyrule Castle.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Hyrule Field Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Ice Cream Island.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Ken Stage Type A (Pinch).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Ken Stage Type A.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Ken Stage Type B (Pinch).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Ken Stage Type B.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Ken Stage.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Lucas.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Main Theme (Super Mario 64).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Mewtwo.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Monkey Watch.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Overworld Theme (A Link To The Past).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Overworld Theme (The Legend of Zelda).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Peach's Castle.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Pop Star.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Roy.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Ryu Stage Type A (Pinch).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Ryu Stage Type A.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Ryu Stage Type B (Pinch).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Ryu Stage Type B.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Ryu Stage.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Ryu Victory.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Ryu.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Slide.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Termina Field.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/Tetris - Type A.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/The Legend of Zelda Medley.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/SSBU/The World to Win.mp3"
+                }
+            ],
+            "manta_manta": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Manta Manta/001_Die Trinkende Jugend - Du Darfst.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Manta Manta/002_L. A. Guns - Some Lie 4 Love.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Manta Manta/003_Manta Manta OST - Paranoid.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Manta Manta/004_Scorpions - Wind Of Change.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Manta Manta/005_The Kinks - You Really Got Me.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Manta Manta/006_Die Ärzte 1991 - Wir fahren Manta, Manta.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Manta Manta/007_Bizz Nizz - Get Into Trance.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Manta Manta/008_Manta Manta - Jungle Bill.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Manta Manta/009_Seal - Crazy.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Manta Manta/010_Manta Manta - Last train to Trancentral.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Manta Manta/011_The Carmel Cruisers - I'm In Love With My Car.mp3"
+                }
+            ],
+            "south-park": [
+                {
+                    "is_stream": false,
+                    "track": "./music/South Park/South Park - Blame Canada.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/South Park/South Park - Dreidel Dreidel Dreidel.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/South Park/South Park - Frohe Scheiß Weihnacht.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/South Park/South Park - Höllenweihnachtszeit.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/South Park/South Park - Ich hab was in der Hose.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/South Park/South Park - Keil's Mom die Schlampe.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/South Park/South Park - Kreislauf des Kots.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/South Park/South Park - Lemmiwinks.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/South Park/South Park - Mr. Hankey der Weihnachtskot.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/South Park/South Park - Nur Kanada.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/South Park/South Park - Uncle Fucker.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/South Park/South Park - Onkelficker.mp3"
+                }
+            ],
+            "doom": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/001_Doom1_Remastered- At Doom's Gate.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/002_Doom1_Remastered- The Imp's Song.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/003_Doom1_Remastered- Dark Halls.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/004_Doom1_Remastered- Kitchen Ace (And Taking Names).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/005_Doom1_Remastered- Suspense.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/006_Doom1_Remastered- On The Hunt.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/007_Doom1_Remastered- Demons On The Prey.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/008_Doom1_Remastered- Sign Of Evil.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/009_Doom1_Remastered- Hiding The Secrets.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/010_Doom1_Remastered- I Sawed The Demons.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/011_Doom1_Remastered- The Demons From Adrian's Pen.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/012_Doom1_Remastered- Intermission from DOOM.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/013_Doom1_Remastered- They're Going To Get You.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/014_Doom1_Remastered- Sinister.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/015_Doom1_Remastered- Waltz Of The Demons.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/016_Doom1_Remastered- Nobody Told Me About Id.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/017_Doom1_Remastered- untitled (Hell).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/018_Doom1_Remastered- Donna To The Rescue.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/019_Doom1_Remastered- Deep Into The Code.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/020_Doom1_Remastered- Facing The Spider.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/021_Doom1_Remastered-The End Of Doom.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/022_Doom1_Remastered- Sweet Little Dead Bunny.mp3"
+                }
+            ],
+            "donkey-kong-country": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Aquatic Ambiance - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Bad Boss Boogie - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Bonus Room Blitz - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Candys Love Song - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Cave Dweller Concert - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Fear Factory - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Forest Frenzy - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Funkys Fugue - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Gang - Plank Galleon - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Ice Cave Chant - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Jungle Groove - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/K. Rools Cacophony - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Life in the Mines - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Mine Cart Madness - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Misty Menace - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Northern Hemispheres - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Simian Segue - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/The Credits Concerto - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Title Theme - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Treetop Rock - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Voices of the Temple - Donkey Kong Country.mp3"
+                }
+            ],
+            "the-iron-front": [
+                {
+                    "is_stream": false,
+                    "track": "./music/TheIronFront/The_heart_of_a_true_AI.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TheIronFront/The_Iron_Front_-_The_Apocalypse_Man.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TheIronFront/The_Iron_Front_-_Technical_Technician.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TheIronFront/The_Iron_Front_-_The_Eternal_Slumber.mp3"
+                }
+            ],
+            "f-zero-gx": [
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero GX/Aeropolis - F-Zero GX Music Extended.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero GX/Big Blue - F-Zero GX Music Extended.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero GX/Cosmo Terminal - F-Zero GX Music Extended.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero GX/Cover of Red Canyons Theme - F-Zero GX Music Extended.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero GX/Fire Field - F-Zero GX Music Extended.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero GX/Green Plant - F-Zero GX Music Extended.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero GX/Lightning - F-Zero GX Music Extended.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero GX/Mute City - F-Zero GX Music Extended.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero GX/Night of Big Blue - F-Zero GX Music Extended.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero GX/Outer Space - F-Zero GX Music Extended.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero GX/Phantom Road - F-Zero GX Music Extended.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero GX/Port Town - F-Zero GX Music Extended.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero GX/Sand Ocean - F-Zero GX Music Extended.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero GX/Time For Kill - F-Zero GX Music Extended.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero GX/Vegas Palace - F-Zero GX Music Extended.mp3"
+                }
+            ],
+            "abdi": [
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/_Abdi Angelika Merkel.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/_Abdi Ich bin Gilette Abdi.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/_abdi Ich rasier euch.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/_Abdi Moruk.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/_Abdi Tamam lan.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/_Abdi und ich rasier.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/_Abdi was willst du machen.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/GILLETTE ABDI (BEST OF CILET ABDI, GILET ABDI, CILET JILET ABDI)_youtube_original.mp3"
+                }
+            ],
+            "f-zero": [
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Big Blue.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Death Wind Alternate.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Death Wind.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Ending Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Fire Field.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Mute City.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Port Town.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Red Canyon.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Sand Ocean.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Select Time Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Silence Track.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Title Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - White Land I.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - White Land II.mp3"
+                }
+            ],
+            "bamm": [
+                {
+                    "is_stream": true,
+                    "track": "https://img.bluescreen.cz/upload/03-06-2017/1496500000-e154a9c3-9822-4363-b668-b1bf7adb7f45.wav"
+                },
+                {
+                    "is_stream": true,
+                    "track": "http://bigeti.de/demmuzik/bs/BAMM.wav"
+                }
+            ],
+            "donkey-kong-country-2": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Bonus Intro Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Bonus Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Boss Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Brambles Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Castle Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Cranky Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Credits Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Enchanted Wood.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Funky Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Haunted Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Ice Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Island Map Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Jungle Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - King K. Rool Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Klubba Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Lava Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Lost World Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Main Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Mine Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Rambi Rumble Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Roller Coaster Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Screech Sprint Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Ship Hold.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Swamp Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Wasp Hive Theme.mp3"
+                }
+            ],
+            "celtic": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Celtic/Folk Metal - Viking Blood.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Celtic/Pagan Metal - Gleipnir.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Celtic/Pagan Metal - Stand as One.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Celtic/2 Hours of Celtic Music by Adrian von Ziegler.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Celtic/Epic Celtic Music Mix - BrunuhVille  1 Hour.mp3"
+                }
+            ],
+            "meta": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Meta/ohh1.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Meta/ohh2.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Meta/ohh3.mp3"
+                }
+            ],
+            "paffno": [
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/das ist schon scheiße.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/der heißt Robin.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/ehm und ja.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/Ja.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/klammer zu.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/Mit ner klammer.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/Pawno Tutorials  _.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/pfeil nach oben.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/so liebe Kollegen.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/tschüss.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/Unser lieber Skript.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/wieder frisch auf der spur.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/bs/Wo tut man das einfuegen.mp3"
+                }
+            ],
+            "megarace2": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Megarace/Megarace 2 music - Bayou (Level 5).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Megarace/Megarace 2 music - Bronx (Level 4 - Moonbase9).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Megarace/Megarace 2 music - Extra-Terrestrial (Level 3).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Megarace/Megarace 2 music - Moonbase9 (Level 6 - Bronx).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Megarace/Megarace 2 music - Tibet (Level 2).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Megarace/Megarace 2 music - Usine Foundry (Level 1).mp3"
+                }
+            ],
+            "the-forest": [
+                {
+                    "is_stream": false,
+                    "track": "./music/The Forest/The Forest_ Original Game Soundtrack - Cassette 1.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/The Forest/The Forest_ Original Game Soundtrack - Cassette 2.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/The Forest/The Forest_ Original Game Soundtrack - Cassette 3.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/The Forest/The Forest_ Original Game Soundtrack - Cassette 4.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/The Forest/The Forest_ Original Game Soundtrack - Cassette 5.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/The Forest/The Forest_ Original Game Soundtrack - Cassette 6.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/The Forest/The Forest_ Original Game Soundtrack - Cassette 7.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/The Forest/The Forest_ Original Game Soundtrack - Cassette 8.mp3"
+                }
+            ],
+            "doom2": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/001_Doom2_Remastered- Running From Evil.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/002_Doom2_Remastered- The Healer Stalks.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/003_Doom2_Remastered- Countdown To Death.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/004_Doom2_Remastered- Between Levels.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/005_Doom2_Remastered- Doom.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/006_Doom2_Remastered- In The Dark.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/007_Doom2_Remastered- The Dave D. Taylor Blues.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/008_Doom2_Remastered- The Dave D. Taylor Blues.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/009_Doom2_Remastered- The Demon Is Dead.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/010_Doom2_Remastered- Into Sandy's City.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/011_Doom2_Remastered- Waiting For Romero To Play.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/012_Doom2_Remastered- Message For The Archvile.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/013_Doom2_Remastered- Bye Bye American Pie.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/014_Doom2_Remastered- Adrian's Asleep.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/015_Doom2_Remastered- Getting Too Tense.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/016_Doom2_Remastered- Opening To Hell.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/017_Doom2_Remastered- Evil Incarnate.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/018_Doom2_Remastered- The Ultimate Challenge.mp3"
+                }
+            ],
+            "goof-troop": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Goof-Troop/001_Goof Troop - Let's Start.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Goof-Troop/002_Goof Troop - Goofy or Max.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Goof-Troop/003_Goof Troop - Map.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Goof-Troop/004_Goof Troop - Fight A Battle.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Goof-Troop/005_Goof Troop - Satisfied and Rest.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Goof-Troop/006_Goof Troop - Hamlet.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Goof-Troop/007_Goof Troop - Fight Fight.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Goof-Troop/008_Goof Troop - Illusion.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Goof-Troop/009_Goof Troop - Lose My Way.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Goof-Troop/010_Goof Troop - Fight Fight.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Goof-Troop/011_Goof Troop - Sea Robber.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Goof-Troop/012_Goof Troop - The End.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Goof-Troop/013_Goof Troop - Flashback.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Goof-Troop/014_Goof Troop - Staff Roll.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Goof-Troop/015_Goof Troop - Go On and Game Over.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Goof-Troop/016_Goof Troop - To the South.mp3"
+                }
+            ],
+            "blackhawk": [
+                {
+                    "is_stream": false,
+                    "track": "./music/BlackHawk/001_Nancy Sinatra - These Boots Are Made for Walkin'.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/BlackHawk/002_Johnny O - Fantasy Girl (Club Mix) (Melô da Linda Mulher).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/BlackHawk/001_Orginal Buam ft. Tom Gerhardt - Oh, wann kommst du.mp3"
+                }
+            ],
+            "party-hard": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - After Party.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Come On Baby.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Dont Stop Party.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Main Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - My Future Broken Heart.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Neon Cobra.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Paid To Party.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Pure Dance.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Retro Video Game.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - The Goon Squad.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - The New Vibe.mp3"
+                }
+            ]
         }
-    ]}
-}}
+    },
+    "352605974797746176": {
+        "auto_join_voice_channel": "352617733763891210",
+        "commandroles": {
+            "addcommandrole": {"352606588000796672": true},
+            "autojoin": {"352606588000796672": true},
+            "kick": {"352606588000796672": true},
+            "toggletts": {"352606588000796672": true},
+            "removecommandrole": {"352606588000796672": true},
+            "clear": {"352606588000796672": true},
+            "disablensfw": {"352606588000796672": true},
+            "settopic": {"352606588000796672": true},
+            "removeautojoin": {"352606588000796672": true},
+            "say": {"352606588000796672": true},
+            "enablensfw": {"352606588000796672": true},
+            "ban": {"352606588000796672": true}
+        },
+        "playlists": {
+            "tairagames": [
+                {
+                    "is_stream": false,
+                    "track": "./music/TairaGames/Ethereal/Ethereal FULL.wav"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TairaGames/Fantasy/Fantasy FULL.wav"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TairaGames/Jazz/Jazz FULL.wav"
+                }
+            ],
+            "donkey-kong-country-2": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Bonus Intro Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Bonus Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Boss Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Brambles Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Castle Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Cranky Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Credits Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Enchanted Wood.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Funky Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Haunted Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Ice Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Island Map Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Jungle Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - King K. Rool Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Klubba Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Lava Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Lost World Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Main Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Mine Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Rambi Rumble Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Roller Coaster Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Screech Sprint Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Ship Hold.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Swamp Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Wasp Hive Theme.mp3"
+                }
+            ],
+            "doom": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/001_Doom1_Remastered- At Doom's Gate.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/002_Doom1_Remastered- The Imp's Song.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/003_Doom1_Remastered- Dark Halls.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/004_Doom1_Remastered- Kitchen Ace (And Taking Names).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/005_Doom1_Remastered- Suspense.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/006_Doom1_Remastered- On The Hunt.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/007_Doom1_Remastered- Demons On The Prey.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/008_Doom1_Remastered- Sign Of Evil.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/009_Doom1_Remastered- Hiding The Secrets.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/010_Doom1_Remastered- I Sawed The Demons.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/011_Doom1_Remastered- The Demons From Adrian's Pen.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/012_Doom1_Remastered- Intermission from DOOM.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/013_Doom1_Remastered- They're Going To Get You.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/014_Doom1_Remastered- Sinister.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/015_Doom1_Remastered- Waltz Of The Demons.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/016_Doom1_Remastered- Nobody Told Me About Id.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/017_Doom1_Remastered- untitled (Hell).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/018_Doom1_Remastered- Donna To The Rescue.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/019_Doom1_Remastered- Deep Into The Code.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/020_Doom1_Remastered- Facing The Spider.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/021_Doom1_Remastered-The End Of Doom.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/022_Doom1_Remastered- Sweet Little Dead Bunny.mp3"
+                }
+            ],
+            "donkey-kong-country": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Aquatic Ambiance - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Bad Boss Boogie - Donkey Kong Country.mp3´"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Bonus Room Blitz - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Candys Love Song - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Cave Dweller Concert - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Fear Factory - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Forest Frenzy - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Funkys Fugue - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Gang - Plank Galleon - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Ice Cave Chant - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Jungle Groove - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/K. Rools Cacophony - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Life in the Mines - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Mine Cart Madness - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Misty Menace - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Northern Hemispheres - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Simian Segue - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/The Credits Concerto - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Title Theme - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Treetop Rock - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Voices of the Temple - Donkey Kong Country.mp"
+                }
+            ],
+            "the-iron-front": [
+                {
+                    "is_stream": false,
+                    "track": "./music/TheIronFront/The_heart_of_a_true_AI.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TheIronFront/The_Iron_Front_-_The_Apocalypse_Man.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TheIronFront/The_Iron_Front_-_Technical_Technician.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TheIronFront/The_Iron_Front_-_The_Eternal_Slumber.mp3"
+                }
+            ],
+            "megarace2": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Megarace/Megarace 2 music - Bayou (Level 5).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Megarace/Megarace 2 music - Bronx (Level 4 - Moonbase9).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Megarace/Megarace 2 music - Extra-Terrestrial (Level 3).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Megarace/Megarace 2 music - Moonbase9 (Level 6 - Bronx).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Megarace/Megarace 2 music - Tibet (Level 2).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Megarace/Megarace 2 music - Usine Foundry (Level 1).mp3"
+                }
+            ],
+            "doom2": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/001_Doom2_Remastered- Running From Evil.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/002_Doom2_Remastered- The Healer Stalks.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/003_Doom2_Remastered- Countdown To Death.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/004_Doom2_Remastered- Between Levels.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/005_Doom2_Remastered- Doom.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/006_Doom2_Remastered- In The Dark.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/007_Doom2_Remastered- The Dave D. Taylor Blues.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/008_Doom2_Remastered- The Dave D. Taylor Blues.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/009_Doom2_Remastered- The Demon Is Dead.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/010_Doom2_Remastered- Into Sandy's City.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/011_Doom2_Remastered- Waiting For Romero To Play.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/012_Doom2_Remastered- Message For The Archvile.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/013_Doom2_Remastered- Bye Bye American Pie.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/014_Doom2_Remastered- Adrian's Asleep.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/015_Doom2_Remastered- Getting Too Tense.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/016_Doom2_Remastered- Opening To Hell.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/017_Doom2_Remastered- Evil Incarnate.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/018_Doom2_Remastered- The Ultimate Challenge.mp3"
+                }
+            ],
+            "party-hard": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - After Party.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Come On Baby.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Dont Stop Party.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Main Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - My Future Broken Heart.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Neon Cobra.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Paid To Party.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Pure Dance.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Retro Video Game.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - The Goon Squad.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - The New Vibe.mp3"
+                }
+            ]
+        }
+    },
+    "310488838650724353": {
+        "auto_join_voice_channel": "343488705903853568",
+        "nsfw": {"310533985631731714": true},
+        "playlists": {
+            "the-legend-of-zelda-a-link-to-the-past": [
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Anger of the Guardians - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Beginning of the Journey - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Black Mist - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Dank Dungeons - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Dungeon of Shadows - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Epilogue ~ Beautiful Hyrule - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Forest of Mystery - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Fortune Teller - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Ganons Message - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Great Victory! - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Guessing - Game House - The Legend of Zelda_ A Link to the Pa.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Hyrule Castle - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Hyrule Field Main Theme - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Kakariko Village - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Lost Ancient Ruins - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Master Sword - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Meeting the Maidens - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Power of the Gods - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Priest of the Dark Order - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Princess Zeldas Rescue - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Release of Ganon - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Safety in the Sanctuary - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Seal of Seven Maidens - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Soldiers of Kakariko Village - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Staff Roll - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/The Dark World - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/The Goddess Appears - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/The Prince of Darkness - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/The Silly Pink Rabbit! - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Time of the Falling Rain - The Legend of Zelda_ A Link to the Past.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TLoZ ALttP/Title Theme - The Legend of Zelda_ A Link to the Past.mp3"
+                }
+            ],
+            "donkey-kong-country-2": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Bonus Intro Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Bonus Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Boss Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Brambles Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Castle Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Cranky Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Credits Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Enchanted Wood.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Funky Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Haunted Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Ice Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Island Map Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Jungle Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - King K. Rool Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Klubba Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Lava Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Lost World Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Main Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Mine Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Rambi Rumble Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Roller Coaster Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Screech Sprint Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Ship Hold.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Swamp Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country 2/Donkey Kong Country 2 - Wasp Hive Theme.mp3"
+                }
+            ],
+            "doom": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/001_Doom1_Remastered- At Doom's Gate.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/002_Doom1_Remastered- The Imp's Song.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/003_Doom1_Remastered- Dark Halls.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/004_Doom1_Remastered- Kitchen Ace (And Taking Names).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/005_Doom1_Remastered- Suspense.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/006_Doom1_Remastered- On The Hunt.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/007_Doom1_Remastered- Demons On The Prey.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/008_Doom1_Remastered- Sign Of Evil.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/009_Doom1_Remastered- Hiding The Secrets.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/010_Doom1_Remastered- I Sawed The Demons.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/011_Doom1_Remastered- The Demons From Adrian's Pen.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/012_Doom1_Remastered- Intermission from DOOM.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/013_Doom1_Remastered- They're Going To Get You.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/014_Doom1_Remastered- Sinister.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/015_Doom1_Remastered- Waltz Of The Demons.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/016_Doom1_Remastered- Nobody Told Me About Id.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/017_Doom1_Remastered- untitled (Hell).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/018_Doom1_Remastered- Donna To The Rescue.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/019_Doom1_Remastered- Deep Into The Code.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/020_Doom1_Remastered- Facing The Spider.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/021_Doom1_Remastered-The End Of Doom.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/022_Doom1_Remastered- Sweet Little Dead Bunny.mp3"
+                }
+            ],
+            "donkey-kong-country": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Aquatic Ambiance - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Bad Boss Boogie - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Bonus Room Blitz - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Candys Love Song - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Cave Dweller Concert - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Fear Factory - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Forest Frenzy - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Funkys Fugue - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Gang - Plank Galleon - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Ice Cave Chant - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Jungle Groove - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/K. Rools Cacophony - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Life in the Mines - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Mine Cart Madness - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Misty Menace - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Northern Hemispheres - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Simian Segue - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/The Credits Concerto - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Title Theme - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Treetop Rock - Donkey Kong Country.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Donkey Kong Country/Voices of the Temple - Donkey Kong Country.mp3"
+                }
+            ],
+            "the-forest": [
+                {
+                    "is_stream": false,
+                    "track": "./music/The Forest/The Forest_ Original Game Soundtrack - Cassette 1.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/The Forest/The Forest_ Original Game Soundtrack - Cassette 2.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/The Forest/The Forest_ Original Game Soundtrack - Cassette 3.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/The Forest/The Forest_ Original Game Soundtrack - Cassette 4.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/The Forest/The Forest_ Original Game Soundtrack - Cassette 5.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/The Forest/The Forest_ Original Game Soundtrack - Cassette 6.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/The Forest/The Forest_ Original Game Soundtrack - Cassette 7.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/The Forest/The Forest_ Original Game Soundtrack - Cassette 8.mp3"
+                }
+            ],
+            "doom2": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/001_Doom2_Remastered- Running From Evil.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/002_Doom2_Remastered- The Healer Stalks.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/003_Doom2_Remastered- Countdown To Death.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/004_Doom2_Remastered- Between Levels.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/005_Doom2_Remastered- Doom.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/006_Doom2_Remastered- In The Dark.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/007_Doom2_Remastered- The Dave D. Taylor Blues.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/008_Doom2_Remastered- The Dave D. Taylor Blues.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/009_Doom2_Remastered- The Demon Is Dead.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/010_Doom2_Remastered- Into Sandy's City.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/011_Doom2_Remastered- Waiting For Romero To Play.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/012_Doom2_Remastered- Message For The Archvile.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/013_Doom2_Remastered- Bye Bye American Pie.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/014_Doom2_Remastered- Adrian's Asleep.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/015_Doom2_Remastered- Getting Too Tense.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/016_Doom2_Remastered- Opening To Hell.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/017_Doom2_Remastered- Evil Incarnate.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom2/018_Doom2_Remastered- The Ultimate Challenge.mp3"
+                }
+            ],
+            "f-zero": [
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Big Blue.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Death Wind Alternate.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Death Wind.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Ending Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Fire Field.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Mute City.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Port Town.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Red Canyon.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Sand Ocean.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Select Time Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Silence Track.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - Title Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - White Land I.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/F-Zero/F-Zero - White Land II.mp3"
+                }
+            ],
+            "party-hard": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - After Party.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Come On Baby.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Dont Stop Party.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Main Theme.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - My Future Broken Heart.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Neon Cobra.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Paid To Party.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Pure Dance.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - Retro Video Game.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - The Goon Squad.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Party Hard/Party Hard - The New Vibe.mp3"
+                }
+            ]
+        }
+    },
+    "307817867141840896": {
+        "auto_join_voice_channel": "307825078584868864",
+        "nsfw": {"307826479071363073": true},
+        "playlists": {
+            "doom": [
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/001_Doom1_Remastered- At Doom's Gate.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/002_Doom1_Remastered- The Imp's Song.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/003_Doom1_Remastered- Dark Halls.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/004_Doom1_Remastered- Kitchen Ace (And Taking Names).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/005_Doom1_Remastered- Suspense.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/006_Doom1_Remastered- On The Hunt.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/007_Doom1_Remastered- Demons On The Prey.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/008_Doom1_Remastered- Sign Of Evil.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/009_Doom1_Remastered- Hiding The Secrets.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/010_Doom1_Remastered- I Sawed The Demons.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/011_Doom1_Remastered- The Demons From Adrian's Pen.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/012_Doom1_Remastered- Intermission from DOOM.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/013_Doom1_Remastered- They're Going To Get You.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/014_Doom1_Remastered- Sinister.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/015_Doom1_Remastered- Waltz Of The Demons.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/016_Doom1_Remastered- Nobody Told Me About Id.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/017_Doom1_Remastered- untitled (Hell).mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/018_Doom1_Remastered- Donna To The Rescue.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/019_Doom1_Remastered- Deep Into The Code.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/020_Doom1_Remastered- Facing The Spider.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/021_Doom1_Remastered-The End Of Doom.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/Doom1/022_Doom1_Remastered- Sweet Little Dead Bunny.mp3"
+                }
+            ],
+            "the-iron-front": [
+                {
+                    "is_stream": false,
+                    "track": "./music/TheIronFront/The_heart_of_a_true_AI.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TheIronFront/The_Iron_Front_-_The_Apocalypse_Man.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TheIronFront/The_Iron_Front_-_Technical_Technician.mp3"
+                },
+                {
+                    "is_stream": false,
+                    "track": "./music/TheIronFront/The_Iron_Front_-_The_Eternal_Slumber.mp3"
+                }
+            ]
+        }
+    }
+}

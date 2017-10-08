@@ -38,11 +38,8 @@ public class Privileges
 		{
 			for (final Object item : jsonObject.keySet())
 			{
-				if (item instanceof String)
-				{
-					final String itemAsString = (String) item;
-					privileges.put(itemAsString, jsonObject.optInt(itemAsString));
-				}
+				final String item_as_string = (String) item;
+				privileges.put(item_as_string, jsonObject.optInt(item_as_string));
 			}
 		}
 	}

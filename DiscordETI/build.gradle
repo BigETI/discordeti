@@ -7,7 +7,9 @@ repositories {
 }
 
 dependencies {
+	/* Enable this, if you dare. */
+	/* compile 'com.github.austinv11:Discord4j:-SNAPSHOT' */
 	compile 'com.github.austinv11:Discord4j:2.9+'
-	compile 'com.github.Bios-Marcel:plotter:-SNAPSHOT'
-	compile 'com.github.Bios-Marcel:jbfvm:-SNAPSHOT'
+	compile 'com.github.BigETI:plotter:-SNAPSHOT'
+	compile 'com.github.BigETI:jbfvm:-SNAPSHOT'
 }

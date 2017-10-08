@@ -1,10 +1,14 @@
 {
+    "190807766959390720": {"nude_pictures": 1},
     "180324167000915968": {
         "nude_pictures": 1,
+        "bot_dj": 1,
+        "bot_master": 1,
         "grant_user": 1,
         "moderate_channels": 1,
         "modify_bot": 1
     },
+    "206828229045125120": {"nude_pictures": 1},
     "185832908638912512": {
         "nude_pictures": 1,
         "bot_dj": 1,
@@ -14,16 +18,22 @@
         "modify_bot": 1,
         "execute_code": 1
     },
-    "131031554024538112": {
+    "131031554024538112": {"nude_pictures": 1},
+    "232502850712895488": {
         "nude_pictures": 1,
-        "bot_master": 1,
-        "moderate_channels": 2,
-        "modify_bot": 1
+        "moderate_channels": 1
     },
-    "181434880683540480": {"nude_pictures": 1},
+    "181434880683540480": {
+        "nude_pictures": 1,
+        "bot_dj": 1,
+        "bot_master": 1
+    },
     "193109000017936384": {
         "nude_pictures": 1,
+        "bot_dj": 1,
         "grant_user": 1
     },
-    "181247789907443712": {"nude_pictures": 1}
+    "181247789907443712": {"nude_pictures": 1},
+    "191233522965544960": {},
+    "187251403763220480": {"nude_pictures": 1}
 }

@@ -123,12 +123,11 @@ public class Commands
 								{
 									final Command cmd = commands.get(args[0]);
 									final Users users = bot.getUsers();
-									final String id = message.getAuthor().getID();
+									final long id = message.getAuthor().getLongID();
 									final User user = users.findUser(id);
 									final IGuild guild = message.getGuild();
 									if (cmd.checkRoles(guild, message.getAuthor())
-											&& cmd.getPrivileges().checkPrivileges(user))
-									{
+											&& cmd.getPrivileges().checkPrivileges(user)) {
 										final ArrayList<String> params = new ArrayList<>();
 										for (int i = 1; i < args.length; i++)
 										{
@@ -197,7 +196,7 @@ public class Commands
 
 	public void reloadRoles(final Servers servers, final IDiscordClient client)
 	{
-		for (final Entry<String, JSONObject> ss : servers.getServers().entrySet())
+		for (final Entry<Long, JSONObject> ss : servers.getServers().entrySet())
 		{
 			final IGuild guild = client.getGuildByID(ss.getKey());
 			if (guild != null)
@@ -205,15 +204,18 @@ public class Commands
 				if (ss.getValue().has("commandroles"))
 				{
 					final JSONObject crso = ss.getValue().getJSONObject("commandroles");
-					for (final String rsk : crso.keySet())
+					for (final Object rsk : crso.keySet())
 					{
-						if (commands.containsKey(rsk))
+						final String rsk_as_string = (String) rsk;
+						if (commands.containsKey(rsk_as_string))
 						{
-							final Command command = commands.get(rsk);
-							final JSONObject rso = crso.getJSONObject(rsk);
-							for (final String rk : rso.keySet())
+							final Command command = commands.get(rsk_as_string);
+							final JSONObject rso = crso.getJSONObject(rsk_as_string);
+							for (final Object rk : rso.keySet())
 							{
-								final IRole role = guild.getRoleByID(rk);
+								final String rk_as_string = (String) rk;
+								final long rk_as_long = Long.parseLong(rk_as_string);
+								final IRole role = guild.getRoleByID(rk_as_long);
 								if (role != null)
 								{
 									command.addRoleForServer(guild, role);

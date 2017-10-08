@@ -34,15 +34,20 @@ import com.discordeti.event.ICommandListener;
 
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
+import sx.blah.discord.api.events.EventSubscriber;
+import sx.blah.discord.handle.impl.events.ReadyEvent;
+import sx.blah.discord.handle.impl.events.guild.channel.message.MessageEvent;
 import sx.blah.discord.handle.obj.IChannel;
+import sx.blah.discord.handle.obj.IExtendedInvite;
 import sx.blah.discord.handle.obj.IGuild;
-import sx.blah.discord.handle.obj.IInvite;
 import sx.blah.discord.handle.obj.IRole;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.handle.obj.IVoiceChannel;
+import sx.blah.discord.handle.obj.IVoiceState;
 import sx.blah.discord.handle.obj.Permissions;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.Image;
+import sx.blah.discord.util.MessageHistory;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
 import sx.blah.discord.util.audio.AudioPlayer;
@@ -54,6 +59,10 @@ import sx.blah.discord.util.audio.AudioPlayer;
  */
 public class Bot
 {
+	/**
+	 * Client
+	 */
+	final IDiscordClient client;
 
 	/**
 	 * Max display help commands
@@ -88,7 +97,7 @@ public class Bot
 	/**
 	 * Use text to speech
 	 */
-	private final boolean use_tts = false;
+	private boolean use_tts = false;
 
 	/**
 	 * This object
@@ -98,7 +107,7 @@ public class Bot
 	/**
 	 * Volume
 	 */
-	private final float volume = 0.1f;
+	private float volume = 0.1f;
 
 	// private IDiscordClient client;
 
@@ -130,6 +139,7 @@ public class Bot
 	 */
 	public Bot(final IDiscordClient client)
 	{
+		this.client = client;
 		client.getDispatcher().registerListener(this);
 
 		Command cmd = commands.registerCommand("addcommandrole", "Adds a role to a specififed command", args ->
@@ -138,26 +148,34 @@ public class Bot
 			if (args.getParams().size() == 2)
 			{
 				final String c = args.getParams().get(0).toLowerCase();
-				final String rid = args.getParams().get(1);
 				if (commands.getCommands().containsKey(c))
 				{
-					final Command command = commands.getCommands().get(c);
-					final IRole role = args.getChannel().getGuild().getRoleByID(rid);
-					if (role != null)
+					final String rid = args.getParams().get(1);
+					try
 					{
-						final IGuild guild = args.getChannel().getGuild();
-						final Object o = servers.getServerAttribute(guild, "commandroles");
-						final JSONObject commandroles = o == null ? new JSONObject() : (JSONObject) o;
-						final JSONObject re = commandroles.has(c) ? commandroles.getJSONObject(c)
-								: new JSONObject();
-						re.put(rid, true);
-						commandroles.put(c, re);
-						servers.setServerAttribute(guild, "commandroles", commandroles);
-						command.addRoleForServer(guild, role);
-						message = "Role \"" + role.getName() + "\" has been added to command "
-								+ commands.getDelimiter() + c + ".";
+						final long rid_as_long = Long.parseLong(rid);
+						final Command command = commands.getCommands().get(c);
+						final IRole role = args.getChannel().getGuild().getRoleByID(rid_as_long);
+						if (role != null)
+						{
+							final IGuild guild = args.getChannel().getGuild();
+							final Object o = servers.getServerAttribute(guild, "commandroles");
+							final JSONObject commandroles = o == null ? new JSONObject() : (JSONObject) o;
+							final JSONObject re = commandroles.has(c) ? commandroles.getJSONObject(c)
+									: new JSONObject();
+							re.put(rid, true);
+							commandroles.put(c, re);
+							servers.setServerAttribute(guild, "commandroles", commandroles);
+							command.addRoleForServer(guild, role);
+							message = "Role \"" + role.getName() + "\" has been added to command "
+									+ commands.getDelimiter() + c + ".";
+						}
+						else
+						{
+							message = "Invalid role ID!";
+						}
 					}
-					else
+					catch (Exception e)
 					{
 						message = "Invalid role ID!";
 					}
@@ -169,7 +187,7 @@ public class Bot
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -201,7 +219,7 @@ public class Bot
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -228,7 +246,7 @@ public class Bot
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -253,7 +271,7 @@ public class Bot
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -286,7 +304,7 @@ public class Bot
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -313,29 +331,37 @@ public class Bot
 			if (args.getParams().size() == 1)
 			{
 				final String id = args.getParams().get(0);
-				final IVoiceChannel voice_channel = args.getChannel().getGuild().getVoiceChannelByID(id);
-				if (voice_channel != null)
+				try
 				{
-					try
+					final long id_as_long = Long.parseLong(id);
+					final IVoiceChannel voice_channel = args.getChannel().getGuild().getVoiceChannelByID(id_as_long);
+					if (voice_channel != null)
 					{
-						voice_channel.join();
-						servers.setServerAttribute(args.getChannel().getGuild(), "auto_join_voice_channel", id);
-						message = "I'll continue joining the voice channel  \"" + voice_channel.getName() + "\".";
+						try
+						{
+							voice_channel.join();
+							servers.setServerAttribute(args.getChannel().getGuild(), "auto_join_voice_channel", id);
+							message = "I'll continue joining the voice channel  \"" + voice_channel.getName() + "\".";
+						}
+						catch (final MissingPermissionsException e)
+						{
+							e.printStackTrace();
+							message = "Can't join voice channel \"" + voice_channel.getName() + "\".";
+						}
 					}
-					catch (final MissingPermissionsException e)
+					else
 					{
-						e.printStackTrace();
-						message = "Can't join voice channel \"" + voice_channel.getName() + "\".";
+						message = "Invalid voice channel ID.";
 					}
 				}
-				else
+				catch (Exception e)
 				{
 					message = "Invalid voice channel ID.";
 				}
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -345,25 +371,31 @@ public class Bot
 		cmd = commands.registerCommand("ban", "Bans a user.", args ->
 		{
 			String message = null;
-			final User user = users.findUser(args.getIssuer().getID());
+			final User user = users.findUser(args.getIssuer().getLongID());
 			if (args.getParams().size() == 1)
 			{
-				final IUser target = args.getChannel().getGuild().getUserByID(args.getParams().get(0));
-				if (target == null)
+				try
+				{
+					final IUser target = args.getChannel().getGuild().getUserByID(Long.parseLong(args.getParams().get(0)));
+					if (target == null)
+					{
+						message = args.getCommand().generateHelp(user, commands, args.getChannel().getGuild());
+					}
+					else
+					{
+						try
+						{
+							args.getChannel().getGuild().banUser(target);
+						}
+						catch (MissingPermissionsException | DiscordException | RateLimitException e)
+						{
+							e.printStackTrace();
+						}
+					}
+				}
+				catch (Exception e)
 				{
 					message = args.getCommand().generateHelp(user, commands, args.getChannel().getGuild());
-				}
-				else
-				{
-					try
-					{
-						args.getChannel().getGuild().banUser(target);
-					}
-					catch (MissingPermissionsException | DiscordException | RateLimitException e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
 				}
 			}
 			else
@@ -408,7 +440,7 @@ public class Bot
 			}
 			else
 			{
-				sb.append(args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild()));
+				sb.append(args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild()));
 			}
 			sendMessage(args, sb.toString());
 		});
@@ -465,7 +497,7 @@ public class Bot
 			}
 			else
 			{
-				sb.append(args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild()));
+				sb.append(args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild()));
 			}
 			sendMessage(args, sb.toString());
 		});
@@ -473,7 +505,7 @@ public class Bot
 		cmd.setHelp("This command executes Brainfuck from a file.\n\tUsage: " + commands.getDelimiter()
 				+ "$CMD$ <file name>");
 
-		cmd = commands.registerCommand("channelid", "Returns the channel ID", args -> sendMessage(args, "Channel ID: " + args.getChannel().getID()));
+		cmd = commands.registerCommand("channelid", "Returns the channel ID", args -> sendMessage(args, "Channel ID: " + args.getChannel().getLongID()));
 		cmd.setHelp("This command shows the current channel ID and is useful for administration purposes.");
 
 		cmd = commands.registerCommand("channels", "Lists all available channels", args ->
@@ -482,35 +514,43 @@ public class Bot
 			if (args.getParams().size() == 1)
 			{
 				final String id = args.getParams().get(0);
-				final IChannel channel1 = args.getChannel().getGuild().getChannelByID(id);
-				if (channel1 == null)
+				try
+				{
+					final long id_as_long = Long.parseLong(id);
+					final IChannel channel1 = args.getChannel().getGuild().getChannelByID(id_as_long);
+					if (channel1 == null)
+					{
+						sb.append("Invalid channel ID!");
+					}
+					else
+					{
+						sb.append("Channel \"");
+						sb.append(channel1.getName());
+						sb.append("\" : ");
+						sb.append(channel1.getStringID());
+						sb.append("\n```\nTopic: ");
+						sb.append(channel1.getTopic());
+						sb.append("\nCreation date: ");
+						sb.append(channel1.getCreationDate());
+						sb.append("\nInvites:");
+						try
+						{
+							for (final IExtendedInvite invite : channel1.getExtendedInvites())
+							{
+								sb.append("\n\thttps://discord.gg/");
+								sb.append(invite.getCode());
+							}
+						}
+						catch (DiscordException | RateLimitException | MissingPermissionsException e)
+						{
+							e.printStackTrace();
+						}
+						sb.append("\n```");
+					}
+				}
+				catch (Exception e)
 				{
 					sb.append("Invalid channel ID!");
-				}
-				else
-				{
-					sb.append("Channel \"");
-					sb.append(channel1.getName());
-					sb.append("\" : ");
-					sb.append(channel1.getID());
-					sb.append("\n```\nTopic: ");
-					sb.append(channel1.getTopic());
-					sb.append("\nCreation date: ");
-					sb.append(channel1.getCreationDate());
-					sb.append("\nInvites:");
-					try
-					{
-						for (final IInvite invite : channel1.getInvites())
-						{
-							sb.append("\n\thttps://discord.gg/");
-							sb.append(invite.getInviteCode());
-						}
-					}
-					catch (DiscordException | RateLimitException | MissingPermissionsException e)
-					{
-						e.printStackTrace();
-					}
-					sb.append("\n```");
 				}
 			}
 			else
@@ -521,7 +561,7 @@ public class Bot
 					sb.append("\n");
 					sb.append(channel2.getName());
 					sb.append(" : ");
-					sb.append(channel2.getID());
+					sb.append(channel2.getStringID());
 				}
 				sb.append("\n```");
 			}
@@ -534,22 +574,15 @@ public class Bot
 		{
 			try
 			{
-				while (args.getChannel().getMessages().size() > 0)
+				MessageHistory message_history = args.getChannel().getFullMessageHistory();
+				if (message_history.size() > 0)
 				{
-					if (args.getChannel().getMessages().size() > 100)
-					{
-						args.getChannel().getMessages().deleteFromRange(0, 99);
-					}
-					else
-					{
-						args.getChannel().getMessages().deleteFromRange(0, args.getChannel().getMessages().size());
-					}
-					Thread.sleep(1000);
+					message_history.bulkDelete();
 				}
 				args.getMessage().delete();
-				sendMessage(args, "<@" + args.getIssuer().getID() + "> cleared the chat.");
+				sendMessage(args, "<@" + args.getIssuer().getLongID() + "> cleared the chat.");
 			}
-			catch (DiscordException | MissingPermissionsException | RateLimitException | InterruptedException e)
+			catch (DiscordException | MissingPermissionsException | RateLimitException e)
 			{
 				e.printStackTrace();
 			}
@@ -562,7 +595,14 @@ public class Bot
 			IChannel channel = null;
 			if (args.getParams().size() == 1)
 			{
-				channel = args.getChannel().getGuild().getChannelByID(args.getParams().get(0));
+				try
+				{
+					channel = args.getChannel().getGuild().getChannelByID(Long.parseLong(args.getParams().get(0)));
+				}
+				catch (Exception e)
+				{
+					//
+				}
 			}
 			else
 			{
@@ -577,9 +617,9 @@ public class Bot
 				final IGuild guild = args.getChannel().getGuild();
 				final Object o = servers.getServerAttribute(guild, "nsfw");
 				final JSONObject nsfw = o == null ? new JSONObject() : (JSONObject) o;
-				if (nsfw.has(channel.getID()))
+				if (nsfw.has(channel.getStringID()))
 				{
-					nsfw.remove(channel.getID());
+					nsfw.remove(channel.getStringID());
 				}
 				servers.setServerAttribute(guild, "nsfw", nsfw);
 				message = "NSFW has been disabled on the channel.";
@@ -595,7 +635,14 @@ public class Bot
 			IChannel channel = null;
 			if (args.getParams().size() == 1)
 			{
-				channel = args.getChannel().getGuild().getChannelByID(args.getParams().get(0));
+				try
+				{
+					channel = args.getChannel().getGuild().getChannelByID(Long.parseLong(args.getParams().get(0)));
+				}
+				catch (Exception e)
+				{
+					//
+				}
 			}
 			else
 			{
@@ -610,7 +657,7 @@ public class Bot
 				final IGuild guild = args.getChannel().getGuild();
 				final Object o = servers.getServerAttribute(guild, "nsfw");
 				final JSONObject nsfw = o == null ? new JSONObject() : (JSONObject) o;
-				nsfw.put(channel.getID(), true);
+				nsfw.put(channel.getStringID(), true);
 				servers.setServerAttribute(guild, "nsfw", nsfw);
 				message = "NSFW has been enabled on the channel.";
 			}
@@ -628,18 +675,17 @@ public class Bot
 			}
 			catch (final DiscordException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
 		cmd.getPrivileges().setPrivilege("bot_master", 1);
 		cmd.setHelp("This command tells the bot to disconnect from Discord and shut down.");
 
-		commands.registerCommand("hello", "Just a test command", args -> sendMessage(args, "Hi <@" + args.getIssuer().getID() + ">!"));
+		commands.registerCommand("hello", "Just a test command", args -> sendMessage(args, "Hi <@" + args.getIssuer().getLongID() + ">!"));
 
 		cmd = commands.registerCommand("help", "Show help topics", args ->
 		{
-			final User user = users.findUser(args.getIssuer().getID());
+			final User user = users.findUser(args.getIssuer().getLongID());
 			StringBuilder sb = new StringBuilder("\n**=== __Start of help topic__ ===**\n\n");
 			if (args.getParams().size() > 0)
 			{
@@ -714,7 +760,7 @@ public class Bot
 			}
 			else
 			{
-				message.append(args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild()));
+				message.append(args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild()));
 			}
 			sendMessage(args, message.toString());
 		});
@@ -774,7 +820,7 @@ public class Bot
 			}
 			else
 			{
-				message.append(args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild()));
+				message.append(args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild()));
 			}
 			sendMessage(args, message.toString());
 		});
@@ -788,19 +834,22 @@ public class Bot
 			IVoiceChannel voice_channel = null;
 			if (args.getParams().size() == 1)
 			{
-				final String id1 = args.getParams().get(0);
-				voice_channel = args.getChannel().getGuild().getVoiceChannelByID(id1);
+				try
+				{
+					voice_channel = args.getChannel().getGuild().getVoiceChannelByID(Long.parseLong(args.getParams().get(0)));
+				}
+				catch (Exception e)
+				{
+					//
+				}
 			}
 			else
 			{
-				final String id2 = args.getChannel().getGuild().getID();
-				for (final IVoiceChannel vc : args.getIssuer().getConnectedVoiceChannels())
+				final IGuild guild = args.getChannel().getGuild();
+				IVoiceState voice_state = args.getIssuer().getVoiceStateForGuild(guild);
+				if (voice_state != null)
 				{
-					if (vc.getGuild().getID() == id2)
-					{
-						voice_channel = vc;
-						break;
-					}
+					voice_channel = voice_state.getChannel();
 				}
 			}
 			if (voice_channel != null)
@@ -832,18 +881,10 @@ public class Bot
 					{
 						e3.printStackTrace();
 					}
-					try
-					{
-						voice_channel.sendMessage("Hello!");
-					}
-					catch (MissingPermissionsException | RateLimitException e4)
-					{
-						e4.printStackTrace();
-					}
 				}
-				catch (final DiscordException e5)
+				catch (final DiscordException e4)
 				{
-					e5.printStackTrace();
+					e4.printStackTrace();
 				}
 			}
 			else
@@ -857,24 +898,31 @@ public class Bot
 		cmd = commands.registerCommand("kick", "Kicks a user.", args ->
 		{
 			String message = null;
-			final User user = users.findUser(args.getIssuer().getID());
+			final User user = users.findUser(args.getIssuer().getLongID());
 			if (args.getParams().size() == 1)
 			{
-				final IUser target = args.getChannel().getGuild().getUserByID(args.getParams().get(0));
-				if (target == null)
+				try
 				{
-					message = args.getCommand().generateHelp(user, commands, args.getChannel().getGuild());
+					final IUser target = args.getChannel().getGuild().getUserByID(Long.parseLong(args.getParams().get(0)));
+					if (target == null)
+					{
+						message = args.getCommand().generateHelp(user, commands, args.getChannel().getGuild());
+					}
+					else
+					{
+						try
+						{
+							args.getChannel().getGuild().kickUser(target);
+						}
+						catch (MissingPermissionsException | DiscordException | RateLimitException e)
+						{
+							e.printStackTrace();
+						}
+					}
 				}
-				else
+				catch (Exception e)
 				{
-					try
-					{
-						args.getChannel().getGuild().kickUser(target);
-					}
-					catch (MissingPermissionsException | DiscordException | RateLimitException e)
-					{
-						e.printStackTrace();
-					}
+					//
 				}
 			}
 			else
@@ -887,12 +935,13 @@ public class Bot
 
 		cmd = commands.registerCommand("leave", "Leaves voice channels.", args ->
 		{
-			for (final IVoiceChannel i : args.getIssuer().getConnectedVoiceChannels())
+			IVoiceState voice_state = args.getIssuer().getVoiceStateForGuild(args.getChannel().getGuild());
+			if (voice_state != null)
 			{
-				if (i.getGuild().getID() == args.getChannel().getGuild().getID())
+				IVoiceChannel voice_channel = voice_state.getChannel();
+				if (voice_channel != null)
 				{
-					i.leave();
-					break;
+					voice_channel.leave();
 				}
 			}
 		});
@@ -900,9 +949,13 @@ public class Bot
 
 		cmd = commands.registerCommand("leaveall", "Leaves all voice channels.", args ->
 		{
-			for (final IVoiceChannel i : args.getIssuer().getConnectedVoiceChannels())
+			for (IVoiceState state : args.getIssuer().getVoiceStates().values())
 			{
-				i.leave();
+				IVoiceChannel voice_channel = state.getChannel();
+				if (voice_channel != null)
+				{
+					voice_channel.leave();
+				}
 			}
 		});
 		cmd.getPrivileges().setPrivilege("bot_master", 1);
@@ -916,12 +969,12 @@ public class Bot
 		});
 		cmd.setHelp("Loops the audio queue.");
 
-		cmd = commands.registerCommand("myid", "Returns your client ID", args -> sendMessage(args, "Your ID: " + args.getIssuer().getID()));
+		cmd = commands.registerCommand("myid", "Returns your client ID", args -> sendMessage(args, "Your ID: " + args.getIssuer().getLongID()));
 		cmd.setHelp("This command shows your client ID and is useful for administration purposes.");
 
 		cmd = commands.registerCommand("myprivileges", "Shows your privileges", args ->
 		{
-			final User user = users.findUser(args.getIssuer().getID());
+			final User user = users.findUser(args.getIssuer().getLongID());
 			final StringBuilder sb = new StringBuilder("Your privileges:");
 			if (user == null)
 			{
@@ -956,20 +1009,29 @@ public class Bot
 			{
 				final JSONObject nsfw = (JSONObject) o;
 				boolean hn = true;
-				for (final String k : nsfw.keySet())
+				for (final Object k : nsfw.keySet())
 				{
-					final IChannel channel = args.getChannel().getGuild().getChannelByID(k);
-					if (channel != null)
+					String k_as_string = (String) k;
+					try
 					{
-						if (hn)
+						long k_as_long = Long.parseLong(k_as_string);
+						final IChannel channel = args.getChannel().getGuild().getChannelByID(k_as_long);
+						if (channel != null)
 						{
-							sb.append("NSFW channels:\n```");
-							hn = false;
+							if (hn)
+							{
+								sb.append("NSFW channels:\n```");
+								hn = false;
+							}
+							sb.append("\n");
+							sb.append(channel.getName());
+							sb.append(" : ");
+							sb.append(channel.getStringID());
 						}
-						sb.append("\n");
-						sb.append(channel.getName());
-						sb.append(" : ");
-						sb.append(channel.getID());
+					}
+					catch (Exception e)
+					{
+						//
 					}
 				}
 				if (hn)
@@ -1000,19 +1062,10 @@ public class Bot
 				try
 				{
 					final URL url = new URL(args.getRawParams());
-					// Altfunktion (sollte verworfen werden)
-					// args.getChannel().getGuild().getAudioChannel().queueUrl(url);
-
-					// ...
-					// AudioPlayer ap =
-					// AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild());
-					AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).clean();
-					AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setVolume(volume);
-					AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).queue(url);
-
-					// metaDataQueue.add(new AudioMetaData(null, url,
-					// AudioSystem.getAudioFileFormat(url),
-					// stream.getFormat().getChannels()));
+					IGuild guild = args.getChannel().getGuild();
+					AudioPlayer.getAudioPlayerForGuild(guild).clean();
+					AudioPlayer.getAudioPlayerForGuild(guild).setVolume(volume);
+					AudioPlayer.getAudioPlayerForGuild(guild).queue(url);
 					message = "Playing: " + args.getRawParams()
 							+ "\n\tWARNING: Web radio streams breaks the system!";
 				}
@@ -1027,7 +1080,7 @@ public class Bot
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -1042,11 +1095,10 @@ public class Bot
 				final File file = new File(args.getRawParams());
 				try
 				{
-					// AudioPlayer ap =
-					// AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild());
-					AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).clean();
-					AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setVolume(volume);
-					AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).queue(file);
+					IGuild guild = args.getChannel().getGuild();
+					AudioPlayer.getAudioPlayerForGuild(guild).clean();
+					AudioPlayer.getAudioPlayerForGuild(guild).setVolume(volume);
+					AudioPlayer.getAudioPlayerForGuild(guild).queue(file);
 					message = "Playing: " + file;
 				}
 				catch (IOException | UnsupportedAudioFileException e)
@@ -1056,7 +1108,7 @@ public class Bot
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -1122,7 +1174,7 @@ public class Bot
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -1198,14 +1250,14 @@ public class Bot
 			{
 				sb.append("Available playlists:");
 				int c = 0;
-				for (final String pl2 : pls.keySet())
+				for (final Object pl2 : pls.keySet())
 				{
 					if (c == 0)
 					{
 						sb.append("\n```");
 					}
 					sb.append("\n");
-					sb.append(pl2);
+					sb.append((String) pl2);
 					++c;
 					if (c % MAX_DISPLAY_PLAYLISTS == 0)
 					{
@@ -1286,7 +1338,7 @@ public class Bot
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -1309,10 +1361,9 @@ public class Bot
 				if (pls.has(playlist))
 				{
 					final JSONArray pl = pls.getJSONArray(playlist);
-					// AudioPlayer ap =
-					// AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild());
-					AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).clean();
-					AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setVolume(volume);
+					IGuild guild = args.getChannel().getGuild();
+					AudioPlayer.getAudioPlayerForGuild(guild).clean();
+					AudioPlayer.getAudioPlayerForGuild(guild).setVolume(volume);
 					for (int i = 0, len = pl.length(); i < len; i++)
 					{
 						final JSONObject t = pl.getJSONObject(i);
@@ -1322,13 +1373,11 @@ public class Bot
 						{
 							if (is_stream)
 							{
-								AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild())
-										.queue(new URL(track));
+								AudioPlayer.getAudioPlayerForGuild(guild).queue(new URL(track));
 							}
 							else
 							{
-								AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild())
-										.queue(new File(track));
+								AudioPlayer.getAudioPlayerForGuild(guild).queue(new File(track));
 							}
 
 						}
@@ -1337,9 +1386,8 @@ public class Bot
 							e.printStackTrace();
 						}
 					}
-					AudioPlayer.getAudioPlayerForGuild(args.getChannel().getGuild()).setVolume(volume);
+					AudioPlayer.getAudioPlayerForGuild(guild).setVolume(volume);
 					message = "Playing playlist \"" + playlist + "\"";
-
 				}
 				else
 				{
@@ -1348,7 +1396,7 @@ public class Bot
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -1357,7 +1405,7 @@ public class Bot
 		cmd = commands.registerCommand("plot", "Plots a graph using JavaScript", args ->
 		{
 			String message = null;
-			final User user = users.findUser(args.getIssuer().getID());
+			final User user = users.findUser(args.getIssuer().getLongID());
 			if (args.getParams().size() > 0)
 			{
 				try
@@ -1406,7 +1454,7 @@ public class Bot
 		cmd = commands.registerCommand("polynom", "Plots a polynom", args ->
 		{
 			String message = null;
-			final User user = users.findUser(args.getIssuer().getID());
+			final User user = users.findUser(args.getIssuer().getLongID());
 			if (args.getParams().size() > 0)
 			{
 				try
@@ -1471,40 +1519,47 @@ public class Bot
 			{
 				final String c = args.getParams().get(0).toLowerCase();
 				final String rid = args.getParams().get(1);
-				if (commands.getCommands().containsKey(c))
+				try
 				{
-					final Command command = commands.getCommands().get(c);
-					final IRole role = args.getChannel().getGuild().getRoleByID(rid);
-					if (role != null)
+					final long rid_as_long = Long.parseLong(rid);
+					if (commands.getCommands().containsKey(c))
 					{
-						final IGuild guild = args.getChannel().getGuild();
-						final Object o = servers.getServerAttribute(guild, "commandroles");
-						final JSONObject commandroles = o == null ? new JSONObject() : (JSONObject) o;
-						final JSONObject re = commandroles.has(c) ? commandroles.getJSONObject(c)
-								: new JSONObject();
-						if (re.has(rid))
+						final Command command = commands.getCommands().get(c);
+						IGuild guild = args.getChannel().getGuild();
+						final IRole role = guild.getRoleByID(rid_as_long);
+						if (role != null)
 						{
-							re.remove(rid);
+							final Object o = servers.getServerAttribute(guild, "commandroles");
+							final JSONObject commandroles = o == null ? new JSONObject() : (JSONObject) o;
+							final JSONObject re = commandroles.has(c) ? commandroles.getJSONObject(c) : new JSONObject();
+							if (re.has(rid))
+							{
+								re.remove(rid);
+							}
+							commandroles.put(c, re);
+							servers.setServerAttribute(guild, "commandroles", commandroles);
+							command.removeRoleForServer(guild, role);
+							message = "Role \"" + role.getName() + "\" has been removed from command "
+									+ commands.getDelimiter() + c + ".";
 						}
-						commandroles.put(c, re);
-						servers.setServerAttribute(guild, "commandroles", commandroles);
-						command.removeRoleForServer(guild, role);
-						message = "Role \"" + role.getName() + "\" has been removed from command "
-								+ commands.getDelimiter() + c + ".";
+						else
+						{
+							message = "Invalid role ID!";
+						}
 					}
 					else
 					{
-						message = "Invalid role ID!";
+						message = "Command not defined!";
 					}
 				}
-				else
+				catch (Exception e)
 				{
-					message = "Command not defined!";
+					message = "Invalid role ID!";
 				}
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -1559,7 +1614,7 @@ public class Bot
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -1604,7 +1659,7 @@ public class Bot
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -1617,18 +1672,25 @@ public class Bot
 		cmd = commands.registerCommand("revokeprivilege", "Revoke privilege for user", args ->
 		{
 			String message;
-			User user = users.findUser(args.getIssuer().getID());
+			User user = users.findUser(args.getIssuer().getLongID());
 			if (args.getParams().size() == 2)
 			{
-				final String id = args.getParams().get(0);
-				final String privilege = args.getParams().get(1);
-				user = users.findUser(id);
-				if (user != null)
+				try
 				{
-					user.getPrivileges().revokePrivilege(privilege);
+					final long id = Long.parseLong(args.getParams().get(0));
+					final String privilege = args.getParams().get(1);
+					user = users.findUser(id);
+					if (user != null)
+					{
+						user.getPrivileges().revokePrivilege(privilege);
+					}
+					message = "Privilege \"" + privilege + "\" revoked for user " + id;
+					users.save();
 				}
-				message = "Privilege \"" + privilege + "\" revoked for user " + id;
-				users.save();
+				catch (Exception e)
+				{
+					message = args.getCommand().generateHelp(user, commands, args.getChannel().getGuild());
+				}
 			}
 			else
 			{
@@ -1644,7 +1706,7 @@ public class Bot
 		cmd = commands.registerCommand("rfc", "Shows a link to this RFC", args ->
 		{
 			String message = null;
-			final User user = users.findUser(args.getIssuer().getID());
+			final User user = users.findUser(args.getIssuer().getLongID());
 			if (args.getParams().size() == 1)
 			{
 				try
@@ -1675,29 +1737,36 @@ public class Bot
 			final StringBuilder sb = new StringBuilder();
 			if (args.getParams().size() == 1)
 			{
-				final IRole role1 = args.getChannel().getGuild().getRoleByID(args.getParams().get(0));
-				if (role1 != null)
+				try
 				{
-					final Color color = role1.getColor();
-					sb.append("Role \"");
-					sb.append(role1.getName());
-					sb.append("\" : ");
-					sb.append(role1.getID());
-					sb.append("\n```Creation date: ");
-					sb.append(role1.getCreationDate());
-					sb.append("\nRole position: ");
-					sb.append(role1.getPosition());
-					sb.append("\nColor: ");
-					sb.append(Integer.toHexString(color.getRGB()));
-					sb.append("\nPermissions:");
-					for (final Permissions permissions : role1.getPermissions())
+					final IRole role1 = args.getChannel().getGuild().getRoleByID(Long.parseLong(args.getParams().get(0)));
+					if (role1 != null)
 					{
-						sb.append("\n\t");
-						sb.append(permissions.toString());
+						final Color color = role1.getColor();
+						sb.append("Role \"");
+						sb.append(role1.getName());
+						sb.append("\" : ");
+						sb.append(role1.getStringID());
+						sb.append("\n```Creation date: ");
+						sb.append(role1.getCreationDate());
+						sb.append("\nRole position: ");
+						sb.append(role1.getPosition());
+						sb.append("\nColor: ");
+						sb.append(Integer.toHexString(color.getRGB()));
+						sb.append("\nPermissions:");
+						for (final Permissions permissions : role1.getPermissions())
+						{
+							sb.append("\n\t");
+							sb.append(permissions.toString());
+						}
+						sb.append("\n```");
 					}
-					sb.append("\n```");
+					else
+					{
+						sb.append("Invalid role ID");
+					}
 				}
-				else
+				catch (Exception e)
 				{
 					sb.append("Invalid role ID");
 				}
@@ -1710,7 +1779,7 @@ public class Bot
 					sb.append("\n");
 					sb.append(role2.getName());
 					sb.append(" : ");
-					sb.append(role2.getID());
+					sb.append(role2.getStringID());
 				}
 				sb.append("\n```");
 			}
@@ -1731,13 +1800,12 @@ public class Bot
 				}
 				catch (MissingPermissionsException | DiscordException | RateLimitException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -1774,7 +1842,7 @@ public class Bot
 			public void onCommand(final CommandEventArgs args)
 			{
 				String message;
-				final User user = users.findUser(args.getIssuer().getID());
+				final User user = users.findUser(args.getIssuer().getLongID());
 				boolean success = false;
 				String url = null;
 				String type = null;
@@ -1818,7 +1886,7 @@ public class Bot
 		cmd = commands.registerCommand("setcommand", "Changes the command", args ->
 		{
 			String message = null;
-			final User user = users.findUser(args.getIssuer().getID());
+			final User user = users.findUser(args.getIssuer().getLongID());
 			if (args.getParams().size() > 1)
 			{
 				final String old_cmd_name = args.getParams().get(0);
@@ -1859,7 +1927,7 @@ public class Bot
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -1870,25 +1938,32 @@ public class Bot
 		cmd = commands.registerCommand("setprivilege", "Set privilege for user", args ->
 		{
 			String message;
-			User user = users.findUser(args.getIssuer().getID());
+			User user = users.findUser(args.getIssuer().getLongID());
 			if (args.getParams().size() == 3)
 			{
-				final String id = args.getParams().get(0);
-				final String privilege = args.getParams().get(1);
 				try
 				{
-					final int value = Integer.parseInt(args.getParams().get(2));
-					user = users.findUser(id);
-					if (user == null)
+					final long id = Long.parseLong(args.getParams().get(0));
+					final String privilege = args.getParams().get(1);
+					try
 					{
-						user = users.addUser(id);
+						final int value = Integer.parseInt(args.getParams().get(2));
+						user = users.findUser(id);
+						if (user == null)
+						{
+							user = users.addUser(id);
+						}
+						user.getPrivileges().setPrivilege(privilege, new Integer(value));
+						message = "Privilege \"" + privilege + " : " + value + "\" set for user " + id;
 					}
-					user.getPrivileges().setPrivilege(privilege, new Integer(value));
-					message = "Privilege \"" + privilege + " : " + value + "\" set for user " + id;
+					catch (final NumberFormatException e)
+					{
+						message = "Value is not a number.";
+					}
 				}
-				catch (final NumberFormatException e)
+				catch (Exception e)
 				{
-					message = "Value is not a number.";
+					message = "Invalid user ID.";
 				}
 			}
 			else
@@ -1920,7 +1995,7 @@ public class Bot
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -1945,7 +2020,7 @@ public class Bot
 			}
 			else
 			{
-				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getID()), commands, args.getChannel().getGuild());
+				message = args.getCommand().generateHelp(users.findUser(args.getIssuer().getLongID()), commands, args.getChannel().getGuild());
 			}
 			sendMessage(args, message);
 		});
@@ -1974,7 +2049,7 @@ public class Bot
 		{
 			String message = null;
 			final Object o = servers.getServerAttribute(args.getChannel().getGuild(), "nsfw");
-			final String cid = args.getChannel().getID();
+			final long cid = args.getChannel().getLongID();
 			if (o == null)
 			{
 				message = "NSFW is disabled on this channel. Use " + commands.getDelimiter() + "enablensfw or "
@@ -1983,7 +2058,7 @@ public class Bot
 			else
 			{
 				final JSONObject nsfw = (JSONObject) o;
-				if (nsfw.has(cid))
+				if (nsfw.has("" + cid))
 				{
 					String filter = "";
 					if (args.getParams().size() > 0)
@@ -2038,7 +2113,7 @@ public class Bot
 		cmd = commands.registerCommand("upload", "Uploads a file.", args ->
 		{
 			String message = null;
-			final User user = users.findUser(args.getIssuer().getID());
+			final User user = users.findUser(args.getIssuer().getLongID());
 			if (args.getParams().size() > 0)
 			{
 				final String file_name = args.getRawParams();
@@ -2081,7 +2156,7 @@ public class Bot
 				}
 				sb.append(i.getName());
 				sb.append(" : ");
-				sb.append(i.getID());
+				sb.append(i.getStringID());
 			}
 			sendMessage(args, sb.toString());
 		});
@@ -2119,27 +2194,32 @@ public class Bot
 			final StringBuilder sb = new StringBuilder();
 			if (args.getParams().size() == 1)
 			{
-				final IVoiceChannel voice_channel = args.getChannel().getGuild()
-						.getVoiceChannelByID(args.getParams().get(0));
-				if (voice_channel == null)
+				try
+				{
+					final IVoiceChannel voice_channel = args.getChannel().getGuild()
+							.getVoiceChannelByID(Long.parseLong(args.getParams().get(0)));
+					if (voice_channel == null)
+					{
+						sb.append("Invalid voice channel ID!");
+					}
+					else
+					{
+						sb.append("Voice channel \"");
+						sb.append(voice_channel.getName());
+						sb.append("\" : ");
+						sb.append(voice_channel.getStringID());
+						sb.append("\n```\nCreation date: ");
+						sb.append(voice_channel.getCreationDate());
+						sb.append("\nUser limit: ");
+						sb.append(voice_channel.getUserLimit());
+						sb.append("\nBitrate: ");
+						sb.append(voice_channel.getBitrate());
+						sb.append("\n```");
+					}
+				}
+				catch (Exception e)
 				{
 					sb.append("Invalid voice channel ID!");
-				}
-				else
-				{
-					sb.append("Voice channel \"");
-					sb.append(voice_channel.getName());
-					sb.append("\" : ");
-					sb.append(voice_channel.getID());
-					sb.append("\n```\nTopic: ");
-					sb.append(voice_channel.getTopic());
-					sb.append("\nCreation date: ");
-					sb.append(voice_channel.getCreationDate());
-					sb.append("\nUser limit: ");
-					sb.append(voice_channel.getUserLimit());
-					sb.append("\nBitrate: ");
-					sb.append(voice_channel.getBitrate());
-					sb.append("\n```");
 				}
 			}
 			else
@@ -2150,7 +2230,7 @@ public class Bot
 					sb.append("\n");
 					sb.append(i.getName());
 					sb.append(" : ");
-					sb.append(i.getID());
+					sb.append(i.getStringID());
 				}
 				sb.append("\n```");
 			}
@@ -2162,7 +2242,7 @@ public class Bot
 		cmd = commands.registerCommand("volume", "Changes the volume of the bot.", args ->
 		{
 			String message = null;
-			final User user = users.findUser(args.getIssuer().getID());
+			final User user = users.findUser(args.getIssuer().getLongID());
 			if (args.getParams().size() == 1)
 			{
 				try
@@ -2196,41 +2276,6 @@ public class Bot
 				+ "$CMD$ <volume>");
 
 		commands.sort();
-
-		client.getDispatcher().registerListener(event ->
-		{
-			System.out.println("=== API is ready! ===");
-
-			for (final IGuild guild : client.getGuilds())
-			{
-				final Object o = servers.getServerAttribute(guild, "auto_join_voice_channel");
-				if (o != null)
-				{
-					final IVoiceChannel voice_channel = guild.getVoiceChannelByID((String) o);
-					if (voice_channel != null)
-					{
-						try
-						{
-							voice_channel.join();
-						}
-						catch (final MissingPermissionsException e)
-						{
-							e.printStackTrace();
-						}
-					}
-				}
-			}
-			commands.reloadRoles(servers, client);
-		});
-		client.getDispatcher().registerListener(event ->
-		{
-			System.out.println(event.getClient().getMessage().getMessage().getCreationDate() + " <" + event.getMessage().getAuthor().getName() + "@"
-					+ event.getMessage().getChannel().getName() + "> : " + event.getMessage().getContent());
-			if (event.getClient().getOurUser().getID().compareTo(event.getMessage().getAuthor().getID()) != 0)
-			{
-				commands.parseMessage(dis, event.getMessage());
-			}
-		});
 	}
 
 	private ArrayList<File> findFilesRecursively(final File path, final String[] file_types, String contains)
@@ -2316,6 +2361,51 @@ public class Bot
 		}
 
 		return bot;
+	}
+	
+	@EventSubscriber
+	public void onReadyEvent(ReadyEvent event)
+	{
+		System.out.println("=== API is ready! ===");
+		for (final IGuild guild : client.getGuilds())
+		{
+			final Object o = servers.getServerAttribute(guild, "auto_join_voice_channel");
+			if (o != null)
+			{
+				try
+				{
+					long o_as_long = Long.parseLong((String) o);
+					final IVoiceChannel voice_channel = guild.getVoiceChannelByID(o_as_long);
+					if (voice_channel != null)
+					{
+						try
+						{
+							voice_channel.join();
+						}
+						catch (final MissingPermissionsException e)
+						{
+							e.printStackTrace();
+						}
+					}
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		commands.reloadRoles(servers, client);
+	}
+
+	@EventSubscriber
+	public void onMessageEvent(MessageEvent event)
+	{
+		System.out.println(event.getMessage().getCreationDate() + " <" + event.getMessage().getAuthor().getName() + "@"
+				+ event.getMessage().getChannel().getName() + "> : " + event.getMessage().getContent());
+		if (event.getClient().getOurUser().getLongID() != event.getMessage().getAuthor().getLongID())
+		{
+			commands.parseMessage(dis, event.getMessage());
+		}
 	}
 
 }
